@@ -14,7 +14,7 @@ import {
   getFirestore,
   onSnapshot,
   serverTimestamp,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 import {
   doc,
@@ -32,7 +32,7 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
-  deleteObject
+  deleteObject,
 } from "firebase/storage";
 
 const firebaseConfig = {
@@ -42,47 +42,50 @@ const firebaseConfig = {
   storageBucket: "resumecreator-3d8fd.appspot.com",
   messagingSenderId: "297639615162",
   appId: "1:297639615162:web:760c9b3fce659a0e698083",
-  measurementId: "G-JY9C7F0TF9"
+  measurementId: "G-JY9C7F0TF9",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth();
+const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export const isUserLoggedIn = auth.currentUser!=null?true:false;
+export const isUserLoggedIn = auth.currentUser != null ? true : false;
 
 export { app, auth, db, analytics, storage };
 
-export const addUserInDatabase = async (user)=>{
-  try{
-    await setDoc(doc(db, "users", user.email),{...user, profile:false, credits:100})
-  }catch(err){
-    console.log(err)
+export const addUserInDatabase = async (user) => {
+  try {
+    await setDoc(doc(db, "users", user.email), {
+      ...user,
+      profile: false,
+      credits: 100,
+    });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-export const addUserInWaitlist = async (email)=>{
-  try{
+export const addUserInWaitlist = async (email) => {
+  try {
     await updateDoc(doc(db, "meta", "waitlist"), {
-      users: arrayUnion(email)
-  });
-   
-  }catch(err){
-    console.log(err)
+      users: arrayUnion(email),
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
 export const getWaitlistFromDatabase = async () => {
   //let User;
-  try{
+  try {
     const docSnap = await getDoc(doc(db, "meta", "waitlist"));
-    var temp = docSnap.data()
+    var temp = docSnap.data();
     return temp.users;
-  }catch (error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     return undefined;
   }
   //console.log(docSnap.data(), "docSnap");
@@ -90,77 +93,76 @@ export const getWaitlistFromDatabase = async () => {
 
 export const getUserFromDatabase = async (email) => {
   //let User;
-  try{
+  try {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
 
     return docSnap.data();
-  }catch (error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     return undefined;
   }
   //console.log(docSnap.data(), "docSnap");
 };
 
-export const updateUserInDatabase = async (email,data)=>{
-  try{
-    console.log(data, email)
+export const updateUserInDatabase = async (email, data) => {
+  try {
+    console.log(data, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{resume:data})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { resume: data });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-export const updateUserPhotoInDatabase = async (email,data)=>{
-  try{
-    console.log(data, email)
+export const updateUserPhotoInDatabase = async (email, data) => {
+  try {
+    console.log(data, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{uploadedPhotoURL:data})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { uploadedPhotoURL: data });
+  } catch (err) {
+    console.log(err);
   }
-}
-export const updateUserCreditsInDatabase = async (email,credits)=>{
-  try{
-    console.log(credits, email)
+};
+export const updateUserCreditsInDatabase = async (email, credits) => {
+  try {
+    console.log(credits, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{credits:credits})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { credits: credits });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-
-export const updateUserProfileInDatabase = async (email,data)=>{
-  try{
-    console.log(data, email)
+export const updateUserProfileInDatabase = async (email, data) => {
+  try {
+    console.log(data, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{...data})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { ...data });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-export const addUserResume = async (email,data)=>{
-  try{
-    console.log(data, email)
+export const addUserResume = async (email, data) => {
+  try {
+    console.log(data, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{resumes:data})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { resumes: data });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-export const updateUserResumes = async (email,data)=>{
-  try{
-    console.log(data, email)
+export const updateUserResumes = async (email, data) => {
+  try {
+    console.log(data, email);
     const docRef = doc(db, "users", email);
-    await updateDoc(docRef,{resumes:data})
-  }catch(err){
-    console.log(err)
+    await updateDoc(docRef, { resumes: data });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 export const getUserDocByRef = async (DocumentReference) => {
   const userDocSnapshot = await getDoc(DocumentReference);
   return userDocSnapshot.data();
@@ -240,7 +242,7 @@ export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
       bucket: "Matched",
     }));
     setList(matchedData);
-    console.log("matched", matchedData)
+    console.log("matched", matchedData);
   } catch (error) {
     // Handle error fetching from the 'f' collection (Matched)
     console.error("Error fetching from 'f' collection:", error);
@@ -327,7 +329,6 @@ export const getAllUserHavingChatWith = async (currentcUser, setList) => {
 
   //   setList(dummyList);
   // });
-
 };
 
 export const createNetworkInMessagesDoc = async (userId, senderId) => {
@@ -402,7 +403,7 @@ export const SendMessage = async (
     furtherReceiverRef = doc(receiverRef, "Networks", currentcUser.email);
   } else if (bucket === "Matched") {
     furtherReceiverRef = doc(receiverRef, "Matched", currentcUser.email);
-  } 
+  }
 
   let timestmp = Timestamp.now();
 
@@ -413,7 +414,7 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
-        read: false
+        read: false,
       }),
     });
 
@@ -428,7 +429,7 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
-        read: false
+        read: false,
       }),
     });
   } catch (error) {
@@ -436,36 +437,32 @@ export const SendMessage = async (
   }
 };
 
-export const updatereadmessage = async(
-  currentcUser,
-  sendTo,
-)=>{
+export const updatereadmessage = async (currentcUser, sendTo) => {
   const senderRef = doc(db, "Messages", currentcUser.email);
-  const furtherSenderRef = doc(senderRef, "Matched", sendTo)
-  const chatdoc = await getDoc(furtherSenderRef)
-  console.log("fufnsda",chatdoc.data());
+  const furtherSenderRef = doc(senderRef, "Matched", sendTo);
+  const chatdoc = await getDoc(furtherSenderRef);
+  console.log("fufnsda", chatdoc.data());
   try {
-    let updatedmessges = chatdoc.data().messages.map(m=> {
-      console.log("mmmmm",m);
-      if(m.read === false){
-        m.read = true
+    let updatedmessges = chatdoc.data().messages.map((m) => {
+      console.log("mmmmm", m);
+      if (m.read === false) {
+        m.read = true;
       }
-      return m
-    })
+      return m;
+    });
     await updateDoc(furtherSenderRef, {
-      messages: updatedmessges
+      messages: updatedmessges,
     });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const ReciveMessage = async (currentcUser, sendTo, setmsg, bucket) => {
   try {
-    console.log(currentcUser.email, sendTo, bucket)
+    console.log(currentcUser.email, sendTo, bucket);
     const docRef = doc(db, "Messages", currentcUser.email);
     const furtherdocRef = collection(docRef, bucket);
-    
 
     onSnapshot(furtherdocRef, (snapshot) => {
       snapshot.docs.forEach((doc) => {

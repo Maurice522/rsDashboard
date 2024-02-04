@@ -36,13 +36,13 @@ import {
 } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAi8qesfqgJxI2XTZne0uDF2YuTJaPwvAg",
-  authDomain: "resumecreator-3d8fd.firebaseapp.com",
-  projectId: "resumecreator-3d8fd",
-  storageBucket: "resumecreator-3d8fd.appspot.com",
-  messagingSenderId: "297639615162",
-  appId: "1:297639615162:web:760c9b3fce659a0e698083",
-  measurementId: "G-JY9C7F0TF9",
+  apiKey: "AIzaSyAiBeT3Jnvjvga6zEgN_6bmHWZEKlv-QCg",
+  authDomain: "resumeshapercollege.firebaseapp.com",
+  projectId: "resumeshapercollege",
+  storageBucket: "resumeshapercollege.appspot.com",
+  messagingSenderId: "277526972866",
+  appId: "1:277526972866:web:eef0231f4d478717ee6e5b",
+  measurementId: "G-TNK5TMK0ND",
 };
 
 // Initialize Firebase

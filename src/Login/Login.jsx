@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./Login.module.css";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
@@ -17,7 +17,8 @@ const Login = () => {
     try {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          dispatch(login(userCredential));
+          const user = userCredential.user;
+          dispatch(login(user.uid, user.email));
           navigate("/dashboard");
           toast.success("Logged in successfully!");
         })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ResumeUsageAnalytics.module.css";
 import { jobTitlesInfo } from "./ResumeData";
 import {
@@ -35,10 +35,28 @@ const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
 );
 
 const ResumeUsageAnalytics = () => {
+  const [timeFilter, setTimeFilter] = useState();
   return (
     <div className={styles.resumeusage}>
       <BarChart labels={barlabels} count={jobTitleCount} />
+      <div className={styles.buttonContainer}>
+        {" "}
+        <button
+          className={styles.button}
+          onClick={() => setTimeFilter("24hours")}
+        >
+          24 hours
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => setTimeFilter("lastmonth")}
+        >
+          Last Month
+        </button>
+      </div>
+
       <LineChart labels={linelabels} count={uniqueActivityCount} />
+      <h3>Activity Table</h3>
       <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
     </div>
   );

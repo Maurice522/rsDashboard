@@ -37,7 +37,7 @@ const LineChart = ({ labels, count }) => {
     labels,
     datasets: [
       {
-        label: "Various Job Profiles",
+        label: "Activity",
         data: count,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         fill: true,

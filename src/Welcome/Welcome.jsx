@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 
 const Welcome = () => {
   return (
-    <div>
+    <main>
       <Sidebar />
       <div className={styles.welcome}>
         <header className={styles.header}>
@@ -20,7 +20,7 @@ const Welcome = () => {
           </p>
         </main>
       </div>
-    </div>
+    </main>
   );
 };
 

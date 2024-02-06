@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./Navbar.module.css";
+import logo from "../../images/26.png";
 
 function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <img src="/images/26.png" alt="Logo" />
+        <img src={logo} alt="Logo" />
       </div>
       <ul className={styles.navLinks}>
         <li>

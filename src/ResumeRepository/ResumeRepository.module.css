@@ -1,7 +1,9 @@
 .resumeRepository {
   display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 95%;
   justify-content: space-around;
-  margin-top: 2rem;
 }
 
 .container {

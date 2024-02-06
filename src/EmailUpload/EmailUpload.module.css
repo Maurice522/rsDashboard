@@ -1,6 +1,9 @@
 .emailupload {
   display: flex;
-  margin-top: 2rem;
+  justify-content: center;
+  margin: auto;
+  width: 95%;
+  justify-content: space-around;
 }
 
 .container {

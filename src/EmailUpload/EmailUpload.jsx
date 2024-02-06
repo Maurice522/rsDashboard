@@ -68,7 +68,7 @@ function EmailUpload() {
   };
 
   return (
-    <>
+    <main>
       <Navbar />
       <div className={styles.emailupload}>
         <Sidebar />
@@ -143,7 +143,7 @@ function EmailUpload() {
           )}
         </div>
       </div>
-    </>
+    </main>
   );
 }
 

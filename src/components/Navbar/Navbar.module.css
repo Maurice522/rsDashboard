@@ -10,7 +10,8 @@
 }
 
 .logo img {
-  height: 50px;
+  height: 3rem;
+  object-fit: contain;
 }
 
 .navLinks {
@@ -21,7 +22,7 @@
 }
 
 .navLinks li {
-  margin-right: 20px;
+  margin-right: 1rem;
 }
 
 .navLinks li a {

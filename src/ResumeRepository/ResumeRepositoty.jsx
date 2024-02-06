@@ -25,7 +25,7 @@ const ResumeRepository = () => {
   }, []);
 
   return (
-    <>
+    <main>
       <Navbar />
       <div className={styles.resumeRepository}>
         <Sidebar />
@@ -38,7 +38,7 @@ const ResumeRepository = () => {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

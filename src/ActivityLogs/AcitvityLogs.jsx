@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 const AcitvityLogs = () => {
   return (
-    <>
+    <main>
       <Navbar />
       <div className={styles.acitvityLogs}>
         <Sidebar />
@@ -16,7 +16,7 @@ const AcitvityLogs = () => {
           <DynamicTableComponent data={convertedArrayOfActivities} />
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

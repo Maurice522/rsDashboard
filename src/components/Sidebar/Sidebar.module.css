@@ -36,3 +36,8 @@
   background-color: var(--sidebar-button);
   color: white;
 }
+
+.logout:hover {
+  background-color: #ff5733;
+  color: white;
+}

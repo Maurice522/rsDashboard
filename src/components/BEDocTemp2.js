@@ -8,6 +8,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
+
 import img2 from "../images/icon11.png";
 import img3 from "../images/icon22.png";
 import img4 from "../images/icon33.png";

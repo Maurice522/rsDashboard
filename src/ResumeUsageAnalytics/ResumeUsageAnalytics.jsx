@@ -39,7 +39,7 @@ const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
 const ResumeUsageAnalytics = () => {
   const [timeFilter, setTimeFilter] = useState();
   return (
-    <>
+    <main>
       <Navbar />
       <div className={styles.resumeanalytics}>
         <Sidebar />
@@ -66,7 +66,7 @@ const ResumeUsageAnalytics = () => {
           <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

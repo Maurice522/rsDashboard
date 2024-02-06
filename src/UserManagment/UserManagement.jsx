@@ -35,10 +35,8 @@ ChartJS.register(
 );
 
 export default function UserManagement() {
-  // console.log(last24HoursResumeLabels, last24HoursResumes);
-
   return (
-    <>
+    <main>
       <Navbar />
       <div className={styles.userManagement}>
         <Sidebar />
@@ -48,6 +46,6 @@ export default function UserManagement() {
           <DynamicTableComponent data={convertedArrayofStudents} />
         </div>
       </div>
-    </>
+    </main>
   );
 }

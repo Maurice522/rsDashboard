@@ -255,7 +255,7 @@ const Statistics = () => {
     }
   }, [chartType, timeFilter, labels, selectedJob]);
   return (
-    <div>
+    <main>
       <Navbar />
       <div className={styles.statistics}>
         <Sidebar />
@@ -299,7 +299,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

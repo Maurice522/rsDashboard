@@ -1,3 +1,8 @@
+.emailupload {
+  display: flex;
+  margin-top: 2rem;
+}
+
 .container {
   width: 70%;
   margin: 0 auto;
@@ -19,17 +24,13 @@
 }
 
 .fileUploadButton {
+  width: 95%;
+  margin: auto;
   padding: 1rem;
   margin-top: 1rem;
   height: 5rem;
   border: 1px dotted black;
-  background-color: var(--file-upload);
-}
-.csv-reader-input > input {
-  background-color: red;
-}
-
-.fileUploadLabel {
+  background-color: #f8f8f8;
 }
 
 .button {

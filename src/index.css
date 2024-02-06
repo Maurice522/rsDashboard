@@ -47,6 +47,6 @@ td {
 }
 
 th {
-  background-color: var(--main-color);
+  background-color: var(--sidebar-button);
   color: white;
 }

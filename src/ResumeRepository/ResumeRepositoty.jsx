@@ -4,6 +4,8 @@ import StudentCard from "../components/StudentCard/StudentCard";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import styles from "./ResumeRepository.module.css";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Navbar from "../components/Navbar/Navbar";
 
 const ResumeRepository = () => {
   const [students, setStudents] = useState([]);
@@ -23,14 +25,20 @@ const ResumeRepository = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <h2>Students</h2>
-      <div className={styles.cardGrid}>
-        {students?.map((student) => (
-          <StudentCard key={student.id} student={student} />
-        ))}
+    <>
+      <Navbar />
+      <div className={styles.resumeRepository}>
+        <Sidebar />
+        <div className={styles.container}>
+          <h2>Students</h2>
+          <div className={styles.cardGrid}>
+            {students?.map((student) => (
+              <StudentCard key={student.id} student={student} />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

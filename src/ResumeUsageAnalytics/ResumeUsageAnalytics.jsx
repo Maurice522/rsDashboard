@@ -15,6 +15,8 @@ import { uniqueActivityTypesAndCounts } from "./ActivityData";
 import BarChart from "../components/BarChart/BarChart";
 import LineChart from "../components/LineChart/LineChart";
 import DynamicTableComponent from "../components/Table/DynamicTable";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Navbar from "../components/Navbar/Navbar";
 
 ChartJS.register(
   CategoryScale,
@@ -37,28 +39,34 @@ const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
 const ResumeUsageAnalytics = () => {
   const [timeFilter, setTimeFilter] = useState();
   return (
-    <div className={styles.resumeusage}>
-      <BarChart labels={barlabels} count={jobTitleCount} />
-      <div className={styles.buttonContainer}>
-        {" "}
-        <button
-          className={styles.button}
-          onClick={() => setTimeFilter("24hours")}
-        >
-          24 hours
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => setTimeFilter("lastmonth")}
-        >
-          Last Month
-        </button>
-      </div>
+    <>
+      <Navbar />
+      <div className={styles.resumeanalytics}>
+        <Sidebar />
+        <div className={styles.resumeusage}>
+          <BarChart labels={barlabels} count={jobTitleCount} />
+          <div className={styles.buttonContainer}>
+            {" "}
+            <button
+              className={styles.button}
+              onClick={() => setTimeFilter("24hours")}
+            >
+              24 hours
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => setTimeFilter("lastmonth")}
+            >
+              Last Month
+            </button>
+          </div>
 
-      <LineChart labels={linelabels} count={uniqueActivityCount} />
-      <h3>Activity Table</h3>
-      <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
-    </div>
+          <LineChart labels={linelabels} count={uniqueActivityCount} />
+          <h3>Activity Table</h3>
+          <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
+        </div>
+      </div>
+    </>
   );
 };
 

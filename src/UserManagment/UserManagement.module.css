@@ -1,3 +1,9 @@
+.userManagement {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
 .container {
   display: flex;
   flex-direction: column;

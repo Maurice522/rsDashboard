@@ -1,29 +1,23 @@
 import React, { useState } from "react";
 import styles from "./Dashboard.module.css";
-import { useDispatch } from "react-redux";
-import {
-  BarChart,
-  LineChart,
-  LogOut,
-  Notebook,
-  Upload,
-  User,
-} from "lucide-react";
-import { logout } from "../redux/slices/userSlice";
-import RightDiv from "../components/RightDiv/RightDiv";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
+import Infographic from "../components/Infographic/Infographic";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  const [active, setActive] = useState(null);
   return (
-    <div>
+    <main>
       <Navbar />
       <div className={styles.container}>
-        <RightDiv active={active} />
+        <Sidebar />
+        <div className={styles.info}>
+          <Infographic title="Users" count="200" percentage="1.2" positive />
+          <Infographic title="Users" count="200" percentage="1.2" positive />
+          <Infographic title="Users" count="200" percentage="1.2" />
+          <Infographic title="Users" count="200" percentage="1.2" />
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

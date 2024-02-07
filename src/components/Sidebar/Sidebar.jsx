@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./Sidebar.module.css";
 import {
@@ -12,12 +12,14 @@ import {
   User,
 } from "lucide-react";
 import { logout } from "../../redux/slices/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState(null);
+  const location = useLocation();
+
   return (
     <div className={styles.buttonContainer}>
       <button
@@ -26,7 +28,9 @@ const Sidebar = () => {
           navigate("/dashboard");
         }}
         className={`${styles.button} ${
-          active === "user-management" ? styles.active : ""
+          active === "dashboard" || location.pathname === "/dashboard"
+            ? styles.active
+            : ""
         }`}
       >
         <LayoutDashboard />
@@ -38,7 +42,10 @@ const Sidebar = () => {
           navigate("/user-management");
         }}
         className={`${styles.button} ${
-          active === "user-management" ? styles.active : ""
+          active === "user-management" ||
+          location.pathname === "/user-management"
+            ? styles.active
+            : ""
         }`}
       >
         <User />
@@ -51,7 +58,9 @@ const Sidebar = () => {
           navigate("/statistics");
         }}
         className={`${styles.button} ${
-          active === "statistics" ? styles.active : ""
+          active === "statistics" || location.pathname === "/statistics"
+            ? styles.active
+            : ""
         }`}
       >
         <PieChart />
@@ -64,7 +73,10 @@ const Sidebar = () => {
           navigate("/resume-analytics");
         }}
         className={`${styles.button} ${
-          active === "resume-analytics" ? styles.active : ""
+          active === "resume-analytics" ||
+          location.pathname === "/resume-analytics"
+            ? styles.active
+            : ""
         }`}
       >
         <LineChart />
@@ -77,7 +89,9 @@ const Sidebar = () => {
           navigate("/activity-logs");
         }}
         className={`${styles.button} ${
-          active === "activity-logs" ? styles.active : ""
+          active === "activity-logs" || location.pathname === "/activity-logs"
+            ? styles.active
+            : ""
         }`}
       >
         <BarChart />
@@ -90,7 +104,10 @@ const Sidebar = () => {
           navigate("/resume-repository");
         }}
         className={`${styles.button} ${
-          active === "resume-repository" ? styles.active : ""
+          active === "resume-repository" ||
+          location.pathname === "/resume-repository"
+            ? styles.active
+            : ""
         }`}
       >
         <Notebook />
@@ -99,11 +116,13 @@ const Sidebar = () => {
 
       <button
         onClick={() => {
-          setActive("upload-emails");
+          setActive("email-upload");
           navigate("/email-upload");
         }}
         className={`${styles.button} ${
-          active === "upload-emails" ? styles.active : ""
+          active === "email-upload" || location.pathname === "/email-upload"
+            ? styles.active
+            : ""
         }`}
       >
         <Upload />

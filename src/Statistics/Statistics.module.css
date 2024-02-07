@@ -10,9 +10,18 @@
   width: 70%;
   background-color: white;
   padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   border-radius: 0.3rem;
+}
+
+.chartDiv {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  background-color: var(--main-color);
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 .chart {

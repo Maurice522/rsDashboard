@@ -260,42 +260,44 @@ const Statistics = () => {
       <div className={styles.statistics}>
         <Sidebar />
         <div className={styles.chartsection}>
-          <select
-            className={styles.select}
-            onChange={(e) => {
-              setTimeFilter(e.target.value);
-            }}
-          >
-            <option value="">Select</option>
-            <option value="last24Hours">Last 24 Hours</option>
-            <option value="last31Days">Last 31 Days</option>
-          </select>
-          <select
-            className={styles.select}
-            onChange={(e) => {
-              setChartType(e.target.value);
-            }}
-          >
-            <option value="">Select</option>
-            <option value="students">Students</option>
-            <option value="resumes">Resumes</option>
-            <option value="jobTitle">Students of certain Job Title</option>
-          </select>
-          {chartType === "jobTitle" && (
+          <div className={styles.chartDiv}>
             <select
-              onChange={(e) => setSelectedJob(e.target.value)}
-              value={selectedJob}
+              className={styles.select}
+              onChange={(e) => {
+                setTimeFilter(e.target.value);
+              }}
             >
               <option value="">Select</option>
-              {last31DaysResumeData.map((resume) => (
-                <option value={resume.jobTitle.toLowerCase()}>
-                  {resume.jobTitle}
-                </option>
-              ))}
+              <option value="last24Hours">Last 24 Hours</option>
+              <option value="last31Days">Last 31 Days</option>
             </select>
-          )}
-          <div className={styles.chart}>
-            <Line data={data} options={options} />
+            <select
+              className={styles.select}
+              onChange={(e) => {
+                setChartType(e.target.value);
+              }}
+            >
+              <option value="">Select</option>
+              <option value="students">Students</option>
+              <option value="resumes">Resumes</option>
+              <option value="jobTitle">Students of certain Job Title</option>
+            </select>
+            {chartType === "jobTitle" && (
+              <select
+                onChange={(e) => setSelectedJob(e.target.value)}
+                value={selectedJob}
+              >
+                <option value="">Select</option>
+                {last31DaysResumeData.map((resume) => (
+                  <option value={resume.jobTitle.toLowerCase()}>
+                    {resume.jobTitle}
+                  </option>
+                ))}
+              </select>
+            )}
+            <div className={styles.chart}>
+              <Line data={data} options={options} />
+            </div>
           </div>
         </div>
       </div>

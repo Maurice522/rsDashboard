@@ -81,7 +81,7 @@ function EmailUpload() {
             />
           )}
           {formattedData.length > 0 && (
-            <>
+            <div className={styles.tableDiv}>
               <table className={styles.emailTable}>
                 <thead>
                   <tr>
@@ -139,7 +139,7 @@ function EmailUpload() {
               >
                 Reset
               </button>
-            </>
+            </div>
           )}
         </div>
       </div>

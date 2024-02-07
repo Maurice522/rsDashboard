@@ -12,7 +12,7 @@
   overflow-y: scroll;
   background: #6c22a6;
   border-radius: 1rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   backdrop-filter: blur(2.1px);
   -webkit-backdrop-filter: blur(2.1px);
   color: white;

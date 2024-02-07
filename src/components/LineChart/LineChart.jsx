@@ -2,34 +2,32 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 
 const LineChart = ({ labels, count }) => {
-  const myPlugin = {
-    id: "customShadow",
-    beforeDraw: (chart) => {
-      const ctx = chart.ctx;
-      ctx.save();
-
-      const originalLineDraw = ctx.stroke;
-      ctx.stroke = function () {
-        ctx.save();
-        ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
-        ctx.shadowBlur = 10;
-        ctx.shadowOffsetX = 4;
-        ctx.shadowOffsetY = 4;
-        originalLineDraw.apply(this, arguments);
-        ctx.restore();
-      };
-    },
-  };
   const options = {
     responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          color: "#fff",
+          font: {
+            size: 10,
+          },
+        },
+      },
+      x: {
+        ticks: {
+          color: "#fff",
+          font: {
+            size: 8,
+          },
+        },
+      },
+    },
     plugins: {
+      tooltip: {
+        bodyColor: "#fff",
+      },
       legend: {
         position: "top",
-      },
-      myPlugin,
-      title: {
-        display: true,
-        text: "Chart.js Bar Chart",
       },
     },
   };
@@ -39,8 +37,27 @@ const LineChart = ({ labels, count }) => {
       {
         label: "Activity",
         data: count,
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: (context) => {
+          const bgColor = ["rgba(255, 255, 255, 1)", "rgba(0, 0, 0, 1)"];
+          console.log(context);
+          if (!context.chart.chartArea) {
+            return;
+          }
+          console.log(context.chart.chartArea);
+          const {
+            ctx,
+            data,
+            chartArea: { top, bottom },
+          } = context.chart;
+          const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+          gradientBg.addColorStop(0, bgColor[0]);
+          gradientBg.addColorStop(1, bgColor[1]);
+          return gradientBg;
+        },
+        borderColor: "rgba(255, 255, 255, 1)",
+        color: "rgba(255, 255, 255, 1)",
         fill: true,
+        lineTension: "0.4",
       },
     ],
   };

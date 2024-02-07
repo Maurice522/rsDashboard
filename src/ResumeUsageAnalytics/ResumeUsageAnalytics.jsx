@@ -44,7 +44,11 @@ const ResumeUsageAnalytics = () => {
       <div className={styles.resumeanalytics}>
         <Sidebar />
         <div className={styles.resumeusage}>
-          <BarChart labels={barlabels} count={jobTitleCount} />
+          <h3>Resume Usage Analytics</h3>
+          <div className={styles.topContainer}>
+            <h3>Resumes with respective Job Titles</h3>
+            <BarChart labels={barlabels} count={jobTitleCount} />
+          </div>
           <div className={styles.buttonContainer}>
             {" "}
             <button
@@ -66,8 +70,18 @@ const ResumeUsageAnalytics = () => {
               Last Month
             </button>
           </div>
-          <LineChart labels={linelabels} count={uniqueActivityCount} />
-          <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
+          <div className={styles.middleContainer}>
+            <h3>Resumes with respective Job Titles</h3>
+            <LineChart labels={linelabels} count={uniqueActivityCount} />
+          </div>
+          <div className={styles.bottomContainer}>
+            <h3>Actvities Analytics</h3>
+            <DynamicTableComponent
+              data={uniqueActivityTypesAndCounts.sort(
+                (a, b) => b.count - a.count
+              )}
+            />
+          </div>
         </div>
       </div>
     </main>

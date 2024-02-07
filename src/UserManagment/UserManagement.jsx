@@ -43,7 +43,10 @@ export default function UserManagement() {
         <div className={styles.container}>
           <h2>User Management</h2>
           {console.log(convertedArrayofStudents)}
-          <DynamicTableComponent data={convertedArrayofStudents} />
+          <div className={styles.userTable}>
+            <h3>Registered Users</h3>
+            <DynamicTableComponent data={convertedArrayofStudents} />
+          </div>
         </div>
       </div>
     </main>

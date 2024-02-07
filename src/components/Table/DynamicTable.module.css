@@ -7,14 +7,19 @@
   margin: auto;
   font-size: 0.9em;
   width: fit-content;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   display: block;
   max-height: 400px;
   overflow-y: scroll;
+  background: #6c22a6;
+  border-radius: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.1px);
+  -webkit-backdrop-filter: blur(2.1px);
+  color: white;
 }
 
 .table thead tr {
-  background-color: #007fff;
+  background-color: #6c22a6;
   color: #ffffff;
   text-align: left;
 }

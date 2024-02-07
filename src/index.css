@@ -18,7 +18,8 @@ code {
 }
 
 :root {
-  --main-color: #1814f3;
+  /* --main-color: #1814f3; */
+  --main-color: #5570f1;
   --hover: #5570f1;
   --sidebar-button: #5570f1;
   --text-color: #53545c;

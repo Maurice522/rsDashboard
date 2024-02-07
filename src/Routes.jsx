@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login/Login";
 import EmailUpload from "./EmailUpload/EmailUpload";
 import { auth } from "./firebase";
@@ -18,6 +18,7 @@ import Statistics from "./Statistics/Statistics";
 const RoutesComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -28,6 +29,9 @@ const RoutesComponent = () => {
         navigate("/login");
       }
     });
+    if (location.pathname === "/") {
+      navigate("/dashboard");
+    }
   }, []);
 
   const loggedInUser = useSelector(selectUser);

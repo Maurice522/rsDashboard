@@ -10,17 +10,17 @@
   display: block;
   max-height: 400px;
   overflow-y: scroll;
-  background: #6c22a6;
+  background: #ffffff;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   backdrop-filter: blur(2.1px);
   -webkit-backdrop-filter: blur(2.1px);
-  color: white;
+  color: black;
 }
 
 .table thead tr {
-  background-color: #6c22a6;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: black;
   text-align: left;
 }
 

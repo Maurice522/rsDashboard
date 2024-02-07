@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./Login.module.css";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import logo from "../images/resumeshaperlogo.png";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,10 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <div className={styles.form}>
-        <h2>Login</h2>
+        <div className={styles.logo}>
+          <img className={styles.logoImg} src={logo} alt="logo" />
+          <h3>Resume Shaper</h3>
+        </div>
         <input
           type="email"
           className={styles.input}

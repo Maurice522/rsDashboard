@@ -1,14 +1,14 @@
 .container {
   display: flex;
-  justify-content: center;
   margin: auto;
-  width: 95%;
+  width: 100%;
   justify-content: space-around;
 }
 
 .info {
+  background-color: red;
   display: flex;
-  width: 80%;
-  margin: auto;
-  justify-content: space-around;
+  width: 70%;
+  padding: 1rem;
+  gap: 1rem;
 }

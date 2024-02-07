@@ -2,13 +2,12 @@
   display: flex;
   justify-content: center;
   margin: auto;
-  width: 95%;
+  width: 100%;
   justify-content: space-around;
 }
 
 .log {
   width: 70%;
-  margin: auto;
   background-color: white;
   padding: 1rem;
   border-radius: 0.5rem;

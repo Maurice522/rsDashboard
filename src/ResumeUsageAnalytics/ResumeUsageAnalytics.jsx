@@ -55,14 +55,18 @@ const ResumeUsageAnalytics = () => {
             </button>
             <button
               className={styles.button}
+              onClick={() => setTimeFilter("lastweek")}
+            >
+              Last Week
+            </button>
+            <button
+              className={styles.button}
               onClick={() => setTimeFilter("lastmonth")}
             >
               Last Month
             </button>
           </div>
-
           <LineChart labels={linelabels} count={uniqueActivityCount} />
-          <h3>Activity Table</h3>
           <DynamicTableComponent data={uniqueActivityTypesAndCounts} />
         </div>
       </div>

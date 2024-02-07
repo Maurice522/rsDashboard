@@ -7,6 +7,8 @@
 }
 
 .container {
+  max-height: 600px;
+  overflow-y: scroll;
   width: 70%;
   background-color: white;
   padding: 1rem 1.5rem;

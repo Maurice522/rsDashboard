@@ -33,7 +33,7 @@ const DynamicTableComponent = ({ data }) => {
     );
   };
 
-  return <div>{renderTable()}</div>;
+  return <section className={styles.tableSection}>{renderTable()}</section>;
 };
 
 export default DynamicTableComponent;

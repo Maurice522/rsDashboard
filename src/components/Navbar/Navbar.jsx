@@ -4,7 +4,7 @@ import logo from "../../images/26.png";
 
 function Navbar() {
   return (
-    <nav className={styles.navbar}>
+    <div className={styles.navbar}>
       <div className={styles.logo}>
         <img src={logo} alt="Logo" />
       </div>
@@ -22,7 +22,7 @@ function Navbar() {
           <a href="#">Contact</a>
         </li>
       </ul>
-    </nav>
+    </div>
   );
 }
 

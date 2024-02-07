@@ -1,5 +1,5 @@
 .buttonContainer {
-  height: 100vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -12,6 +12,7 @@
 }
 
 .button {
+  font-family: "Montserrat";
   padding: 0.6rem;
   background-color: white;
   color: var(--text-color);

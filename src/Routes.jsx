@@ -47,8 +47,11 @@ const RoutesComponent = () => {
           <Route path="/resume-repository" element={<ResumeRepository />} />
           <Route path="/resume-analytics" element={<ResumeUsageAnalytics />} />
           <Route path="/statistics" element={<Statistics />} />
-          <Route path="/student/:id" element={<StudentPage />} />
-          <Route path="createcontinue/:idx" element={<CreateLiveContinue />} />
+          <Route path="/student/:emailId" element={<StudentPage />} />
+          <Route
+            path="createcontinue/:emailId/:idx"
+            element={<CreateLiveContinue />}
+          />
         </Routes>
       ) : (
         <Routes>

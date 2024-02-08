@@ -41,7 +41,6 @@ export default function UserManagement() {
       <div className={styles.userManagement}>
         <Sidebar />
         <div className={styles.container}>
-          <h2>User Management</h2>
           <div className={styles.userTable}>
             <h3>Registered Users</h3>
             <DynamicTableComponent data={convertedArrayofStudents} />

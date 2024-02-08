@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-const BarChart = ({ labels, count }) => {
+const BarChart = ({ xTitle, yTitle, labels, count }) => {
   const options = {
     responsive: true,
     scales: {
@@ -12,6 +12,11 @@ const BarChart = ({ labels, count }) => {
             size: 10,
           },
         },
+        title: {
+          display: true,
+          text: yTitle,
+          color: "#fff",
+        },
       },
       x: {
         ticks: {
@@ -20,11 +25,16 @@ const BarChart = ({ labels, count }) => {
             size: 8,
           },
         },
+        title: {
+          display: true,
+          text: xTitle,
+          color: "#fff",
+        },
       },
     },
     plugins: {
       legend: {
-        position: "top",
+        display: false,
       },
       tooltip: {
         bodyColor: "#fff",

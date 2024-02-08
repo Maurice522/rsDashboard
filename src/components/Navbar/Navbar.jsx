@@ -7,6 +7,9 @@ function Navbar() {
     <div className={styles.navbar}>
       <div className={styles.logo}>
         <img src={logo} alt="Logo" />
+        <p>
+          <b>Resume Shaper</b>
+        </p>
       </div>
     </div>
   );

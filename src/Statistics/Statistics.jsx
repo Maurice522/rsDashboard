@@ -9,11 +9,12 @@ import {
   last24HoursResumeData,
   last24HoursStudentsData,
 } from "../UserManagment/last24HrsData";
-import { Line } from "react-chartjs-2";
 import styles from "./Statistics.module.css";
+import LineChart from "../components/LineChart/LineChart";
 
 const Statistics = () => {
   function getUsersCountByHour(dataArray) {
+    console.log(dataArray);
     const currentTimestamp = new Date();
     const hourInMillis = 60 * 60 * 1000;
     const userCountsByHour = Array(24).fill(0);
@@ -32,7 +33,7 @@ const Statistics = () => {
       hour: index,
       count,
     }));
-
+    console.log(result);
     return result;
   }
 
@@ -84,219 +85,163 @@ const Statistics = () => {
     (data) => data.count
   );
   const [timeFilter, setTimeFilter] = useState("last24Hours");
-  const [chartType, setChartType] = useState("students");
-  const [labels, setLabels] = useState(last24HoursStudentsLabels);
+
+  const [studentLabels, setStudentLabels] = useState(last24HoursStudentsLabels);
+  const [resumeLabels, setResumeLabels] = useState(last24HoursResumeLabels);
+  const [jobTitleLabels, setJobTitleLabels] = useState(last24HoursResumeLabels);
+
+  const [studentCount, setStudentCount] = useState(last24HoursStudents);
+  const [resumeCount, setResumeCount] = useState(last24HoursResumes);
+  const [jobTitleCount, setJobTitleCount] = useState(last24HoursResumes);
+
   const [selectedJob, setSelectedJob] = useState(null);
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
-    },
-  };
-
-  const [data, setData] = useState({
-    labels,
-    datasets: [
-      {
-        label: "Last 24 Hours",
-        data: last24HoursStudents,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        lineTension: 0.2,
-      },
-    ],
-  });
+  const jobTitles = last31DaysResumeData.map((resume) => resume.jobTitle);
+  const uniqueJobTitles = jobTitles.filter(
+    (item, index) => jobTitles.indexOf(item) === index
+  );
 
   useEffect(() => {
-    if (chartType === "students" && timeFilter === "last24Hours") {
-      setSelectedJob(null);
-      setLabels(last24HoursStudentsLabels);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 24 Hours",
-            data: last24HoursStudents,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (chartType === "students" && timeFilter === "last31Days") {
-      setSelectedJob(null);
-      setLabels(last31DaysStudentsLabels);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 31 Days",
-            data: last31DaysStudents,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (chartType === "resumes" && timeFilter === "last24Hours") {
-      setSelectedJob(null);
-      setLabels(last24HoursResumeLabels);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 24 Hours",
-            data: last24HoursResumes,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (chartType === "resumes" && timeFilter === "last24Hours") {
-      setSelectedJob(null);
-      setLabels(last24HoursResumeLabels);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 24 Hours",
-            data: last24HoursResumes,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (chartType === "resumes" && timeFilter === "last31Days") {
-      setSelectedJob(null);
-      setLabels(last31DaysResumeLabels);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 31 Days",
-            data: last31DaysResumes,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (
-      chartType === "jobTitle" &&
-      selectedJob !== null &&
-      timeFilter === "last24Hours"
-    ) {
+    if (timeFilter === "last24Hours") {
       const last24HoursResumesLabelsByJobTitle = getUsersCountByHour(
         last24HoursResumeData.filter(
           (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
         )
       ).map((data) => data.hour.toString() + " Hours Ago");
 
-      const last24HoursResumesCountByJobTitle = getUsersCountByHour(
+      console.log(last24HoursResumesLabelsByJobTitle);
+
+      const last = last24HoursResumeData.filter(
+        (resume) =>
+          resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
+      );
+      const last24HoursResumesCountByJobTitle = getUsersCountByHour(last).map(
+        (data) => data.count
+      );
+      console.log(last24HoursResumeData);
+      console.log(last24HoursResumesCountByJobTitle);
+      console.log(
         last24HoursResumeData.filter(
           (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
         )
-      ).map((data) => data.count);
-      setLabels(last24HoursResumesLabelsByJobTitle);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 24 Hours",
-            data: last24HoursResumesCountByJobTitle,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
-    } else if (
-      chartType === "jobTitle" &&
-      selectedJob !== null &&
-      timeFilter === "last31Days"
-    ) {
+      );
+
+      setStudentLabels(last24HoursResumeLabels);
+      setStudentCount(last24HoursStudents);
+
+      setResumeLabels(last24HoursResumeLabels);
+      setResumeCount(last24HoursResumes);
+
+      setJobTitleLabels(last24HoursResumesLabelsByJobTitle);
+      setJobTitleCount(last24HoursResumesCountByJobTitle);
+    } else if (timeFilter === "last31Days") {
       const last31DaysResumesLabelsByJobTitle = getUsersCountByHour(
         last31DaysResumeData.filter(
           (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
         )
       ).map((data) => data.hour.toString() + " Hours Ago");
 
       const last31DaysResumesCountByJobTitle = getUsersCountByHour(
         last31DaysResumeData.filter(
           (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
         )
       ).map((data) => data.count);
-      setLabels(last31DaysResumesLabelsByJobTitle);
-      setData({
-        labels,
-        datasets: [
-          {
-            label: "Last 31 Days",
-            data: last31DaysResumesCountByJobTitle,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            lineTension: 0.2,
-          },
-        ],
-      });
+
+      setStudentLabels(last31DaysStudentsLabels);
+      setStudentCount(last31DaysStudents);
+
+      setResumeLabels(last31DaysResumeLabels);
+      setResumeCount(last31DaysResumes);
+
+      setJobTitleLabels(last31DaysResumesLabelsByJobTitle);
+      setJobTitleCount(last31DaysResumesCountByJobTitle);
+    } else if (timeFilter === "last7Days") {
+      setStudentLabels(null);
+      setStudentCount(null);
+
+      setResumeLabels(null);
+      setResumeCount(null);
+
+      setJobTitleLabels(null);
+      setJobTitleCount(null);
     }
-  }, [chartType, timeFilter, labels, selectedJob]);
+  }, [timeFilter, selectedJob]);
   return (
     <main>
       <Navbar />
       <div className={styles.statistics}>
         <Sidebar />
         <div className={styles.chartsection}>
+          <h3>Statistics</h3>
           <div className={styles.chartDiv}>
-            <select
-              className={styles.select}
-              onChange={(e) => {
-                setTimeFilter(e.target.value);
-              }}
-            >
-              <option value="">Select</option>
-              <option value="last24Hours">Last 24 Hours</option>
-              <option value="last31Days">Last 31 Days</option>
-            </select>
-            <select
-              className={styles.select}
-              onChange={(e) => {
-                setChartType(e.target.value);
-              }}
-            >
-              <option value="">Select</option>
-              <option value="students">Students</option>
-              <option value="resumes">Resumes</option>
-              <option value="jobTitle">Students of certain Job Title</option>
-            </select>
-            {chartType === "jobTitle" && (
+            <div className={styles.timeFilter}>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  setTimeFilter("last24Hours");
+                }}
+              >
+                Last 24 Hrs
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  setTimeFilter("last7Days");
+                }}
+              >
+                Last Week
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  setTimeFilter("last31Days");
+                }}
+              >
+                Last Month
+              </button>
+            </div>
+            <div className={styles.chart}>
+              <h3>Registered Students</h3>
+              <LineChart
+                xTitle="Time"
+                yTitle="Number of Students"
+                title="Students Registered"
+                labels={studentLabels}
+                count={studentCount}
+              />
+            </div>
+            <div className={styles.chart}>
+              <h3>Resumes Created</h3>
+              <LineChart
+                xTitle="Time"
+                yTitle="Number of Students"
+                title="Resumes Created"
+                labels={resumeLabels}
+                count={resumeCount}
+              />
+            </div>
+            <div className={styles.chart}>
+              <h3>Resumes with respective Job Titles</h3>
               <select
                 onChange={(e) => setSelectedJob(e.target.value)}
                 value={selectedJob}
               >
                 <option value="">Select</option>
-                {last31DaysResumeData.map((resume) => (
-                  <option value={resume.jobTitle.toLowerCase()}>
-                    {resume.jobTitle}
-                  </option>
+                {uniqueJobTitles.map((jobTitle) => (
+                  <option value={jobTitle?.toLowerCase()}>{jobTitle}</option>
                 ))}
               </select>
-            )}
-            <div className={styles.chart}>
-              <Line data={data} options={options} />
+              <LineChart
+                xTitle="Time"
+                yTitle="Number of Students"
+                title="Students Registered"
+                labels={jobTitleLabels}
+                count={jobTitleCount}
+              />
             </div>
           </div>
         </div>

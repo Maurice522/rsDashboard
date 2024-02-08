@@ -88,11 +88,24 @@ import img4 from "../images/template4.PNG";
 
 import { Power } from "lucide-react";
 import { logout } from "../redux/slices/userSlice";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Navbar from "../components/Navbar/Navbar";
+import styles from "./StudentPage.module.css";
+import { addStudent } from "../redux/slices/studentSlice";
+
 export default function StudentPage() {
   const navigate = useNavigate();
   const [gettingUser, SetGettingUser] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [user, setUser] = useState(null);
 
   const [resumes, setResumes] = useState([]);
   const [savedResumes, setSavedResumes] = useState([
@@ -106,16 +119,17 @@ export default function StudentPage() {
     },
   ]);
 
-  const { id } = useParams();
+  const { emailId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, "users"), where("email", "==", id));
+      const q = query(collection(db, "users"), where("email", "==", emailId));
       const querySnapshot = await getDocs(q);
       var tempResume;
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         setResumes(doc.data()?.resumes);
+        setUser(doc.data());
         tempResume = doc.data()?.resumes;
       });
       initializeSavedResumes(tempResume);
@@ -150,7 +164,7 @@ export default function StudentPage() {
         setSavedResumes(arr);
       }
     };
-  }, [id]);
+  }, [emailId]);
 
   const dispatch = useDispatch();
 
@@ -170,56 +184,60 @@ export default function StudentPage() {
     setIsPopupOpen(!isPopupOpen);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "users", emailId);
+      const docSnap = await getDoc(docRef);
+      dispatch(addStudent(docSnap.data()));
+    };
+    fetchData();
+  }, []);
+
   const download = (idx) => {
-    navigate(`/createcontinue/${idx}`, { state: { download: true } });
+    navigate(`/createcontinue/${emailId}/${idx}`, {
+      state: { download: true },
+    });
   };
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <>
-      <>
-        <button
-          onClick={() => handler()}
-          className=" btn btn-success signoutBtn"
-        >
-          <Power color="#35b276" size={22} /> &nbsp;Signout
-        </button>
-        <div className="dashboardDiv">
-          <h2 className="formTitle">Resume Gallery</h2>
-          <p className="formSubText">
+    <main>
+      <Navbar />
+      <div className={styles.mainContainer}>
+        <Sidebar />
+        <div className={styles.studentpage}>
+          <h2>Resume Gallery</h2>
+          <p>
             "Welcome to your hub for organized resumes.Access, edit, or create
             new resumes for tailored job application."
           </p>
-          <div className="dashHeader">
+          <div>
             <h4>Documents</h4>
           </div>
-          <hr className="dashHrLine" />
-          <div className="dashContent row">
+          <hr />
+          <div className={styles.resumes}>
             {savedResumes.map((savedResume) => (
-              <div key={savedResume.id} className="resume1Div col-md-6">
-                <div className="row">
-                  <div
-                    className="col-md-4"
-                    onClick={() => download(savedResume.idx)}
-                  >
+              <div key={savedResume.id}>
+                <div className={styles.resume}>
+                  <div onClick={() => download(savedResume.idx)}>
                     <img
+                      className={styles.img}
                       src={savedResume.img}
-                      className="resumeImg zoom"
                       alt="Profile"
                     />
                     <h6 className="resumeTitle">{savedResume.title}</h6>
                   </div>
-                  <p className="resumeDesc">
+                  {/* <p>
                     <strong>Created At : </strong>
                     {savedResume.description}
-                  </p>
+                  </p> */}
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </>
-    </>
+      </div>
+    </main>
   );
 }

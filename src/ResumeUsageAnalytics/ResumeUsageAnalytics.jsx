@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
 import { uniqueActivityTypesAndCounts } from "./ActivityData";
 import BarChart from "../components/BarChart/BarChart";
 import LineChart from "../components/LineChart/LineChart";
@@ -47,40 +46,52 @@ const ResumeUsageAnalytics = () => {
           <h3>Resume Usage Analytics</h3>
           <div className={styles.topContainer}>
             <h3>Resumes with respective Job Titles</h3>
-            <BarChart labels={barlabels} count={jobTitleCount} />
-          </div>
-          <div className={styles.buttonContainer}>
-            {" "}
-            <button
-              className={styles.button}
-              onClick={() => setTimeFilter("24hours")}
-            >
-              24 hours
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => setTimeFilter("lastweek")}
-            >
-              Last Week
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => setTimeFilter("lastmonth")}
-            >
-              Last Month
-            </button>
+            <BarChart
+              xTitle="Job Titles"
+              yTitle="Number of Resumes"
+              labels={barlabels}
+              count={jobTitleCount}
+            />
           </div>
           <div className={styles.middleContainer}>
-            <h3>Resumes with respective Job Titles</h3>
-            <LineChart labels={linelabels} count={uniqueActivityCount} />
-          </div>
-          <div className={styles.bottomContainer}>
-            <h3>Actvities Analytics</h3>
-            <DynamicTableComponent
-              data={uniqueActivityTypesAndCounts.sort(
-                (a, b) => b.count - a.count
-              )}
-            />
+            <h3>Activities</h3>
+            <div className={styles.activityData}>
+              <div className={styles.chart}>
+                <div className={styles.buttonContainer}>
+                  <button
+                    className={styles.button}
+                    onClick={() => setTimeFilter("24hours")}
+                  >
+                    24 hours
+                  </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => setTimeFilter("lastweek")}
+                  >
+                    Last Week
+                  </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => setTimeFilter("lastmonth")}
+                  >
+                    Last Month
+                  </button>
+                </div>
+                <LineChart
+                  xTitle="Activities"
+                  yTitle="Number of Students"
+                  labels={linelabels}
+                  count={uniqueActivityCount}
+                />
+              </div>
+              <div className={styles.bottomContainer}>
+                <DynamicTableComponent
+                  data={uniqueActivityTypesAndCounts.sort(
+                    (a, b) => b.count - a.count
+                  )}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

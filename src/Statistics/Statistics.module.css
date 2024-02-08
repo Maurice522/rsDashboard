@@ -9,21 +9,65 @@
   width: 70%;
   background-color: white;
   padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   border-radius: 0.3rem;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .chartDiv {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   margin: auto;
-  background-color: var(--main-color);
+  gap: 2rem;
   padding: 1rem;
   border-radius: 1rem;
 }
 
 .chart {
-  width: 90%;
+  width: 100%;
   margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.timeFilter {
+  margin: 0 auto;
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  align-items: center;
+  /* position: sticky;
+  top: 4rem; */
+  background-color: var(--main-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.button {
+  padding: 0.6rem;
+  background-color: white;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 0.3rem;
+  border: 1px solid var(--main-color);
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.button:hover {
+  background-color: var(--sidebar-button);
+  color: white;
 }

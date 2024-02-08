@@ -1,0 +1,34 @@
+.mainContainer {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.studentpage {
+  width: 70%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.resumes {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.resume {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: 0.5rem;
+}
+
+.img {
+  width: 50%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}

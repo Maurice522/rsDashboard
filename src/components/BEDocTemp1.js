@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     // marginTop:15
   },
   myDoc: {
-    height: 1200,
+    height: 12000,
   },
 });
 

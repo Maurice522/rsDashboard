@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, getUserFromDatabase } from "../src/firebase";
+import { auth, db, getUserFromDatabase } from "../src/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MyPdfViewer2 from "./components/BEDocTemp2";
@@ -11,9 +11,18 @@ import PdfDisplayBE from "./components/pdfDisplayBE";
 import img3 from "./images/26.png";
 import { logout } from "./redux/slices/userSlice";
 import { List, Power } from "lucide-react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { addStudent, selectstudent } from "./redux/slices/studentSlice";
 
 export default function CreateLiveContinue() {
-  const { idx } = useParams();
+  const { emailId, idx } = useParams();
   const location = useLocation();
 
   const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
@@ -93,26 +102,25 @@ export default function CreateLiveContinue() {
   const [jobTitle, setJobTitle] = useState("");
   const [currId, setCurrId] = useState(null);
   const [count, setCount] = useState(0);
-  const user = useSelector((state) => state.user.user);
+  // const [user, setUser] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    const listen = onAuthStateChanged(auth, async (userAuth) => {
-      if (userAuth) {
-        if (user.email === null) {
-          SetGettingUser(true);
-          const userFirebase = await getUserFromDatabase(userAuth.email);
-          //   await dispatch(updateUser(userFirebase));
-          SetGettingUser(false);
-        }
-      } else {
-        navigate("/");
-      }
-    });
-  }, []);
 
   useEffect(() => {
-    if (user.email !== null && count < 1) {
+    const fetchData = async () => {
+      const docRef = doc(db, "users", emailId);
+      const docSnap = await getDoc(docRef);
+      dispatch(addStudent(docSnap.data()));
+    };
+    fetchData();
+  }, []);
+
+  const user = useSelector(selectstudent);
+
+  useEffect(() => {
+    if (user && user.email !== null && count < 1) {
+      console.log(user, count);
+      console.log("I'm here");
       var temp = {
         jobTitle: "",
         firstName: "",
@@ -182,7 +190,7 @@ export default function CreateLiveContinue() {
       setPersonalData(temp);
       setCount(1);
     }
-  }, [user]);
+  }, [idx, emailId]);
 
   useEffect(() => {
     setAiLoading(false);
@@ -267,32 +275,6 @@ export default function CreateLiveContinue() {
     console.log("Selected Skills:", selectedOptions);
   }, [selectedOptions]);
 
-  {
-    /* ********************************OLD SKILLS SECTION**************************************** */
-  }
-  // const handleSearchTextChange = (e) => {
-  //     const text = e.target.value;
-  //     setSearchText(text);
-  //     setShowDropdown(true);
-  // };
-
-  // const handleOptionClick = (option) => {
-  //     if (!selectedOptions.includes(option)) {
-  //         setSelectedOptions([...selectedOptions, option]);
-  //         setSearchText('');
-  //     }
-  // };
-
-  // const handleRemoveOption = (optionToRemove) => {
-  //     const updatedSelectedOptions = selectedOptions.filter(
-  //         (option) => option !== optionToRemove
-  //     );
-  //     setSelectedOptions(updatedSelectedOptions);
-  // };
-  {
-    /* ********************************OLD SKILLS SECTION**************************************** */
-  }
-
   const redirectHome = () => {
     navigate("/");
   };
@@ -317,8 +299,24 @@ export default function CreateLiveContinue() {
   }, []);
 
   return (
-    <>
-      {gettingUser ? (
+    <div className="pdfViewer">
+      {user && downloadPdf ? (
+        <PdfDisplayBE
+          imgFile={imgFile}
+          personalData={personalData}
+          courses={courses}
+          activities={activities}
+          internships={internships}
+          hobbies={hobbies}
+          languages={languages}
+          references={references}
+          customSections={customSections}
+          skills={selectedOptions}
+          downloadPdf={downloadPdf}
+          setDownloadPdf={setDownloadPdf}
+          selectedTemplateId={selectedTemplateId}
+        />
+      ) : (
         <img
           style={{
             position: "absolute",
@@ -331,192 +329,7 @@ export default function CreateLiveContinue() {
           alt="loading..."
           src="https://media2.giphy.com/media/MDrmyLuEV8XFOe7lU6/200w.webp?cid=ecf05e47k6onrtqddz8d98s4j5lhtutlnnegeus1pwcdwkxt&ep=v1_gifs_search&rid=200w.webp&ct=g"
         />
-      ) : (
-        <>
-          {downloadPdf ? (
-            <PdfDisplayBE
-              imgFile={imgFile}
-              personalData={personalData}
-              courses={courses}
-              activities={activities}
-              internships={internships}
-              hobbies={hobbies}
-              languages={languages}
-              references={references}
-              customSections={customSections}
-              skills={selectedOptions}
-              downloadPdf={downloadPdf}
-              setDownloadPdf={setDownloadPdf}
-              selectedTemplateId={selectedTemplateId}
-            />
-          ) : (
-            <>
-              <div>
-                <nav class="navbar bg-body-tertiary myNav createLiveNav">
-                  <div
-                    class="container-fluid"
-                    style={{ width: "auto", padding: 0, margin: 0 }}
-                  >
-                    <a class="navbar-brand mb-0 h1 navText" href="#">
-                      &nbsp; &nbsp;
-                      <img src={img3} class="logoImg" alt="" />
-                      &nbsp; &nbsp;
-                      <strong onClick={redirectHome}>RESUME SHAPER</strong>
-                    </a>
-                  </div>
-                  {/* <button className='downloadPdfBtn zoom'>super</button> */}
-                  <div className="menuoptions2">
-                    <button
-                      onClick={() => handleDashboard()}
-                      className=" dashboardBtn zoom"
-                      disabled={photoLoader}
-                    >
-                      Dashboard
-                    </button>
-                    <button
-                      onClick={() => handleDownload()}
-                      className=" downloadPdfBtn zoom"
-                      disabled={photoLoader}
-                    >
-                      Download PDF
-                    </button>
-
-                    <button
-                      onClick={() => handler()}
-                      className=" btn btn-success signoutBtn createLiveSignOut"
-                    >
-                      <Power color="#35b276" size={22} /> &nbsp;Signout
-                    </button>
-                  </div>
-                  {showMenu && (
-                    <div className="menuoptions">
-                      <button
-                        onClick={() => handleDashboard()}
-                        className=" dashboardBtn zoom"
-                        disabled={photoLoader}
-                      >
-                        Dashboard
-                      </button>
-                      <button
-                        onClick={() => handleDownload()}
-                        className=" downloadPdfBtn zoom"
-                        disabled={photoLoader}
-                      >
-                        Download PDF
-                      </button>
-
-                      <button
-                        onClick={() => handler()}
-                        className=" btn btn-success signoutBtn createLiveSignOut"
-                      >
-                        <Power color="#35b276" size={22} /> &nbsp;Signout
-                      </button>
-                    </div>
-                  )}
-                  <button className="menubtn" onClick={handleMenu}>
-                    <List color="#35b276" size={22} />
-                  </button>
-                </nav>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "50%",
-                  left: "0%",
-                  marginTop: "5%",
-                }}
-              >
-                <div
-                  className="rightDivCreateLive"
-                  style={{
-                    flex: 1,
-                    position: "fixed",
-                    width: "50%",
-                    right: "0%",
-                    top: "0%",
-                    paddingTop: "5%",
-                  }}
-                >
-                  <div className="  createRightDiv">
-                    <div className="pdfDisplayDiv">
-                      {selectedTemplateId == 1 && (
-                        <MyPdfViewer1
-                          personalData={personalData}
-                          live={true}
-                          courses={courses}
-                          activities={activities}
-                          internships={internships}
-                          hobbies={hobbies}
-                          languages={languages}
-                          references={references}
-                          customSections={customSections}
-                          skills={selectedOptions}
-                          jobTitle={jobTitle}
-                        />
-                      )}
-                      {selectedTemplateId == 2 && (
-                        <MyPdfViewer2
-                          personalData={personalData}
-                          live={true}
-                          courses={courses}
-                          activities={activities}
-                          internships={internships}
-                          hobbies={hobbies}
-                          languages={languages}
-                          references={references}
-                          customSections={customSections}
-                          skills={selectedOptions}
-                          jobTitle={jobTitle}
-                        />
-                      )}
-                      {selectedTemplateId == 3 && (
-                        <MyPdfViewer3
-                          personalData={personalData}
-                          live={true}
-                          courses={courses}
-                          activities={activities}
-                          internships={internships}
-                          hobbies={hobbies}
-                          languages={languages}
-                          references={references}
-                          customSections={customSections}
-                          skills={selectedOptions}
-                          jobTitle={jobTitle}
-                        />
-                      )}
-                      {selectedTemplateId == 4 && (
-                        <MyPdfViewer4
-                          personalData={personalData}
-                          live={true}
-                          courses={courses}
-                          activities={activities}
-                          internships={internships}
-                          hobbies={hobbies}
-                          languages={languages}
-                          references={references}
-                          customSections={customSections}
-                          skills={selectedOptions}
-                          jobTitle={jobTitle}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </>
       )}
-    </>
+    </div>
   );
-}
-
-// Helper function to generate a large list of options for testing
-function generateOptions() {
-  const options = [];
-  for (let i = 1; i <= 200; i++) {
-    options.push(`Skill ${i}`);
-  }
-  return options;
 }

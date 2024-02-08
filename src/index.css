@@ -19,7 +19,7 @@ code {
 
 :root {
   /* --main-color: #1814f3; */
-  --main-color: #092635;
+  --main-color: #1e293b;
   /* --hover: #5570f1; */
   --hover: #092635;
   --sidebar-button: #092635;
@@ -74,19 +74,17 @@ html {
   background-clip: content-box;
 }
 
-/* table {
+.pdfSection {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.downloadPdfMainDiv {
+  width: 70%;
   background-color: white;
-  padding: 1rem;
+  text-align: center;
+  max-height: 600px;
+  overflow-y: scroll;
 }
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: var(--sidebar-button);
-  color: white;
-} */

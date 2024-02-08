@@ -4,6 +4,9 @@ import BEDocTemp2 from "./BEDocTemp2";
 import BEDocTemp1 from "./BEDocTemp1";
 import BEDocTemp3 from "./BEDocTemp3";
 import BEDocTemp4 from "./BEDocTemp4";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar/Sidebar";
+import Navbar from "./Navbar/Navbar";
 
 const styles = StyleSheet.create({
   page: {
@@ -62,75 +65,74 @@ export default function PdfDisplayBE({
   setDownloadPdf,
   selectedTemplateId,
 }) {
+  const navigate = useNavigate();
   console.log(personalData);
   return (
-    <>
-      <div className="downloadPdfMainDiv">
-        <button
-          className="realBdfGoBackBtn zoom"
-          onClick={() => setDownloadPdf(false)}
-        >
-          Edit Pdf
-        </button>
-        <PDFViewer style={styles.pDFViewerStyle}>
-          {selectedTemplateId == 1 && (
-            <BEDocTemp1
-              imgFile={imgFile}
-              personalData={personalData}
-              courses={courses}
-              activities={activities}
-              internships={internships}
-              hobbies={hobbies}
-              languages={languages}
-              references={references}
-              customSections={customSections}
-              skills={skills}
-            />
-          )}
-          {selectedTemplateId == 2 && (
-            <BEDocTemp2
-              imgFile={imgFile}
-              personalData={personalData}
-              courses={courses}
-              activities={activities}
-              internships={internships}
-              hobbies={hobbies}
-              languages={languages}
-              references={references}
-              customSections={customSections}
-              skills={skills}
-            />
-          )}
-          {selectedTemplateId == 3 && (
-            <BEDocTemp3
-              imgFile={imgFile}
-              personalData={personalData}
-              courses={courses}
-              activities={activities}
-              internships={internships}
-              hobbies={hobbies}
-              languages={languages}
-              references={references}
-              customSections={customSections}
-              skills={skills}
-            />
-          )}
-          {selectedTemplateId == 4 && (
-            <BEDocTemp4
-              imgFile={imgFile}
-              personalData={personalData}
-              courses={courses}
-              activities={activities}
-              internships={internships}
-              hobbies={hobbies}
-              languages={languages}
-              references={references}
-              customSections={customSections}
-              skills={skills}
-            />
-          )}
-        </PDFViewer>
+    <main>
+      <Navbar />
+      <div className="pdfSection">
+        <Sidebar />
+        <div className="downloadPdfMainDiv">
+          <PDFViewer style={styles.pDFViewerStyle}>
+            {selectedTemplateId == 1 && (
+              <BEDocTemp1
+                imgFile={imgFile}
+                personalData={personalData}
+                courses={courses}
+                activities={activities}
+                internships={internships}
+                hobbies={hobbies}
+                languages={languages}
+                references={references}
+                customSections={customSections}
+                skills={skills}
+              />
+            )}
+            {selectedTemplateId == 2 && (
+              <BEDocTemp2
+                imgFile={imgFile}
+                personalData={personalData}
+                courses={courses}
+                activities={activities}
+                internships={internships}
+                hobbies={hobbies}
+                languages={languages}
+                references={references}
+                customSections={customSections}
+                skills={skills}
+              />
+            )}
+            {selectedTemplateId == 3 && (
+              <BEDocTemp3
+                imgFile={imgFile}
+                personalData={personalData}
+                courses={courses}
+                activities={activities}
+                internships={internships}
+                hobbies={hobbies}
+                languages={languages}
+                references={references}
+                customSections={customSections}
+                skills={skills}
+              />
+            )}
+            {selectedTemplateId == 4 && (
+              <BEDocTemp4
+                imgFile={imgFile}
+                personalData={personalData}
+                courses={courses}
+                activities={activities}
+                internships={internships}
+                hobbies={hobbies}
+                languages={languages}
+                references={references}
+                customSections={customSections}
+                skills={skills}
+              />
+            )}
+          </PDFViewer>
+        </div>
       </div>
-    </>
+    </main>
   );
 }

@@ -53,21 +53,23 @@
 
 .button {
   padding: 0.6rem;
-  background-color: white;
-  color: var(--text-color);
+  background-color: transparent;
   text-decoration: none;
-  border-radius: 0.3rem;
-  border: 1px solid var(--main-color);
+  border: none;
   cursor: pointer;
   text-align: center;
-  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
 }
 
 .button:hover {
-  background-color: var(--sidebar-button);
   color: white;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff,
+    0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
 }

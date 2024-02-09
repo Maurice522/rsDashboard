@@ -11,6 +11,7 @@ import {
 } from "../UserManagment/last24HrsData";
 import styles from "./Statistics.module.css";
 import LineChart from "../components/LineChart/LineChart";
+import { last7DaysResumeData, last7DaysStudentsData } from "./last7DaysData";
 
 const Statistics = () => {
   function getUsersCountByHour(dataArray) {
@@ -33,7 +34,6 @@ const Statistics = () => {
       hour: index,
       count,
     }));
-    console.log(result);
     return result;
   }
 
@@ -52,6 +52,80 @@ const Statistics = () => {
 
     return countArray;
   }
+
+  function getUsersCountByWeek(dataArray) {
+    const currentTimestamp = new Date();
+    const weekInMillis = 7 * 24 * 60 * 60 * 1000;
+    const userCountsByDate = {};
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(currentTimestamp - i * 24 * 60 * 60 * 1000);
+      userCountsByDate[date.toDateString()] = 0;
+    }
+
+    dataArray.forEach((user) => {
+      const userTimestamp = new Date(user.timestamp.replace(/at/, ""));
+      const daysAgo = Math.floor(
+        (currentTimestamp - userTimestamp) / (24 * 60 * 60 * 1000)
+      );
+
+      if (daysAgo >= 0 && daysAgo < 7) {
+        const dateKey = userTimestamp.toDateString();
+        userCountsByDate[dateKey]++;
+      }
+    });
+
+    const result = Object.entries(userCountsByDate).map(([date, count]) => ({
+      date,
+      count,
+    }));
+    return result;
+  }
+
+  function getResumesCountByWeek(dataArray) {
+    const currentTimestamp = new Date();
+    const weekInMillis = 7 * 24 * 60 * 60 * 1000;
+    const userCountsByDate = {};
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(currentTimestamp - i * 24 * 60 * 60 * 1000);
+      userCountsByDate[date.toDateString()] = 0;
+    }
+
+    dataArray.forEach((user) => {
+      const userTimestamp = new Date(user.timestamp.replace(/at/, ""));
+      const daysAgo = Math.floor(
+        (currentTimestamp - userTimestamp) / (24 * 60 * 60 * 1000)
+      );
+
+      if (daysAgo >= 0 && daysAgo < 7) {
+        const dateKey = userTimestamp.toDateString();
+        userCountsByDate[dateKey]++;
+      }
+    });
+
+    const result = Object.entries(userCountsByDate).map(([date, count]) => ({
+      date,
+      count,
+    }));
+    return result;
+  }
+
+  const last7DaysStudentsLabels = getUsersCountByWeek(
+    last7DaysStudentsData
+  ).map((day) => day.date);
+
+  const last7DaysStudents = getUsersCountByWeek(last7DaysStudentsData).map(
+    (day) => day.count
+  );
+
+  const last7DaysResumesLabels = getResumesCountByWeek(last7DaysResumeData).map(
+    (day) => day.date
+  );
+
+  const last7DaysResumes = getResumesCountByWeek(last7DaysResumeData).map(
+    (day) => day.count
+  );
 
   const last31DaysStudentsLabels = countObjectsByDate(
     last31DaysStudentsData
@@ -84,17 +158,20 @@ const Statistics = () => {
   const last24HoursResumes = getUsersCountByHour(last24HoursResumeData).map(
     (data) => data.count
   );
-  const [timeFilter, setTimeFilter] = useState("last24Hours");
 
-  const [studentLabels, setStudentLabels] = useState(last24HoursStudentsLabels);
-  const [resumeLabels, setResumeLabels] = useState(last24HoursResumeLabels);
-  const [jobTitleLabels, setJobTitleLabels] = useState(last24HoursResumeLabels);
+  const [timeFilterChartOne, setTimeFilterChartOne] = useState("last24Hours");
+  const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last24Hours");
 
-  const [studentCount, setStudentCount] = useState(last24HoursStudents);
-  const [resumeCount, setResumeCount] = useState(last24HoursResumes);
-  const [jobTitleCount, setJobTitleCount] = useState(last24HoursResumes);
+  const [labelsChartOne, setLabelsChartOne] = useState(
+    last24HoursStudentsLabels
+  );
+  const [labelsChartTwo, setLabelsChartTwo] = useState(last24HoursResumeLabels);
 
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [countChartOne, setCountChartOne] = useState(last24HoursStudents);
+  const [countChartTwo, setCountChartTwo] = useState(last24HoursResumes);
+  const [countChartThree, setCountChartThree] = useState(last31DaysResumes);
+
+  const [selectedJob, setSelectedJob] = useState("");
 
   const jobTitles = last31DaysResumeData.map((resume) => resume.jobTitle);
   const uniqueJobTitles = jobTitles.filter(
@@ -102,74 +179,42 @@ const Statistics = () => {
   );
 
   useEffect(() => {
-    if (timeFilter === "last24Hours") {
-      const last24HoursResumesLabelsByJobTitle = getUsersCountByHour(
-        last24HoursResumeData.filter(
-          (resume) =>
-            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
-        )
-      ).map((data) => data.hour.toString() + " Hours Ago");
-
-      console.log(last24HoursResumesLabelsByJobTitle);
-
-      const last = last24HoursResumeData.filter(
-        (resume) =>
-          resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
-      );
-      const last24HoursResumesCountByJobTitle = getUsersCountByHour(last).map(
-        (data) => data.count
-      );
-      console.log(last24HoursResumeData);
-      console.log(last24HoursResumesCountByJobTitle);
-      console.log(
-        last24HoursResumeData.filter(
-          (resume) =>
-            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
-        )
-      );
-
-      setStudentLabels(last24HoursResumeLabels);
-      setStudentCount(last24HoursStudents);
-
-      setResumeLabels(last24HoursResumeLabels);
-      setResumeCount(last24HoursResumes);
-
-      setJobTitleLabels(last24HoursResumesLabelsByJobTitle);
-      setJobTitleCount(last24HoursResumesCountByJobTitle);
-    } else if (timeFilter === "last31Days") {
-      const last31DaysResumesLabelsByJobTitle = getUsersCountByHour(
-        last31DaysResumeData.filter(
-          (resume) =>
-            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
-        )
-      ).map((data) => data.hour.toString() + " Hours Ago");
-
-      const last31DaysResumesCountByJobTitle = getUsersCountByHour(
-        last31DaysResumeData.filter(
-          (resume) =>
-            resume?.jobTitle?.toLowerCase() === selectedJob?.toLowerCase()
-        )
-      ).map((data) => data.count);
-
-      setStudentLabels(last31DaysStudentsLabels);
-      setStudentCount(last31DaysStudents);
-
-      setResumeLabels(last31DaysResumeLabels);
-      setResumeCount(last31DaysResumes);
-
-      setJobTitleLabels(last31DaysResumesLabelsByJobTitle);
-      setJobTitleCount(last31DaysResumesCountByJobTitle);
-    } else if (timeFilter === "last7Days") {
-      setStudentLabels(null);
-      setStudentCount(null);
-
-      setResumeLabels(null);
-      setResumeCount(null);
-
-      setJobTitleLabels(null);
-      setJobTitleCount(null);
+    if (timeFilterChartOne === "last24Hours") {
+      setLabelsChartOne(last24HoursStudentsLabels);
+      setCountChartOne(last24HoursStudents);
+    } else if (timeFilterChartOne === "last31Days") {
+      setLabelsChartOne(last31DaysStudentsLabels);
+      setCountChartOne(last31DaysStudents);
+    } else if (timeFilterChartOne === "last7Days") {
+      setLabelsChartOne(last7DaysStudentsLabels);
+      setCountChartOne(last7DaysStudents);
     }
-  }, [timeFilter, selectedJob]);
+
+    if (timeFilterChartTwo === "last24Hours") {
+      setLabelsChartTwo(last24HoursResumeLabels);
+      setCountChartTwo(last24HoursResumes);
+    } else if (timeFilterChartTwo === "last31Days") {
+      setLabelsChartTwo(last31DaysResumeLabels);
+      setCountChartTwo(last31DaysResumes);
+    } else if (timeFilterChartTwo === "last7Days") {
+      setLabelsChartTwo(last7DaysResumesLabels);
+      setCountChartTwo(last7DaysResumes);
+    }
+
+    console.log(selectedJob);
+
+    if (selectedJob) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
+        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+      );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    }
+  }, [timeFilterChartOne, timeFilterChartTwo, selectedJob]);
+
   return (
     <main>
       <Navbar />
@@ -178,50 +223,86 @@ const Statistics = () => {
         <div className={styles.chartsection}>
           <h3>Statistics</h3>
           <div className={styles.chartDiv}>
-            <div className={styles.timeFilter}>
-              <button
-                className={styles.button}
-                onClick={() => {
-                  setTimeFilter("last24Hours");
-                }}
-              >
-                Last 24 Hrs
-              </button>
-              <button
-                className={styles.button}
-                onClick={() => {
-                  setTimeFilter("last7Days");
-                }}
-              >
-                Last Week
-              </button>
-              <button
-                className={styles.button}
-                onClick={() => {
-                  setTimeFilter("last31Days");
-                }}
-              >
-                Last Month
-              </button>
-            </div>
             <div className={styles.chart}>
               <h3>Registered Students</h3>
+              <div className={styles.timeFilter}>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartOne("last24Hours");
+                  }}
+                >
+                  Last 24 Hrs
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartOne("last7Days");
+                  }}
+                >
+                  Last Week
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartOne("last31Days");
+                  }}
+                >
+                  Last Month
+                </button>
+              </div>
+              <div>
+                {labelsChartOne[0] +
+                  " - " +
+                  labelsChartOne[labelsChartOne.length - 1]}
+              </div>
               <LineChart
                 xTitle="Time"
                 yTitle="Number of Students"
                 title="Students Registered"
-                labels={studentLabels}
-                count={studentCount}
+                labels={labelsChartOne}
+                count={countChartOne}
               />
             </div>
             <div className={styles.chart}>
               <h3>Resumes Created</h3>
+              <div className={styles.timeFilter}>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartTwo("last24Hours");
+                  }}
+                >
+                  Last 24 Hrs
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartTwo("last7Days");
+                  }}
+                >
+                  Last Week
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setTimeFilterChartTwo("last31Days");
+                  }}
+                >
+                  Last Month
+                </button>
+              </div>
+              <div>
+                {labelsChartTwo[0] +
+                  " - " +
+                  labelsChartTwo[labelsChartTwo.length - 1]}
+              </div>
               <LineChart
                 xTitle="Time"
-                yTitle="Number of Students"
+                yTitle="Number of Resumes"
                 title="Resumes Created"
-                labels={resumeLabels}
-                count={resumeCount}
+                labels={labelsChartTwo}
+                count={countChartTwo}
               />
             </div>
             <div className={styles.chart}>
@@ -232,15 +313,20 @@ const Statistics = () => {
               >
                 <option value="">Select</option>
                 {uniqueJobTitles.map((jobTitle) => (
-                  <option value={jobTitle?.toLowerCase()}>{jobTitle}</option>
+                  <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
                 ))}
               </select>
+              <div>
+                {last31DaysResumeLabels[0] +
+                  " - " +
+                  last31DaysResumeLabels[last31DaysResumeLabels.length - 1]}
+              </div>
               <LineChart
                 xTitle="Time"
                 yTitle="Number of Students"
                 title="Students Registered"
-                labels={jobTitleLabels}
-                count={jobTitleCount}
+                labels={last31DaysResumeLabels}
+                count={countChartThree}
               />
             </div>
           </div>

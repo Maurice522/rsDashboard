@@ -37,10 +37,18 @@ const Dashboard = () => {
     return { count, labels };
   };
 
-  const { count: totalStudentCount, labels: totalStudentLabels } =
-    generateData(20);
-  const { count: totalActiveCount, labels: totalActiveLabels } =
-    generateData(16);
+  const { count: totalStudentCount } = generateData(20);
+  const { count: totalActiveCount } = generateData(16);
+
+  const labels = [
+    "03 Feb",
+    "04 Feb",
+    "05 Feb",
+    "06 Feb",
+    "07 Feb",
+    "08 Feb",
+    "09 Feb",
+  ];
 
   return (
     <main>
@@ -81,13 +89,9 @@ const Dashboard = () => {
               <p>
                 <b>Total Registred Students</b>
               </p>
-              <p>
-                {totalStudentLabels[0] +
-                  " - " +
-                  totalStudentLabels[totalStudentLabels.length - 1]}
-              </p>
+              <p>{labels[0] + " - " + labels[labels.length - 1]}</p>
               <LineChart
-                labels={totalStudentLabels}
+                labels={labels}
                 count={totalStudentCount}
                 title="Total Registered Students"
               />
@@ -96,13 +100,9 @@ const Dashboard = () => {
               <p>
                 <b>Total Active Users</b>
               </p>
-              <p>
-                {totalActiveLabels[0] +
-                  " - " +
-                  totalActiveLabels[totalActiveLabels.length - 1]}
-              </p>
+              <p>{labels[0] + " - " + labels[labels.length - 1]}</p>
               <LineChart
-                labels={totalActiveLabels}
+                labels={labels}
                 count={totalActiveCount}
                 title="Total Active Users"
               />

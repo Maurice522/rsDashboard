@@ -23,6 +23,7 @@ import styles from "./UserManagement.module.css";
 import DynamicTableComponent from "../components/Table/DynamicTable";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
+import UserManagementTable from "../components/UserManagementTable/UserManagmentTable";
 
 ChartJS.register(
   CategoryScale,
@@ -43,7 +44,7 @@ export default function UserManagement() {
         <div className={styles.container}>
           <div className={styles.userTable}>
             <h3>Registered Users</h3>
-            <DynamicTableComponent data={convertedArrayofStudents} />
+            <UserManagementTable />
           </div>
         </div>
       </div>

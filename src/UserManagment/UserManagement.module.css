@@ -28,6 +28,10 @@
   width: 100%;
 }
 
+.userTable > h3 {
+  color: white;
+}
+
 @media (max-width: 1024px) {
   .container {
     width: 90%;

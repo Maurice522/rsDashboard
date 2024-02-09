@@ -159,16 +159,23 @@ const Statistics = () => {
     (data) => data.count
   );
 
-  const [timeFilterChartOne, setTimeFilterChartOne] = useState("last24Hours");
-  const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last24Hours");
+  const [timeFilterChartOne, setTimeFilterChartOne] = useState("last31Days");
+  const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last31Days");
+
+  const [activeOneOne, setActiveOneOne] = useState(false);
+  const [activeOneTwo, setActiveOneTwo] = useState(false);
+  const [activeOneThree, setActiveOneThree] = useState(false);
+  const [activeTwoOne, setActiveTwoOne] = useState(false);
+  const [activeTwoTwo, setActiveTwoTwo] = useState(false);
+  const [activeTwoThree, setActiveTwoThree] = useState(false);
 
   const [labelsChartOne, setLabelsChartOne] = useState(
-    last24HoursStudentsLabels
+    last31DaysStudentsLabels
   );
-  const [labelsChartTwo, setLabelsChartTwo] = useState(last24HoursResumeLabels);
+  const [labelsChartTwo, setLabelsChartTwo] = useState(last31DaysResumeLabels);
 
-  const [countChartOne, setCountChartOne] = useState(last24HoursStudents);
-  const [countChartTwo, setCountChartTwo] = useState(last24HoursResumes);
+  const [countChartOne, setCountChartOne] = useState(last31DaysStudents);
+  const [countChartTwo, setCountChartTwo] = useState(last31DaysResumes);
   const [countChartThree, setCountChartThree] = useState(last31DaysResumes);
 
   const [selectedJob, setSelectedJob] = useState("");
@@ -180,28 +187,44 @@ const Statistics = () => {
 
   useEffect(() => {
     if (timeFilterChartOne === "last24Hours") {
+      setActiveOneOne(true);
+      setActiveOneTwo(false);
+      setActiveOneThree(false);
       setLabelsChartOne(last24HoursStudentsLabels);
       setCountChartOne(last24HoursStudents);
     } else if (timeFilterChartOne === "last31Days") {
+      setActiveOneOne(false);
+      setActiveOneTwo(false);
+      setActiveOneThree(true);
       setLabelsChartOne(last31DaysStudentsLabels);
       setCountChartOne(last31DaysStudents);
     } else if (timeFilterChartOne === "last7Days") {
+      setActiveOneOne(false);
+      setActiveOneTwo(true);
+      setActiveOneThree(false);
       setLabelsChartOne(last7DaysStudentsLabels);
       setCountChartOne(last7DaysStudents);
     }
 
     if (timeFilterChartTwo === "last24Hours") {
+      setActiveTwoOne(true);
+      setActiveTwoTwo(false);
+      setActiveTwoThree(false);
       setLabelsChartTwo(last24HoursResumeLabels);
       setCountChartTwo(last24HoursResumes);
     } else if (timeFilterChartTwo === "last31Days") {
+      setActiveTwoOne(false);
+      setActiveTwoTwo(false);
+      setActiveTwoThree(true);
       setLabelsChartTwo(last31DaysResumeLabels);
       setCountChartTwo(last31DaysResumes);
     } else if (timeFilterChartTwo === "last7Days") {
+      setActiveTwoOne(false);
+      setActiveTwoTwo(true);
+      setActiveTwoThree(false);
       setLabelsChartTwo(last7DaysResumesLabels);
       setCountChartTwo(last7DaysResumes);
     }
-
-    console.log(selectedJob);
 
     if (selectedJob) {
       const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
@@ -227,7 +250,9 @@ const Statistics = () => {
               <h3>Registered Students</h3>
               <div className={styles.timeFilter}>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeOneOne ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartOne("last24Hours");
                   }}
@@ -235,7 +260,9 @@ const Statistics = () => {
                   Last 24 Hrs
                 </button>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeOneTwo ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartOne("last7Days");
                   }}
@@ -243,7 +270,9 @@ const Statistics = () => {
                   Last Week
                 </button>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeOneThree ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartOne("last31Days");
                   }}
@@ -251,7 +280,7 @@ const Statistics = () => {
                   Last Month
                 </button>
               </div>
-              <div>
+              <div className={styles.range}>
                 {labelsChartOne[0] +
                   " - " +
                   labelsChartOne[labelsChartOne.length - 1]}
@@ -268,7 +297,9 @@ const Statistics = () => {
               <h3>Resumes Created</h3>
               <div className={styles.timeFilter}>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeTwoOne ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartTwo("last24Hours");
                   }}
@@ -276,7 +307,9 @@ const Statistics = () => {
                   Last 24 Hrs
                 </button>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeTwoTwo ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartTwo("last7Days");
                   }}
@@ -284,7 +317,9 @@ const Statistics = () => {
                   Last Week
                 </button>
                 <button
-                  className={styles.button}
+                  className={`${styles.button} ${
+                    activeTwoThree ? styles.active : ""
+                  }`}
                   onClick={() => {
                     setTimeFilterChartTwo("last31Days");
                   }}
@@ -292,10 +327,10 @@ const Statistics = () => {
                   Last Month
                 </button>
               </div>
-              <div>
-                {labelsChartTwo[0] +
+              <div className={styles.range}>
+                {labelsChartTwo[0].split(", ")[0] +
                   " - " +
-                  labelsChartTwo[labelsChartTwo.length - 1]}
+                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
               </div>
               <LineChart
                 xTitle="Time"
@@ -316,10 +351,10 @@ const Statistics = () => {
                   <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
                 ))}
               </select>
-              <div>
-                {last31DaysResumeLabels[0] +
+              <div className={styles.range}>
+                {labelsChartTwo[0].split(", ")[0] +
                   " - " +
-                  last31DaysResumeLabels[last31DaysResumeLabels.length - 1]}
+                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
               </div>
               <LineChart
                 xTitle="Time"

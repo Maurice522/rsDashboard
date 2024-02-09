@@ -15,7 +15,10 @@ const DynamicTableComponent = ({ data }) => {
           <tr>
             {columns.map((column) => (
               <th key={column}>
-                {column[0].toUpperCase() + column.substring(1, column.length)}
+                {column === "ActivityType"
+                  ? "Activity"
+                  : column[0].toUpperCase() +
+                    column.substring(1, column.length)}
               </th>
             ))}
           </tr>

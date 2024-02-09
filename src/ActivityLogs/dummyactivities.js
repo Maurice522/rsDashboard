@@ -148,6 +148,20 @@ export const activities = [
   },
 ];
 
+const parseTimestamp = (timestampString) => {
+  const timestamp = timestampString.replace(" at ", " ");
+  return new Date(timestamp);
+};
+
+const sortedActivities = activities.sort((a, b) => {
+  const dateA = parseTimestamp(a.timestamp);
+  const dateB = parseTimestamp(b.timestamp);
+
+  if (dateA > dateB) return -1;
+  if (dateA < dateB) return 1;
+  return 0;
+});
+
 function convertTimestampsInArray(arrayOfObjects) {
   return arrayOfObjects.map((obj) => {
     const newObj = { ...obj };
@@ -164,4 +178,5 @@ function convertTimestampsInArray(arrayOfObjects) {
   });
 }
 
-export const convertedArrayOfActivities = convertTimestampsInArray(activities);
+export const convertedArrayOfActivities =
+  convertTimestampsInArray(sortedActivities);

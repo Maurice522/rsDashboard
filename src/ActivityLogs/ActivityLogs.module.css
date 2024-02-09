@@ -12,3 +12,9 @@
   padding: 1rem;
   border-radius: 0.5rem;
 }
+
+@media (max-width: 1024px) {
+  .log {
+    width: 90%;
+  }
+}

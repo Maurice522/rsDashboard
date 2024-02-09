@@ -85,7 +85,7 @@ function EmailUpload() {
               <table className={styles.emailTable}>
                 <thead>
                   <tr>
-                    <th>Serial Number</th>
+                    <th>S No.</th>
                     <th>Email ID</th>
                     <th>Actions</th>
                   </tr>

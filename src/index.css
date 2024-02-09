@@ -18,12 +18,9 @@ code {
 }
 
 :root {
-  /* --main-color: #1814f3; */
   --main-color: #1e293b;
-  /* --hover: #5570f1; */
   --hover: #092635;
   --sidebar-button: #092635;
-  /* --sidebar-button: #5570f1; */
   --text-color: #53545c;
   --file-upload: #f8f8f8;
   --file-upload-text: #454545;

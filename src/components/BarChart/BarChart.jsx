@@ -11,6 +11,11 @@ const BarChart = ({ xTitle, yTitle, labels, count }) => {
           font: {
             size: 10,
           },
+          stepSize: 1,
+        },
+        border: {
+          width: 1,
+          color: "#fff",
         },
         title: {
           display: true,
@@ -24,6 +29,10 @@ const BarChart = ({ xTitle, yTitle, labels, count }) => {
           font: {
             size: 8,
           },
+        },
+        border: {
+          width: 1,
+          color: "#fff",
         },
         title: {
           display: true,

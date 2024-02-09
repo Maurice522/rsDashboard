@@ -15,6 +15,7 @@ import {
 import { logout } from "../../redux/slices/userSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { notvisible, selectsidebar } from "../../redux/slices/sidebarSlice";
+import "animate.css";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ const Sidebar = () => {
     <div
       className={`${styles.buttonContainer} ${
         sidebarVisible && styles.visible
+      } ${
+        sidebarVisible &&
+        "animate__animated animate__slideInLeft animate__faster"
       }`}
     >
       {sidebarVisible && (

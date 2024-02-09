@@ -6,6 +6,7 @@ const LineChart = ({ xTitle, yTitle, title, labels, count }) => {
     responsive: true,
     scales: {
       y: {
+        beginAtZero: true,
         ticks: {
           color: "#fff",
           font: {

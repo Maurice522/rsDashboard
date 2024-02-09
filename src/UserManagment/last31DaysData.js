@@ -210,6 +210,18 @@ export const last31DaysResumeData = [
     timestamp: "January 26, 2024 at 1:49:28 PM UTC+5:30",
   },
   {
+    email: "akaditya394@gmail.com",
+    index: "1",
+    jobTitle: "software developer",
+    timestamp: "January 25, 2024 at 1:49:28 PM UTC+5:30",
+  },
+  {
+    email: "akaditya394@gmail.com",
+    index: "1",
+    jobTitle: "software developer",
+    timestamp: "January 24, 2024 at 1:49:28 PM UTC+5:30",
+  },
+  {
     email: "john.doe@example.com",
     index: "2",
     jobTitle: "data analyst",
@@ -220,6 +232,42 @@ export const last31DaysResumeData = [
     index: "3",
     jobTitle: "web designer",
     timestamp: "January 25, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 25, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 25, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 25, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 25, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 26, 2024 at 3:30:00 PM UTC+5:30",
+  },
+  {
+    email: "jane.smith@example.com",
+    index: "3",
+    jobTitle: "web designer",
+    timestamp: "January 26, 2024 at 3:30:00 PM UTC+5:30",
   },
   {
     email: "jane.smith@example.com",

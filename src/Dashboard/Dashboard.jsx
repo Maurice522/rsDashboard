@@ -49,15 +49,42 @@ const Dashboard = () => {
         <Sidebar />
         <div className={styles.dashboard}>
           <div className={styles.info}>
-            <Infographic title="Users" count="200" percentage="1.2" positive />
-            <Infographic title="Users" count="200" percentage="1.2" positive />
-            <Infographic title="Users" count="200" percentage="1.2" />
-            <Infographic title="Users" count="200" percentage="1.2" />
+            <Infographic
+              title="Total Students"
+              type="1"
+              count="200"
+              percentage="1.2"
+              positive
+            />
+            <Infographic
+              title="New Students"
+              type="2"
+              count="200"
+              percentage="1.2"
+              positive
+            />
+            <Infographic
+              title="Resumes Created"
+              type="3"
+              count="200"
+              percentage="1.2"
+            />
+            <Infographic
+              title="Active Students"
+              type="4"
+              count="200"
+              percentage="1.2"
+            />
           </div>
           <div className={styles.charts}>
             <div className={styles.chart}>
               <p>
                 <b>Total Registred Students</b>
+              </p>
+              <p>
+                {totalStudentLabels[0] +
+                  " - " +
+                  totalStudentLabels[totalStudentLabels.length - 1]}
               </p>
               <LineChart
                 labels={totalStudentLabels}
@@ -68,6 +95,11 @@ const Dashboard = () => {
             <div className={styles.chart}>
               <p>
                 <b>Total Active Users</b>
+              </p>
+              <p>
+                {totalActiveLabels[0] +
+                  " - " +
+                  totalActiveLabels[totalActiveLabels.length - 1]}
               </p>
               <LineChart
                 labels={totalActiveLabels}

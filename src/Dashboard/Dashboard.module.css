@@ -44,6 +44,11 @@
   color: white;
 }
 
+.chart > p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
 @media (max-width: 1024px) {
   .dashboard {
     width: 90%;
@@ -64,5 +69,9 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+  }
+
+  .chart {
+    width: 70%;
   }
 }

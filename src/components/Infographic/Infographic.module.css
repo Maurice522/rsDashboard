@@ -2,23 +2,41 @@
   height: fit-content;
   width: 13.5rem;
   background-color: white;
-  padding: 0.3rem;
+  padding: 1rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .upperRegion {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.countSection > p {
+  margin: 0;
+  color: #515462;
+  font-size: 12px;
+}
+
+.positive {
+  color: #68be9e;
+}
+
+.negative {
+  color: #eb4545;
 }
 
 .lowerRegion {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  font-size: 12px;
 }
 
 .percentage {
@@ -28,11 +46,33 @@
 }
 
 .icon {
-  height: 2rem;
-  width: 2rem;
-  background-color: orange;
+  height: 2.5rem;
+  width: 2.5rem;
   color: white;
   border-radius: 100%;
   padding: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.firstColor {
+  background-color: #ef453e;
+}
+.secondColor {
+  background-color: #fa7213;
+}
+.thirdColor {
+  background-color: #f1449c;
+}
+.fourthColor {
+  background-color: #0aa9e2;
+}
+
+@media (max-width: 1024px) {
+  .infoBox {
+    width: 50%;
+  }
 }

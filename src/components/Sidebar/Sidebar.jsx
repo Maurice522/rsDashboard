@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Sidebar.module.css";
 import {
   BarChart,
@@ -10,18 +10,53 @@ import {
   Power,
   Upload,
   User,
+  XIcon,
 } from "lucide-react";
 import { logout } from "../../redux/slices/userSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import { notvisible, selectsidebar } from "../../redux/slices/sidebarSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState(null);
   const location = useLocation();
+  const sidebarVisible = useSelector(selectsidebar);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWindowDimensions = () => {
+      const newWidth = window.innerWidth;
+      setWidth(newWidth);
+    };
+
+    window.addEventListener("resize", updateWindowDimensions);
+
+    return () => window.removeEventListener("resize", updateWindowDimensions);
+  }, []);
+
+  useEffect(() => {
+    if (width > 1024 && sidebarVisible) {
+      dispatch(notvisible());
+    }
+  }, [width, sidebarVisible]);
 
   return (
-    <div className={styles.buttonContainer}>
+    <div
+      className={`${styles.buttonContainer} ${
+        sidebarVisible && styles.visible
+      }`}
+    >
+      {sidebarVisible && (
+        <button
+          className={styles.sidebarButton}
+          onClick={() => {
+            dispatch(notvisible());
+          }}
+        >
+          <XIcon />
+        </button>
+      )}
       <button
         onClick={() => {
           setActive("dashboard");
@@ -34,7 +69,7 @@ const Sidebar = () => {
         }`}
       >
         <LayoutDashboard />
-        Dashboard
+        <p>Dashboard</p>
       </button>
       <button
         onClick={() => {
@@ -49,7 +84,7 @@ const Sidebar = () => {
         }`}
       >
         <User />
-        User Management
+        <p>User Management</p>
       </button>
 
       <button
@@ -64,7 +99,7 @@ const Sidebar = () => {
         }`}
       >
         <PieChart />
-        Statistics
+        <p>Statistics</p>
       </button>
 
       <button
@@ -80,7 +115,7 @@ const Sidebar = () => {
         }`}
       >
         <LineChart />
-        Resume Usage Analytics
+        <p>Resume Usage Analytics</p>
       </button>
 
       <button
@@ -95,7 +130,7 @@ const Sidebar = () => {
         }`}
       >
         <BarChart />
-        Activity Logs
+        <p>Activity Logs</p>
       </button>
 
       <button
@@ -111,7 +146,7 @@ const Sidebar = () => {
         }`}
       >
         <Notebook />
-        Resume Repository
+        <p>Resume Repository</p>
       </button>
 
       <button
@@ -126,7 +161,7 @@ const Sidebar = () => {
         }`}
       >
         <Upload />
-        Upload User Emails
+        <p>Upload User Emails</p>
       </button>
 
       <button
@@ -134,7 +169,7 @@ const Sidebar = () => {
         className={`${styles.button} ${styles.logout}`}
       >
         <Power />
-        logout
+        <p>logout</p>
       </button>
     </div>
   );

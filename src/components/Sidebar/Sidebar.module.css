@@ -2,12 +2,12 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
   width: 20%;
   padding: 1rem;
   border-radius: 1rem;
   background-color: white;
-  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px; */
 }
 
 .button {
@@ -25,6 +25,11 @@
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
+  width: 100%;
+}
+
+.button > p {
+  margin: 0;
 }
 
 .button:hover {
@@ -40,4 +45,40 @@
 .logout:hover {
   background-color: #ff5733;
   color: white;
+}
+
+@media (max-width: 1024px) {
+  .buttonContainer {
+    display: none;
+  }
+}
+
+.visible {
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 50%;
+  z-index: 9999;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.sidebarButton {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .sidebarButton {
+    display: block;
+    background-color: white;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 0.3rem;
+    border: none;
+    cursor: pointer;
+  }
 }

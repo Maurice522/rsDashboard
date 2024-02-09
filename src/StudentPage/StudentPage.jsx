@@ -207,13 +207,9 @@ export default function StudentPage() {
       <div className={styles.mainContainer}>
         <Sidebar />
         <div className={styles.studentpage}>
-          <h2>Resume Gallery</h2>
-          <p>
-            "Welcome to your hub for organized resumes.Access, edit, or create
-            new resumes for tailored job application."
-          </p>
+          <h2>Student Resume Gallery</h2>
           <div>
-            <h4>Documents</h4>
+            <h4>Resumes</h4>
           </div>
           <hr />
           <div className={styles.resumes}>
@@ -228,10 +224,6 @@ export default function StudentPage() {
                     />
                     <h6 className="resumeTitle">{savedResume.title}</h6>
                   </div>
-                  {/* <p>
-                    <strong>Created At : </strong>
-                    {savedResume.description}
-                  </p> */}
                 </div>
               </div>
             ))}

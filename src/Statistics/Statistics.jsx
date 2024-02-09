@@ -281,9 +281,9 @@ const Statistics = () => {
                 </button>
               </div>
               <div className={styles.range}>
-                {labelsChartOne[0] +
+                {labelsChartTwo[0].split(", ")[0] +
                   " - " +
-                  labelsChartOne[labelsChartOne.length - 1]}
+                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
               </div>
               <LineChart
                 xTitle="Time"

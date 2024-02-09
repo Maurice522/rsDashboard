@@ -28,12 +28,12 @@ ChartJS.register(
 
 const barlabels = jobTitlesInfo.map((jobTitle) => jobTitle.jobTitle);
 const linelabels = uniqueActivityTypesAndCounts.map(
-  (uniqueActivity) => uniqueActivity.activityType
+  (uniqueActivity) => uniqueActivity.activity
 );
 const jobTitleCount = jobTitlesInfo.map((jobTitle) => jobTitle.count);
 
 const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
-  (uniqueActivity) => uniqueActivity.count
+  (uniqueActivity) => uniqueActivity.occurrences
 );
 
 const ResumeUsageAnalytics = () => {

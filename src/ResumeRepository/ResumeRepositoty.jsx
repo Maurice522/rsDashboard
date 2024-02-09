@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 
 const ResumeRepository = () => {
+  const [searchText, setSearchText] = useState("");
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
@@ -24,6 +25,18 @@ const ResumeRepository = () => {
     fetchData();
   }, []);
 
+  const filteredStudents = students.filter(
+    (student) =>
+      (student.name &&
+        student.name.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.degree &&
+        student.degree.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.batch &&
+        student.batch.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.id &&
+        student.id.toLowerCase().includes(searchText.toLowerCase()))
+  );
+
   return (
     <main>
       <Navbar />
@@ -31,8 +44,16 @@ const ResumeRepository = () => {
         <Sidebar />
         <div className={styles.container}>
           <h2>Students</h2>
+          <div className={styles.searchBox}>
+            <input
+              value={searchText}
+              type="text"
+              placeholder="Search for any student"
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
           <div className={styles.cardGrid}>
-            {students?.map((student) => (
+            {filteredStudents?.map((student) => (
               <StudentCard key={student.id} student={student} />
             ))}
           </div>

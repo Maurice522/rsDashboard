@@ -31,6 +31,7 @@ const linelabels = uniqueActivityTypesAndCounts.map(
   (uniqueActivity) => uniqueActivity.activityType
 );
 const jobTitleCount = jobTitlesInfo.map((jobTitle) => jobTitle.count);
+
 const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
   (uniqueActivity) => uniqueActivity.count
 );

@@ -1,4 +1,4 @@
-import { activities } from "../ActivityLogs/dummyactivities";
+import { activities } from "./dummyactivities";
 
 function getActivityTypeCounts(activities) {
   const activityTypeCounts = {};

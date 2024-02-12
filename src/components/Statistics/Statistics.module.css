@@ -1,17 +1,8 @@
-.statistics {
-  display: flex;
-  margin: auto;
-  width: 100%;
-  justify-content: space-around;
-}
-
 .chartsection {
-  width: 70%;
-  background-color: white;
+  width: 100%;
+  /* background-color: white; */
   padding: 1rem;
   border-radius: 0.3rem;
-  max-height: 600px;
-  overflow-y: scroll;
 }
 
 .chartDiv {
@@ -44,8 +35,6 @@
   width: 50%;
   justify-content: space-around;
   align-items: center;
-  /* position: sticky;
-  top: 4rem; */
   background-color: var(--main-color);
   border-radius: 0.5rem;
   padding: 0.5rem 0;

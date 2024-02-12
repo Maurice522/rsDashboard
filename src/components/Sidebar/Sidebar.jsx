@@ -90,7 +90,7 @@ const Sidebar = () => {
         <User />
         <p>User Management</p>
       </button>
-
+      {/* 
       <button
         onClick={() => {
           setActive("statistics");
@@ -104,7 +104,7 @@ const Sidebar = () => {
       >
         <PieChart />
         <p>Statistics</p>
-      </button>
+      </button> */}
 
       <button
         onClick={() => {

@@ -10,6 +10,7 @@ import {
   totalResumesArray,
   totalUsersArray,
 } from "./helper";
+import Statistics from "../components/Statistics/Statistics";
 
 const Dashboard = () => {
   const setSeed = (seed) => {
@@ -133,6 +134,7 @@ const Dashboard = () => {
               />
             </div>
           </div>
+          <Statistics />
         </div>
       </div>
     </main>

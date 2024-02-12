@@ -13,7 +13,7 @@ import ResumeRepository from "./ResumeRepository/ResumeRepositoty";
 import StudentPage from "./StudentPage/StudentPage";
 import CreateLiveContinue from "./createLive";
 import ResumeUsageAnalytics from "./ResumeUsageAnalytics/ResumeUsageAnalytics";
-import Statistics from "./Statistics/Statistics";
+import Statistics from "./components/Statistics/Statistics";
 
 const RoutesComponent = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const RoutesComponent = () => {
           <Route path="/activity-logs" element={<AcitvityLogs />} />
           <Route path="/resume-repository" element={<ResumeRepository />} />
           <Route path="/resume-analytics" element={<ResumeUsageAnalytics />} />
-          <Route path="/statistics" element={<Statistics />} />
+          {/* <Route path="/statistics" element={<Statistics />} /> */}
           <Route path="/student/:emailId" element={<StudentPage />} />
           <Route
             path="createcontinue/:emailId/:idx"

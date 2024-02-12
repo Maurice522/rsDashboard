@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Navbar from "../Navbar/Navbar";
+import Sidebar from "../Sidebar/Sidebar";
 import {
   last31DaysResumeData,
   last31DaysStudentsData,
-} from "../UserManagment/last31DaysData";
+} from "../../UserManagment/last31DaysData";
 import {
   last24HoursResumeData,
   last24HoursStudentsData,
-} from "../UserManagment/last24HrsData";
+} from "../../UserManagment/last24HrsData";
 import styles from "./Statistics.module.css";
-import LineChart from "../components/LineChart/LineChart";
+import LineChart from "../LineChart/LineChart";
 import { last7DaysResumeData, last7DaysStudentsData } from "./last7DaysData";
 
 const Statistics = () => {
@@ -239,135 +239,128 @@ const Statistics = () => {
   }, [timeFilterChartOne, timeFilterChartTwo, selectedJob]);
 
   return (
-    <main>
-      <Navbar />
-      <div className={styles.statistics}>
-        <Sidebar />
-        <div className={styles.chartsection}>
-          <h3>Statistics</h3>
-          <div className={styles.chartDiv}>
-            <div className={styles.chart}>
-              <h3>Registered Students</h3>
-              <div className={styles.timeFilter}>
-                <button
-                  className={`${styles.button} ${
-                    activeOneOne ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartOne("last24Hours");
-                  }}
-                >
-                  Last 24 Hrs
-                </button>
-                <button
-                  className={`${styles.button} ${
-                    activeOneTwo ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartOne("last7Days");
-                  }}
-                >
-                  Last Week
-                </button>
-                <button
-                  className={`${styles.button} ${
-                    activeOneThree ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartOne("last31Days");
-                  }}
-                >
-                  Last Month
-                </button>
-              </div>
-              <div className={styles.range}>
-                {labelsChartTwo[0].split(", ")[0] +
-                  " - " +
-                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
-              </div>
-              <LineChart
-                xTitle="Time"
-                yTitle="Number of Students"
-                title="Students Registered"
-                labels={labelsChartOne}
-                count={countChartOne}
-              />
-            </div>
-            <div className={styles.chart}>
-              <h3>Resumes Created</h3>
-              <div className={styles.timeFilter}>
-                <button
-                  className={`${styles.button} ${
-                    activeTwoOne ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartTwo("last24Hours");
-                  }}
-                >
-                  Last 24 Hrs
-                </button>
-                <button
-                  className={`${styles.button} ${
-                    activeTwoTwo ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartTwo("last7Days");
-                  }}
-                >
-                  Last Week
-                </button>
-                <button
-                  className={`${styles.button} ${
-                    activeTwoThree ? styles.active : ""
-                  }`}
-                  onClick={() => {
-                    setTimeFilterChartTwo("last31Days");
-                  }}
-                >
-                  Last Month
-                </button>
-              </div>
-              <div className={styles.range}>
-                {labelsChartTwo[0].split(", ")[0] +
-                  " - " +
-                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
-              </div>
-              <LineChart
-                xTitle="Time"
-                yTitle="Number of Resumes"
-                title="Resumes Created"
-                labels={labelsChartTwo}
-                count={countChartTwo}
-              />
-            </div>
-            <div className={styles.chart}>
-              <h3>Resumes with respective Job Titles</h3>
-              <select
-                onChange={(e) => setSelectedJob(e.target.value)}
-                value={selectedJob}
-              >
-                <option value="">Select</option>
-                {uniqueJobTitles.map((jobTitle) => (
-                  <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
-                ))}
-              </select>
-              <div className={styles.range}>
-                {labelsChartTwo[0].split(", ")[0] +
-                  " - " +
-                  labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
-              </div>
-              <LineChart
-                xTitle="Time"
-                yTitle="Number of Students"
-                title="Students Registered"
-                labels={last31DaysResumeLabels}
-                count={countChartThree}
-              />
-            </div>
+    <div className={styles.chartsection}>
+      <div className={styles.chartDiv}>
+        <div className={styles.chart}>
+          <h3>Registered Students</h3>
+          <div className={styles.timeFilter}>
+            <button
+              className={`${styles.button} ${
+                activeOneOne ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartOne("last24Hours");
+              }}
+            >
+              Last 24 Hrs
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeOneTwo ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartOne("last7Days");
+              }}
+            >
+              Last Week
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeOneThree ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartOne("last31Days");
+              }}
+            >
+              Last Month
+            </button>
           </div>
+          <div className={styles.range}>
+            {labelsChartTwo[0].split(", ")[0] +
+              " - " +
+              labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+          </div>
+          <LineChart
+            xTitle="Time"
+            yTitle="Number of Students"
+            title="Students Registered"
+            labels={labelsChartOne}
+            count={countChartOne}
+          />
+        </div>
+        <div className={styles.chart}>
+          <h3>Resumes Created</h3>
+          <div className={styles.timeFilter}>
+            <button
+              className={`${styles.button} ${
+                activeTwoOne ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartTwo("last24Hours");
+              }}
+            >
+              Last 24 Hrs
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeTwoTwo ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartTwo("last7Days");
+              }}
+            >
+              Last Week
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeTwoThree ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartTwo("last31Days");
+              }}
+            >
+              Last Month
+            </button>
+          </div>
+          <div className={styles.range}>
+            {labelsChartTwo[0].split(", ")[0] +
+              " - " +
+              labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+          </div>
+          <LineChart
+            xTitle="Time"
+            yTitle="Number of Resumes"
+            title="Resumes Created"
+            labels={labelsChartTwo}
+            count={countChartTwo}
+          />
+        </div>
+        <div className={styles.chart}>
+          <h3>Resumes with respective Job Titles</h3>
+          <select
+            onChange={(e) => setSelectedJob(e.target.value)}
+            value={selectedJob}
+          >
+            <option value="">Select</option>
+            {uniqueJobTitles.map((jobTitle) => (
+              <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
+            ))}
+          </select>
+          <div className={styles.range}>
+            {labelsChartTwo[0].split(", ")[0] +
+              " - " +
+              labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+          </div>
+          <LineChart
+            xTitle="Time"
+            yTitle="Number of Students"
+            title="Students Registered"
+            labels={last31DaysResumeLabels}
+            count={countChartThree}
+          />
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

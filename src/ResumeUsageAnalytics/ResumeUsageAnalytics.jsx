@@ -10,10 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { uniqueActivityTypesAndCounts } from "./ActivityData";
 import BarChart from "../components/BarChart/BarChart";
-import LineChart from "../components/LineChart/LineChart";
-import DynamicTableComponent from "../components/Table/DynamicTable";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 
@@ -26,37 +23,10 @@ ChartJS.register(
   Legend
 );
 
-const barlabels = jobTitlesInfo.map((jobTitle) => jobTitle.jobTitle);
-const linelabels = uniqueActivityTypesAndCounts.map(
-  (uniqueActivity) => uniqueActivity.activity
-);
 const jobTitleCount = jobTitlesInfo.map((jobTitle) => jobTitle.count);
-
-const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
-  (uniqueActivity) => uniqueActivity.occurrences
-);
+const barlabels = jobTitlesInfo.map((jobTitle) => jobTitle.jobTitle);
 
 const ResumeUsageAnalytics = () => {
-  const [timeFilter, setTimeFilter] = useState();
-  const [activeOne, setActiveOne] = useState(false);
-  const [activeTwo, setActiveTwo] = useState(false);
-  const [activeThree, setActiveThree] = useState(true);
-
-  useEffect(() => {
-    if (timeFilter === "24hours") {
-      setActiveOne(true);
-      setActiveTwo(false);
-      setActiveThree(false);
-    } else if (timeFilter === "lastweek") {
-      setActiveOne(false);
-      setActiveTwo(true);
-      setActiveThree(false);
-    } else if (timeFilter === "lastmonth") {
-      setActiveOne(false);
-      setActiveTwo(false);
-      setActiveThree(true);
-    }
-  }, [timeFilter]);
   return (
     <main>
       <Navbar />
@@ -72,48 +42,6 @@ const ResumeUsageAnalytics = () => {
               labels={barlabels}
               count={jobTitleCount}
             />
-          </div>
-          <div className={styles.middleContainer}>
-            <h3>Activities</h3>
-            <div className={styles.activityData}>
-              <div className={styles.chart}>
-                <div className={styles.buttonContainer}>
-                  <button
-                    className={`${styles.button} ${activeOne && styles.active}`}
-                    onClick={() => setTimeFilter("24hours")}
-                  >
-                    24 hours
-                  </button>
-                  <button
-                    className={`${styles.button} ${activeTwo && styles.active}`}
-                    onClick={() => setTimeFilter("lastweek")}
-                  >
-                    Last Week
-                  </button>
-                  <button
-                    className={`${styles.button} ${
-                      activeThree && styles.active
-                    }`}
-                    onClick={() => setTimeFilter("lastmonth")}
-                  >
-                    Last Month
-                  </button>
-                </div>
-                <LineChart
-                  xTitle="Activities"
-                  yTitle="Number of Students"
-                  labels={linelabels}
-                  count={uniqueActivityCount}
-                />
-              </div>
-              <div className={styles.bottomContainer}>
-                <DynamicTableComponent
-                  data={uniqueActivityTypesAndCounts.sort(
-                    (a, b) => b.occurrences - a.occurrences
-                  )}
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>

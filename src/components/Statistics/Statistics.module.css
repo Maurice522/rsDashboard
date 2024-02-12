@@ -6,8 +6,9 @@
 }
 
 .chartDiv {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
   width: 100%;
   margin: auto;
   gap: 2rem;
@@ -32,7 +33,7 @@
 .timeFilter {
   margin: 0 auto;
   display: flex;
-  width: 50%;
+  width: 100%;
   justify-content: space-around;
   align-items: center;
   background-color: var(--main-color);

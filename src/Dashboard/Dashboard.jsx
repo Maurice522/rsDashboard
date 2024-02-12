@@ -4,6 +4,12 @@ import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Infographic from "../components/Infographic/Infographic";
 import LineChart from "../components/LineChart/LineChart";
+import {
+  calculateIncreaseInLastWeek,
+  totalActivitiesArray,
+  totalResumesArray,
+  totalUsersArray,
+} from "./helper";
 
 const Dashboard = () => {
   const setSeed = (seed) => {
@@ -50,6 +56,21 @@ const Dashboard = () => {
     "09 Feb",
   ];
 
+  const {
+    percentageChange: totalStudentsPercentageChange,
+    changeStatus: totalStudentsChangeStatus,
+  } = calculateIncreaseInLastWeek(totalUsersArray);
+
+  const {
+    percentageChange: totalResumesPercentageChange,
+    changeStatus: totalResumesChangeStatus,
+  } = calculateIncreaseInLastWeek(totalResumesArray);
+
+  const {
+    percentageChange: totalActivitiesPercentageChange,
+    changeStatus: totalActivitiesChangeStatus,
+  } = calculateIncreaseInLastWeek(totalActivitiesArray);
+
   return (
     <main>
       <Navbar />
@@ -60,9 +81,9 @@ const Dashboard = () => {
             <Infographic
               title="Total Students"
               type="1"
-              count="200"
-              percentage="1.2"
-              positive
+              count={totalUsersArray.length}
+              percentage={totalStudentsPercentageChange}
+              positive={totalStudentsChangeStatus === "Increase" ? true : false}
             />
             <Infographic
               title="New Students"
@@ -74,14 +95,18 @@ const Dashboard = () => {
             <Infographic
               title="Resumes Created"
               type="3"
-              count="200"
-              percentage="1.2"
+              count={totalResumesArray.length}
+              percentage={totalResumesPercentageChange}
+              positive={totalResumesChangeStatus === "Increase" ? true : false}
             />
             <Infographic
               title="Active Students"
               type="4"
-              count="200"
-              percentage="1.2"
+              count={totalActivitiesArray.length}
+              percentage={totalActivitiesPercentageChange}
+              positive={
+                totalActivitiesChangeStatus === "Increase" ? true : false
+              }
             />
           </div>
           <div className={styles.charts}>

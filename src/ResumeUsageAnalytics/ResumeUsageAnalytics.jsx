@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ResumeUsageAnalytics.module.css";
 import { jobTitlesInfo } from "./ResumeData";
 import {
@@ -38,6 +38,25 @@ const uniqueActivityCount = uniqueActivityTypesAndCounts.map(
 
 const ResumeUsageAnalytics = () => {
   const [timeFilter, setTimeFilter] = useState();
+  const [activeOne, setActiveOne] = useState(false);
+  const [activeTwo, setActiveTwo] = useState(false);
+  const [activeThree, setActiveThree] = useState(true);
+
+  useEffect(() => {
+    if (timeFilter === "24hours") {
+      setActiveOne(true);
+      setActiveTwo(false);
+      setActiveThree(false);
+    } else if (timeFilter === "lastweek") {
+      setActiveOne(false);
+      setActiveTwo(true);
+      setActiveThree(false);
+    } else if (timeFilter === "lastmonth") {
+      setActiveOne(false);
+      setActiveTwo(false);
+      setActiveThree(true);
+    }
+  }, [timeFilter]);
   return (
     <main>
       <Navbar />
@@ -60,19 +79,21 @@ const ResumeUsageAnalytics = () => {
               <div className={styles.chart}>
                 <div className={styles.buttonContainer}>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${activeOne && styles.active}`}
                     onClick={() => setTimeFilter("24hours")}
                   >
                     24 hours
                   </button>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${activeTwo && styles.active}`}
                     onClick={() => setTimeFilter("lastweek")}
                   >
                     Last Week
                   </button>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${
+                      activeThree && styles.active
+                    }`}
                     onClick={() => setTimeFilter("lastmonth")}
                   >
                     Last Month
@@ -88,7 +109,7 @@ const ResumeUsageAnalytics = () => {
               <div className={styles.bottomContainer}>
                 <DynamicTableComponent
                   data={uniqueActivityTypesAndCounts.sort(
-                    (a, b) => b.count - a.count
+                    (a, b) => b.occurrences - a.occurrences
                   )}
                 />
               </div>

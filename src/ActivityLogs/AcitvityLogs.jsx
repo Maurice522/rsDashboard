@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DynamicTableComponent from "../components/Table/DynamicTable";
-import { activities, convertedArrayOfActivities } from "./dummyactivities";
 import styles from "./ActivityLogs.module.css";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import LineChart from "../components/LineChart/LineChart";
-import { uniqueActivityTypesAndCounts } from "./ActivityData";
+import { uniqueActivityTypesAndCounts } from "../dummyData/ActivityData";
+import { convertedArrayOfActivities } from "../dummyData/dummyactivities";
 
 const AcitvityLogs = () => {
   const [timeFilter, setTimeFilter] = useState();

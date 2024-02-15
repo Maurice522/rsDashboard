@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import styles from "./UserManagementTable.module.css"; // Import CSS module
 import { convertedArrayofStudents } from "../../UserManagment/last31DaysData";
-import { DeleteIcon, Edit, XIcon } from "lucide-react";
+import { DeleteIcon, Edit, View, XIcon } from "lucide-react";
+import DynamicTableComponent from "../Table/DynamicTable";
 
 const UserManagementTable = () => {
   const [data, setData] = useState(convertedArrayofStudents);
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editedRow, setEditedRow] = useState(null);
+  const [viewedRow, setViewedRow] = useState(null);
 
+  const openViewModal = (row) => {
+    setViewedRow(row);
+    setViewModalOpen(true);
+  };
   const openEditModal = (row) => {
     setEditedRow(row);
-    setModalOpen(true);
+    setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setEditedRow(null);
-    setModalOpen(false);
+    setEditModalOpen(false);
+  };
+  const closeViewModal = () => {
+    setViewedRow(null);
+    setViewModalOpen(false);
   };
 
   const handleDelete = (row) => {
@@ -79,6 +90,12 @@ const UserManagementTable = () => {
                 <td className={styles.tableButtons}>
                   <button
                     className={styles.button}
+                    onClick={() => openViewModal(row)}
+                  >
+                    <View />
+                  </button>
+                  <button
+                    className={styles.button}
                     onClick={() => openEditModal(row)}
                   >
                     <Edit />
@@ -98,7 +115,7 @@ const UserManagementTable = () => {
         <p>no results found!</p>
       )}
 
-      {modalOpen && (
+      {editModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <span className={styles.close} onClick={closeEditModal}>
@@ -153,6 +170,31 @@ const UserManagementTable = () => {
                 Save Changes
               </button>
             </form>
+          </div>
+        </div>
+      )}
+      {viewModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <span className={styles.close} onClick={closeViewModal}>
+              <XIcon />
+            </span>
+            <h2>Student Data</h2>
+            <p>
+              <b>Name:</b> {viewedRow?.name}
+            </p>
+            <p>
+              <b>Batch:</b> {viewedRow?.batch}
+            </p>
+            <p>
+              <b>Degree:</b> {viewedRow?.degree}
+            </p>
+            <p>
+              <b>Email:</b> {viewedRow?.email}
+            </p>
+            <p>
+              <b>Created:</b> On {viewedRow?.date} at {viewedRow?.time}
+            </p>
           </div>
         </div>
       )}

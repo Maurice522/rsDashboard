@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import Sidebar from "../Sidebar/Sidebar";
 import {
   last31DaysResumeData,
   last31DaysStudentsData,
-} from "../../UserManagment/last31DaysData";
+} from "../../dummyData/last31DaysData";
 import {
   last24HoursResumeData,
   last24HoursStudentsData,
-} from "../../UserManagment/last24HrsData";
+} from "../../dummyData/last24HrsData";
 import styles from "./Statistics.module.css";
 import LineChart from "../LineChart/LineChart";
-import { last7DaysResumeData, last7DaysStudentsData } from "./last7DaysData";
+import {
+  last7DaysResumeData,
+  last7DaysStudentsData,
+} from "../../dummyData/last7DaysData";
 
 const Statistics = () => {
   function getUsersCountByHour(dataArray) {
@@ -161,6 +162,8 @@ const Statistics = () => {
 
   const [timeFilterChartOne, setTimeFilterChartOne] = useState("last31Days");
   const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last31Days");
+  const [timeFilterChartThree, setTimeFilterChartThree] =
+    useState("last31Days");
 
   const [activeOneOne, setActiveOneOne] = useState(false);
   const [activeOneTwo, setActiveOneTwo] = useState(false);
@@ -168,21 +171,39 @@ const Statistics = () => {
   const [activeTwoOne, setActiveTwoOne] = useState(false);
   const [activeTwoTwo, setActiveTwoTwo] = useState(false);
   const [activeTwoThree, setActiveTwoThree] = useState(false);
+  const [activeThreeOne, setActiveThreeOne] = useState(false);
+  const [activeThreeTwo, setActiveThreeTwo] = useState(false);
+  const [activeThreeThree, setActiveThreeThree] = useState(false);
 
   const [labelsChartOne, setLabelsChartOne] = useState(
     last31DaysStudentsLabels
   );
   const [labelsChartTwo, setLabelsChartTwo] = useState(last31DaysResumeLabels);
+  const [labelsChartThree, setLabelsChartThree] = useState(
+    last31DaysResumeLabels
+  );
 
   const [countChartOne, setCountChartOne] = useState(last31DaysStudents);
   const [countChartTwo, setCountChartTwo] = useState(last31DaysResumes);
   const [countChartThree, setCountChartThree] = useState(last31DaysResumes);
 
   const [selectedJob, setSelectedJob] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("");
+  const [selectedDegree, setSelectedDegree] = useState("");
 
   const jobTitles = last31DaysResumeData.map((resume) => resume.jobTitle);
   const uniqueJobTitles = jobTitles.filter(
     (item, index) => jobTitles.indexOf(item) === index
+  );
+
+  const degrees = last31DaysResumeData.map((resume) => resume.degree);
+  const uniqueDegrees = degrees.filter(
+    (item, index) => degrees.indexOf(item) === index
+  );
+
+  const batches = last31DaysResumeData.map((resume) => resume.batch);
+  const uniqueBatches = batches.filter(
+    (item, index) => batches.indexOf(item) === index
   );
 
   useEffect(() => {
@@ -226,6 +247,26 @@ const Statistics = () => {
       setCountChartTwo(last7DaysResumes);
     }
 
+    if (timeFilterChartThree === "last24Hours") {
+      setActiveThreeOne(true);
+      setActiveThreeTwo(false);
+      setActiveThreeThree(false);
+      setLabelsChartThree(last24HoursResumeLabels);
+      setCountChartThree(last24HoursResumes);
+    } else if (timeFilterChartThree === "last31Days") {
+      setActiveThreeOne(false);
+      setActiveThreeTwo(false);
+      setActiveThreeThree(true);
+      setLabelsChartThree(last31DaysResumeLabels);
+      setCountChartThree(last31DaysResumes);
+    } else if (timeFilterChartThree === "last7Days") {
+      setActiveThreeOne(false);
+      setActiveThreeTwo(true);
+      setActiveThreeThree(false);
+      setLabelsChartThree(last7DaysResumesLabels);
+      setCountChartThree(last7DaysResumes);
+    }
+
     if (selectedJob) {
       const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
         (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
@@ -236,7 +277,12 @@ const Statistics = () => {
         )
       );
     }
-  }, [timeFilterChartOne, timeFilterChartTwo, selectedJob]);
+  }, [
+    timeFilterChartOne,
+    timeFilterChartTwo,
+    timeFilterChartThree,
+    selectedJob,
+  ]);
 
   return (
     <div className={styles.chartsection}>
@@ -288,7 +334,7 @@ const Statistics = () => {
             count={countChartOne}
           />
         </div>
-        <div className={styles.chart}>
+        {/* <div className={styles.chart}>
           <h3>Resumes Created</h3>
           <div className={styles.timeFilter}>
             <button
@@ -334,18 +380,76 @@ const Statistics = () => {
             labels={labelsChartTwo}
             count={countChartTwo}
           />
-        </div>
+        </div> */}
         <div className={styles.chart}>
-          <h3>Resumes with respective Job Titles</h3>
-          <select
-            onChange={(e) => setSelectedJob(e.target.value)}
-            value={selectedJob}
-          >
-            <option value="">Select</option>
-            {uniqueJobTitles.map((jobTitle) => (
-              <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
-            ))}
-          </select>
+          <h3>Resumes Created</h3>
+          <div className={styles.filters}>
+            <label for="jobTitle">Job Title:</label>
+            <select
+              id="jobTitle"
+              onChange={(e) => setSelectedJob(e.target.value)}
+              value={selectedJob}
+            >
+              <option value="">Select</option>
+              {uniqueJobTitles.map((jobTitle) => (
+                <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
+              ))}
+            </select>
+            <label for="batch">Batch:</label>
+            <select
+              id="batch"
+              onChange={(e) => setSelectedBatch(e.target.value)}
+              value={selectedBatch}
+            >
+              <option value="">Select</option>
+              {uniqueBatches.map((batch) => (
+                <option value={batch}>{batch}</option>
+              ))}
+            </select>
+            <label for="degree">Degree:</label>
+            <select
+              id="degree"
+              onChange={(e) => setSelectedDegree(e.target.value)}
+              value={selectedDegree}
+            >
+              <option value="">Select</option>
+              {uniqueDegrees.map((degree) => (
+                <option value={degree.toLowerCase()}>{degree}</option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.timeFilter}>
+            <button
+              className={`${styles.button} ${
+                activeThreeOne ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartThree("last24Hours");
+              }}
+            >
+              Last 24 Hrs
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeThreeTwo ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartThree("last7Days");
+              }}
+            >
+              Last Week
+            </button>
+            <button
+              className={`${styles.button} ${
+                activeThreeThree ? styles.active : ""
+              }`}
+              onClick={() => {
+                setTimeFilterChartThree("last31Days");
+              }}
+            >
+              Last Month
+            </button>
+          </div>
           <div className={styles.range}>
             {labelsChartTwo[0].split(", ")[0] +
               " - " +
@@ -355,7 +459,7 @@ const Statistics = () => {
             xTitle="Time"
             yTitle="Number of Students"
             title="Students Registered"
-            labels={last31DaysResumeLabels}
+            labels={labelsChartThree}
             count={countChartThree}
           />
         </div>

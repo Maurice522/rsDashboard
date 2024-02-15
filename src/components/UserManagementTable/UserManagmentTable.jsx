@@ -30,47 +30,74 @@ const UserManagementTable = () => {
     closeEditModal();
   };
 
+  const [searchText, setSearchText] = useState("");
+
+  const filteredStudents = data.filter(
+    (student) =>
+      (student.name &&
+        student.name.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.degree &&
+        student.degree.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.batch &&
+        student.batch.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.id &&
+        student.id.toLowerCase().includes(searchText.toLowerCase()))
+  );
+
   return (
     <div className={styles.tableSection}>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Batch</th>
-            <th>Degree</th>
-            <th>Email</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-            <tr key={index}>
-              <td>{row.name}</td>
-              <td>{row.batch}</td>
-              <td>{row.degree}</td>
-              <td>{row.email}</td>
-              <td>{row.date}</td>
-              <td>{row.time}</td>
-              <td className={styles.tableButtons}>
-                <button
-                  className={styles.button}
-                  onClick={() => openEditModal(row)}
-                >
-                  <Edit />
-                </button>
-                <button
-                  className={styles.button}
-                  onClick={() => handleDelete(row)}
-                >
-                  <DeleteIcon />
-                </button>
-              </td>
+      <div className={styles.searchBox}>
+        <input
+          value={searchText}
+          type="text"
+          placeholder="Search for any student"
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
+      {filteredStudents.length > 0 ? (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Batch</th>
+              <th>Degree</th>
+              <th>Email</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredStudents.map((row, index) => (
+              <tr key={index}>
+                <td>{row.name}</td>
+                <td>{row.batch}</td>
+                <td>{row.degree}</td>
+                <td>{row.email}</td>
+                <td>{row.date}</td>
+                <td>{row.time}</td>
+                <td className={styles.tableButtons}>
+                  <button
+                    className={styles.button}
+                    onClick={() => openEditModal(row)}
+                  >
+                    <Edit />
+                  </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleDelete(row)}
+                  >
+                    <DeleteIcon />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>no results found!</p>
+      )}
+
       {modalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>

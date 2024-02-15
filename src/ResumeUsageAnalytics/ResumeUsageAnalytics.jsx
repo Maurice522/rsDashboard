@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ResumeUsageAnalytics.module.css";
-import { jobTitlesInfo } from "./ResumeData";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +12,7 @@ import {
 import BarChart from "../components/BarChart/BarChart";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
+import { jobTitlesInfo } from "../dummyData/ResumeData";
 
 ChartJS.register(
   CategoryScale,

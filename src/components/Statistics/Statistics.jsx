@@ -384,39 +384,45 @@ const Statistics = () => {
         <div className={styles.chart}>
           <h3>Resumes Created</h3>
           <div className={styles.filters}>
-            <label for="jobTitle">Job Title:</label>
-            <select
-              id="jobTitle"
-              onChange={(e) => setSelectedJob(e.target.value)}
-              value={selectedJob}
-            >
-              <option value="">Select</option>
-              {uniqueJobTitles.map((jobTitle) => (
-                <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
-              ))}
-            </select>
-            <label for="batch">Batch:</label>
-            <select
-              id="batch"
-              onChange={(e) => setSelectedBatch(e.target.value)}
-              value={selectedBatch}
-            >
-              <option value="">Select</option>
-              {uniqueBatches.map((batch) => (
-                <option value={batch}>{batch}</option>
-              ))}
-            </select>
-            <label for="degree">Degree:</label>
-            <select
-              id="degree"
-              onChange={(e) => setSelectedDegree(e.target.value)}
-              value={selectedDegree}
-            >
-              <option value="">Select</option>
-              {uniqueDegrees.map((degree) => (
-                <option value={degree.toLowerCase()}>{degree}</option>
-              ))}
-            </select>
+            <div className={styles.filter}>
+              <label for="jobTitle">Job Title:</label>
+              <select
+                id="jobTitle"
+                onChange={(e) => setSelectedJob(e.target.value)}
+                value={selectedJob}
+              >
+                <option value="">Select</option>
+                {uniqueJobTitles.map((jobTitle) => (
+                  <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.filter}>
+              <label for="batch">Batch:</label>
+              <select
+                id="batch"
+                onChange={(e) => setSelectedBatch(e.target.value)}
+                value={selectedBatch}
+              >
+                <option value="">Select</option>
+                {uniqueBatches.map((batch) => (
+                  <option value={batch}>{batch}</option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.filter}>
+              <label for="degree">Degree:</label>
+              <select
+                id="degree"
+                onChange={(e) => setSelectedDegree(e.target.value)}
+                value={selectedDegree}
+              >
+                <option value="">Select</option>
+                {uniqueDegrees.map((degree) => (
+                  <option value={degree.toLowerCase()}>{degree}</option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className={styles.timeFilter}>
             <button

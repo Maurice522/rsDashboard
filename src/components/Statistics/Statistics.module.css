@@ -50,10 +50,17 @@
   background-color: var(--main-color);
   border-radius: 0.5rem;
   padding: 0.5rem 0;
+  font-size: 14px;
 }
 
-.filters > select {
-  width: 12rem;
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filters > .filter > select {
+  width: 8rem;
   background-color: white;
   border: thin solid blue;
   border-radius: 4px;
@@ -100,4 +107,13 @@
   color: white;
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff,
     0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    width: 50%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 }

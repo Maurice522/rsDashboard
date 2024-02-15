@@ -111,7 +111,7 @@ const Dashboard = () => {
             />
           </div>
           <div className={styles.charts}>
-            <div className={styles.chart}>
+            {/* <div className={styles.chart}>
               <p>
                 <b>Total Registred Students</b>
               </p>
@@ -121,8 +121,8 @@ const Dashboard = () => {
                 count={totalStudentCount}
                 title="Total Registered Students"
               />
-            </div>
-            <div className={styles.chart}>
+            </div> */}
+            {/* <div className={styles.chart}>
               <p>
                 <b>Total Active Users</b>
               </p>
@@ -132,7 +132,7 @@ const Dashboard = () => {
                 count={totalActiveCount}
                 title="Total Active Users"
               />
-            </div>
+            </div> */}
           </div>
           <Statistics />
         </div>

@@ -1,10 +1,3 @@
-import { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
-import {
-  convertedArrayofStudents,
-  last31DaysResumeData,
-  last31DaysStudentsData,
-} from "./last31DaysData";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,12 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import {
-  last24HoursResumeData,
-  last24HoursStudentsData,
-} from "./last24HrsData";
+
 import styles from "./UserManagement.module.css";
-import DynamicTableComponent from "../components/Table/DynamicTable";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import UserManagementTable from "../components/UserManagementTable/UserManagmentTable";
@@ -51,3 +40,8 @@ export default function UserManagement() {
     </main>
   );
 }
+
+//add view button
+//modal view
+//no of resumes created by the student
+//redirect bgutton to the student's resume repo

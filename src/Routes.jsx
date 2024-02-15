@@ -45,7 +45,7 @@ const RoutesComponent = () => {
           <Route path="/user-management" element={<UserManagementPage />} />
           <Route path="/activity-logs" element={<AcitvityLogs />} />
           <Route path="/resume-repository" element={<ResumeRepository />} />
-          <Route path="/resume-analytics" element={<ResumeUsageAnalytics />} />
+          {/* <Route path="/resume-analytics" element={<ResumeUsageAnalytics />} /> */}
           {/* <Route path="/statistics" element={<Statistics />} /> */}
           <Route path="/student/:emailId" element={<StudentPage />} />
           <Route

@@ -35,10 +35,10 @@ const UserManagementTable = () => {
       <table className={styles.table}>
         <thead>
           <tr>
+            <th>Name</th>
             <th>Batch</th>
             <th>Degree</th>
             <th>Email</th>
-            <th>Name</th>
             <th>Date</th>
             <th>Time</th>
             <th>Actions</th>
@@ -47,10 +47,10 @@ const UserManagementTable = () => {
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
+              <td>{row.name}</td>
               <td>{row.batch}</td>
               <td>{row.degree}</td>
               <td>{row.email}</td>
-              <td>{row.name}</td>
               <td>{row.date}</td>
               <td>{row.time}</td>
               <td className={styles.tableButtons}>

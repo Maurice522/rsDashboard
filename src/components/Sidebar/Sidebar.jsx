@@ -106,7 +106,7 @@ const Sidebar = () => {
         <p>Statistics</p>
       </button> */}
 
-      <button
+      {/* <button
         onClick={() => {
           setActive("resume-analytics");
           navigate("/resume-analytics");
@@ -120,7 +120,7 @@ const Sidebar = () => {
       >
         <LineChart />
         <p>Resume Usage Analytics</p>
-      </button>
+      </button> */}
 
       <button
         onClick={() => {

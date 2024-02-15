@@ -1,4 +1,4 @@
-import { last31DaysResumeData } from "../UserManagment/last31DaysData";
+import { last31DaysResumeData } from "./last31DaysData";
 
 export function extractUniqueJobTitles(data) {
   const uniqueJobTitles = [];

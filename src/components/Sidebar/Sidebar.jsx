@@ -61,6 +61,7 @@ const Sidebar = () => {
           <XIcon />
         </button>
       )}
+
       <button
         onClick={() => {
           setActive("dashboard");

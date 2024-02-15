@@ -42,6 +42,10 @@
   color: white;
 }
 
+.logout {
+  color: red;
+}
+
 .logout:hover {
   background-color: #ff5733;
   color: white;
@@ -80,5 +84,16 @@
     border-radius: 0.3rem;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media (min-width: 1024px) {
+  .buttonContainer {
+    position: relative;
+  }
+  .logout {
+    position: absolute;
+    bottom: 1rem;
+    width: 90%;
   }
 }

@@ -3,6 +3,7 @@ import styles from "./UserManagementTable.module.css"; // Import CSS module
 import { convertedArrayofStudents } from "../../UserManagment/last31DaysData";
 import { DeleteIcon, Edit, View, XIcon } from "lucide-react";
 import DynamicTableComponent from "../Table/DynamicTable";
+import { Link } from "react-router-dom";
 
 const UserManagementTable = () => {
   const [data, setData] = useState(convertedArrayofStudents);
@@ -195,6 +196,7 @@ const UserManagementTable = () => {
             <p>
               <b>Created:</b> On {viewedRow?.date} at {viewedRow?.time}
             </p>
+            <Link to={`/student/${viewedRow?.email}`}>Open stduent's page</Link>
           </div>
         </div>
       )}

@@ -154,6 +154,34 @@ export const addUserResume = async (email, data) => {
   }
 };
 
+export default async function logActivity(
+  activityType,
+  resumeId,
+  activityId,
+  description,
+  userId
+) {
+  try {
+    const logActivityRef = doc(db, "meta", "activityLog");
+
+    await updateDoc(logActivityRef, {
+      activities: arrayUnion({
+        timestamp: new Date(),
+        activityType,
+        resumeId,
+        activityId,
+        description,
+        userId,
+      }),
+    });
+
+    console.log("Activity logged successfully.");
+  } catch (error) {
+    console.error("Error logging activity:", error);
+  }
+}
+
+
 export const updateUserResumes = async (email, data) => {
   try {
     console.log(data, email);

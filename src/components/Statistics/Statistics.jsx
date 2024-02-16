@@ -16,7 +16,6 @@ import {
 
 const Statistics = () => {
   function getUsersCountByHour(dataArray) {
-    console.log(dataArray);
     const currentTimestamp = new Date();
     const hourInMillis = 60 * 60 * 1000;
     const userCountsByHour = Array(24).fill(0);
@@ -112,53 +111,53 @@ const Statistics = () => {
     return result;
   }
 
-  const last7DaysStudentsLabels = getUsersCountByWeek(
-    last7DaysStudentsData
-  ).map((day) => day.date);
+  const last7DaysStudentsLabels = getUsersCountByWeek(last7DaysStudentsData)
+    .map((day) => day.date.substring(0, day.date.length - 4))
+    .reverse();
 
-  const last7DaysStudents = getUsersCountByWeek(last7DaysStudentsData).map(
-    (day) => day.count
-  );
+  const last7DaysStudents = getUsersCountByWeek(last7DaysStudentsData)
+    .map((day) => day.count)
+    .reverse();
 
-  const last7DaysResumesLabels = getResumesCountByWeek(last7DaysResumeData).map(
-    (day) => day.date
-  );
+  const last7DaysResumesLabels = getResumesCountByWeek(last7DaysResumeData)
+    .map((day) => day.date.substring(0, day.date.length - 4))
+    .reverse();
 
-  const last7DaysResumes = getResumesCountByWeek(last7DaysResumeData).map(
-    (day) => day.count
-  );
+  const last7DaysResumes = getResumesCountByWeek(last7DaysResumeData)
+    .map((day) => day.count)
+    .reverse();
 
-  const last31DaysStudentsLabels = countObjectsByDate(
-    last31DaysStudentsData
-  ).map((day) => day.date);
+  const last31DaysStudentsLabels = countObjectsByDate(last31DaysStudentsData)
+    .map((day) => day.date.split(", ")[0])
+    .reverse();
 
-  const last31DaysStudents = countObjectsByDate(last31DaysStudentsData).map(
-    (day) => day.count
-  );
+  const last31DaysStudents = countObjectsByDate(last31DaysStudentsData)
+    .map((day) => day.count)
+    .reverse();
 
-  const last31DaysResumeLabels = countObjectsByDate(last31DaysStudentsData).map(
-    (day) => day.date
-  );
+  const last31DaysResumeLabels = countObjectsByDate(last31DaysStudentsData)
+    .map((day) => day.date.split(", ")[0])
+    .reverse();
 
-  const last31DaysResumes = countObjectsByDate(last31DaysResumeData).map(
-    (day) => day.count
-  );
+  const last31DaysResumes = countObjectsByDate(last31DaysResumeData)
+    .map((day) => day.count)
+    .reverse();
 
-  const last24HoursStudentsLabels = getUsersCountByHour(
-    last24HoursStudentsData
-  ).map((data) => data.hour.toString() + " Hours Ago");
+  const last24HoursStudentsLabels = getUsersCountByHour(last24HoursStudentsData)
+    .map((data) => data.hour.toString() + " Hours Ago")
+    .reverse();
 
-  const last24HoursStudents = getUsersCountByHour(last24HoursStudentsData).map(
-    (data) => data.count
-  );
+  const last24HoursStudents = getUsersCountByHour(last24HoursStudentsData)
+    .map((data) => data.count)
+    .reverse();
 
-  const last24HoursResumeLabels = getUsersCountByHour(
-    last24HoursResumeData
-  ).map((data) => data.hour.toString() + " Hours Ago");
+  const last24HoursResumeLabels = getUsersCountByHour(last24HoursResumeData)
+    .map((data) => data.hour.toString() + " Hours Ago")
+    .reverse();
 
-  const last24HoursResumes = getUsersCountByHour(last24HoursResumeData).map(
-    (data) => data.count
-  );
+  const last24HoursResumes = getUsersCountByHour(last24HoursResumeData)
+    .map((data) => data.count)
+    .reverse();
 
   const [timeFilterChartOne, setTimeFilterChartOne] = useState("last31Days");
   const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last31Days");
@@ -211,7 +210,7 @@ const Statistics = () => {
       setActiveOneOne(true);
       setActiveOneTwo(false);
       setActiveOneThree(false);
-      setLabelsChartOne(last24HoursStudentsLabels);
+      setLabelsChartOne(last24HoursStudentsLabels.reverse());
       setCountChartOne(last24HoursStudents);
     } else if (timeFilterChartOne === "last31Days") {
       setActiveOneOne(false);
@@ -267,7 +266,87 @@ const Statistics = () => {
       setCountChartThree(last7DaysResumes);
     }
 
-    if (selectedJob) {
+    if (selectedJob && selectedBatch && selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData
+        .filter(
+          (resume) =>
+            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+        )
+        .filter(
+          (resume) =>
+            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+        )
+        .filter(
+          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+        );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (!selectedJob && selectedBatch && selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData
+        .filter(
+          (resume) =>
+            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+        )
+        .filter(
+          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+        );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (selectedJob && !selectedBatch && selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData
+        .filter(
+          (resume) =>
+            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+        )
+        .filter(
+          (resume) =>
+            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+        );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (selectedJob && selectedBatch && !selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData
+        .filter(
+          (resume) =>
+            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+        )
+        .filter(
+          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+        );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (!selectedJob && !selectedBatch && selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
+        (resume) => resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+      );
+
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (!selectedJob && selectedBatch && !selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
+        (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+      );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    } else if (selectedJob && !selectedBatch && !selectedDegree) {
       const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
         (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
       );
@@ -276,21 +355,8 @@ const Statistics = () => {
           (resume) => resume.count
         )
       );
-    }
-    if (selectedJob) {
-      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
-        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-      );
-      setCountChartThree(
-        countObjectsByDate(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    }
-    if (selectedJob) {
-      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
-        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-      );
+    } else if (!selectedJob && !selectedBatch && !selectedDegree) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData;
       setCountChartThree(
         countObjectsByDate(resumesWithSelectedJobTitle).map(
           (resume) => resume.count
@@ -302,6 +368,8 @@ const Statistics = () => {
     timeFilterChartTwo,
     timeFilterChartThree,
     selectedJob,
+    selectedDegree,
+    selectedBatch,
   ]);
 
   return (
@@ -343,9 +411,9 @@ const Statistics = () => {
               </button>
             </div>
             <div className={styles.range}>
-              {labelsChartTwo[0].split(", ")[0] +
+              {labelsChartOne[0] +
                 " - " +
-                labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+                labelsChartOne[labelsChartOne.length - 1]}
             </div>
           </div>
           <LineChart
@@ -480,9 +548,10 @@ const Statistics = () => {
               </button>
             </div>
             <div className={styles.range}>
-              {labelsChartTwo[0].split(", ")[0] +
+              {labelsChartThree[0] +
                 " - " +
-                labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+                labelsChartThree[labelsChartThree.length - 1]}
+              {console.log(labelsChartTwo)}
             </div>
           </div>
           <LineChart

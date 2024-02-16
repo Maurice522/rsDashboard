@@ -31,7 +31,7 @@ const LineChart = ({ xTitle, yTitle, title, labels, count }) => {
         ticks: {
           color: "#fff",
           font: {
-            size: 8,
+            size: 10,
           },
         },
         grid: {

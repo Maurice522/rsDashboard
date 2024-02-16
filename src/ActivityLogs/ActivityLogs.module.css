@@ -11,6 +11,8 @@
   background-color: white;
   padding: 1rem;
   border-radius: 0.5rem;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .buttonContainer {
@@ -21,6 +23,11 @@
   gap: 1rem;
   justify-content: space-around;
   background-color: transparent;
+}
+
+.bottomContainer {
+  width: 40%;
+  box-shadow: none;
 }
 
 .button {
@@ -62,7 +69,7 @@
 }
 
 .chart {
-  width: 50%;
+  width: 80%;
   background-color: var(--main-color);
   padding: 1rem;
   border-radius: 0.5rem;
@@ -93,5 +100,9 @@
     background-color: var(--main-color);
     padding: 1rem;
     border-radius: 0.5rem;
+  }
+
+  .bottomContainer {
+    width: 100%;
   }
 }

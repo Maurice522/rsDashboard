@@ -277,6 +277,26 @@ const Statistics = () => {
         )
       );
     }
+    if (selectedJob) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
+        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+      );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    }
+    if (selectedJob) {
+      const resumesWithSelectedJobTitle = last31DaysResumeData.filter(
+        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+      );
+      setCountChartThree(
+        countObjectsByDate(resumesWithSelectedJobTitle).map(
+          (resume) => resume.count
+        )
+      );
+    }
   }, [
     timeFilterChartOne,
     timeFilterChartTwo,
@@ -289,42 +309,44 @@ const Statistics = () => {
       <div className={styles.chartDiv}>
         <div className={styles.chart}>
           <h3>Registered Students</h3>
-          <div className={styles.timeFilter}>
-            <button
-              className={`${styles.button} ${
-                activeOneOne ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartOne("last24Hours");
-              }}
-            >
-              Last 24 Hrs
-            </button>
-            <button
-              className={`${styles.button} ${
-                activeOneTwo ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartOne("last7Days");
-              }}
-            >
-              Last Week
-            </button>
-            <button
-              className={`${styles.button} ${
-                activeOneThree ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartOne("last31Days");
-              }}
-            >
-              Last Month
-            </button>
-          </div>
-          <div className={styles.range}>
-            {labelsChartTwo[0].split(", ")[0] +
-              " - " +
-              labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+          <div className={styles.chartControl}>
+            <div className={styles.timeFilter}>
+              <button
+                className={`${styles.button} ${
+                  activeOneOne ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartOne("last24Hours");
+                }}
+              >
+                Last 24 Hrs
+              </button>
+              <button
+                className={`${styles.button} ${
+                  activeOneTwo ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartOne("last7Days");
+                }}
+              >
+                Last Week
+              </button>
+              <button
+                className={`${styles.button} ${
+                  activeOneThree ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartOne("last31Days");
+                }}
+              >
+                Last Month
+              </button>
+            </div>
+            <div className={styles.range}>
+              {labelsChartTwo[0].split(", ")[0] +
+                " - " +
+                labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+            </div>
           </div>
           <LineChart
             xTitle="Time"
@@ -391,7 +413,7 @@ const Statistics = () => {
                 onChange={(e) => setSelectedJob(e.target.value)}
                 value={selectedJob}
               >
-                <option value="">Select</option>
+                <option value="">All</option>
                 {uniqueJobTitles.map((jobTitle) => (
                   <option value={jobTitle.toLowerCase()}>{jobTitle}</option>
                 ))}
@@ -404,7 +426,7 @@ const Statistics = () => {
                 onChange={(e) => setSelectedBatch(e.target.value)}
                 value={selectedBatch}
               >
-                <option value="">Select</option>
+                <option value="">All</option>
                 {uniqueBatches.map((batch) => (
                   <option value={batch}>{batch}</option>
                 ))}
@@ -417,54 +439,56 @@ const Statistics = () => {
                 onChange={(e) => setSelectedDegree(e.target.value)}
                 value={selectedDegree}
               >
-                <option value="">Select</option>
+                <option value="">All</option>
                 {uniqueDegrees.map((degree) => (
                   <option value={degree.toLowerCase()}>{degree}</option>
                 ))}
               </select>
             </div>
           </div>
-          <div className={styles.timeFilter}>
-            <button
-              className={`${styles.button} ${
-                activeThreeOne ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartThree("last24Hours");
-              }}
-            >
-              Last 24 Hrs
-            </button>
-            <button
-              className={`${styles.button} ${
-                activeThreeTwo ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartThree("last7Days");
-              }}
-            >
-              Last Week
-            </button>
-            <button
-              className={`${styles.button} ${
-                activeThreeThree ? styles.active : ""
-              }`}
-              onClick={() => {
-                setTimeFilterChartThree("last31Days");
-              }}
-            >
-              Last Month
-            </button>
-          </div>
-          <div className={styles.range}>
-            {labelsChartTwo[0].split(", ")[0] +
-              " - " +
-              labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+          <div className={styles.chartControl}>
+            <div className={styles.timeFilter}>
+              <button
+                className={`${styles.button} ${
+                  activeThreeOne ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartThree("last24Hours");
+                }}
+              >
+                Last 24 Hrs
+              </button>
+              <button
+                className={`${styles.button} ${
+                  activeThreeTwo ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartThree("last7Days");
+                }}
+              >
+                Last Week
+              </button>
+              <button
+                className={`${styles.button} ${
+                  activeThreeThree ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setTimeFilterChartThree("last31Days");
+                }}
+              >
+                Last Month
+              </button>
+            </div>
+            <div className={styles.range}>
+              {labelsChartTwo[0].split(", ")[0] +
+                " - " +
+                labelsChartTwo[labelsChartTwo.length - 1].split(", ")[0]}
+            </div>
           </div>
           <LineChart
             xTitle="Time"
-            yTitle="Number of Students"
-            title="Students Registered"
+            yTitle="Resumes Created"
+            title="Resumes Created"
             labels={labelsChartThree}
             count={countChartThree}
           />

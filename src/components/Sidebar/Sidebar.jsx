@@ -166,7 +166,7 @@ const Sidebar = () => {
         }`}
       >
         <Upload />
-        <p>Upload User Emails</p>
+        <p>Upload Student Data</p>
       </button>
 
       <button

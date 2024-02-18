@@ -90,19 +90,19 @@ const UserManagementTable = () => {
                 <td>{row.time}</td>
                 <td className={styles.tableButtons}>
                   <button
-                    className={styles.button}
+                    className={styles.actionButton}
                     onClick={() => openViewModal(row)}
                   >
                     <View />
                   </button>
                   <button
-                    className={styles.button}
+                    className={styles.actionButton}
                     onClick={() => openEditModal(row)}
                   >
                     <Edit />
                   </button>
                   <button
-                    className={styles.button}
+                    className={styles.actionButton}
                     onClick={() => handleDelete(row)}
                   >
                     <DeleteIcon />
@@ -194,9 +194,16 @@ const UserManagementTable = () => {
               <b>Email:</b> {viewedRow?.email}
             </p>
             <p>
+              <b>Resumes Created:</b> 5
+            </p>
+            <p>
               <b>Created:</b> On {viewedRow?.date} at {viewedRow?.time}
             </p>
-            <Link to={`/student/${viewedRow?.email}`}>Open stduent's page</Link>
+            <button className={styles.button}>
+              <Link to={`/student/${viewedRow?.email}`}>
+                Open stduent's page
+              </Link>
+            </button>
           </div>
         </div>
       )}

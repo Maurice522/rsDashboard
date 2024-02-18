@@ -51,6 +51,30 @@
 
 .button {
   font-family: "Montserrat";
+  background-color: var(--main-color);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  width: 40%;
+  margin: auto;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.button > a {
+  text-decoration: none;
+  color: white;
+}
+
+.actionButton {
+  font-family: "Montserrat";
   background-color: white;
   color: var(--text-color);
   text-decoration: none;
@@ -60,11 +84,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
   width: 40%;
   margin: auto;
   border: none;
   outline: none;
+  border-radius: 0.5rem;
 }
 
 .button:hover {
@@ -72,26 +97,32 @@
   color: white;
 }
 
+.actionButton:hover {
+  background-color: var(--sidebar-button);
+  color: white;
+}
+
 .modal {
   display: block;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 0;
+  right: 0;
   top: 0;
-  width: 100%;
+  width: 75%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 .modalContent {
   color: black;
   background-color: #fefefe;
   margin: 15% auto;
-  padding: 20px;
+  padding: 1.5rem;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 }
 
 .modalContent > form {

@@ -1,5 +1,5 @@
 .tableSection {
-  width: 100%;
+  width: fit-content;
   margin: auto;
   overflow-x: auto;
 }

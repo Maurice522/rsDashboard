@@ -181,7 +181,6 @@ export default async function logActivity(
   }
 }
 
-
 export const updateUserResumes = async (email, data) => {
   try {
     console.log(data, email);

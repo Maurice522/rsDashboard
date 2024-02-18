@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import CSVReader from "react-csv-reader";
 import styles from "./EmailUpload.module.css";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import logActivity, { auth, db } from "../firebase";
 import toast from "react-hot-toast";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import generateRandomId from "../helper/generateId";
+import { activity } from "../helper/activity";
 
 function EmailUpload() {
   const [csvData, setCsvData] = useState([]);
@@ -147,10 +148,27 @@ function EmailUpload() {
   };
 
   const handleUploadToFirestore = async () => {
+    const registeredUsersRef = doc(db, "meta", "registeredUsers");
     try {
       formattedData.forEach((student, index) => {
         createUserWithEmailAndPassword(auth, student.email, passwords[index]);
-        logActivity("SIGN_UP", null, generateRandomId(), "User Signed Up", student.email);
+        logActivity(
+          activity.signUp.type,
+          null,
+          generateRandomId(),
+          activity.signUp.description,
+          student.email
+        );
+        logActivity(
+          activity.createProfile.type,
+          null,
+          generateRandomId(),
+          activity.createProfile.description,
+          student.email
+        );
+        updateDoc(registeredUsersRef, {
+          users: arrayUnion({ ...student, timestamp: new Date() }),
+        });
         setDoc(doc(db, "users", student?.email), {
           name: student.name,
           batch: student.batch,
@@ -159,6 +177,7 @@ function EmailUpload() {
           email: student.email,
           rollNumber: student.rollNumber,
           password: passwords[index],
+          timestamp: new Date(),
         });
         if (formattedData.length > 100) {
           const percentage = (index / formattedData.length) * 100;

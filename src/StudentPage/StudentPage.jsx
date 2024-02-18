@@ -1,84 +1,10 @@
-// import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
-// import firebase from "firebase/app";
-// import "firebase/firestore";
-// import { collection, getDocs, query, where } from "firebase/firestore";
-// import { db } from "../firebase";
-// import { Download } from "lucide-react";
-
-// const StudentPage = () => {
-//   const { id } = useParams();
-//   const [resumes, setResumes] = useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const q = query(collection(db, "users"), where("email", "==", id));
-//       const querySnapshot = await getDocs(q);
-//       querySnapshot.forEach((doc) => {
-//         console.log(doc.id, " => ", doc.data());
-//         setResumes(doc.data()?.resumes);
-//       });
-//     };
-//     fetchData();
-//   }, [id]);
-
-//   console.log(resumes);
-
-//   return (
-//     <div>
-//       <h1>Student Page</h1>
-//       <h2>Resumes</h2>
-//       <ul>
-//         {resumes.map((savedResume) => (
-//           <div key={savedResume.id} className="resume1Div col-md-6">
-//             <div className="row">
-//               <div className="col-md-4">
-//                 <img
-//                   src={savedResume.img}
-//                   className="resumeImg zoom"
-//                   alt="Profile"
-//                 />
-//                 <h6 className="resumeTitle">{savedResume.title}</h6>
-//               </div>
-//               <div className="col-md-8 editResumeOptions">
-//                 <button className="editResumeBtns ">
-//                   <Download className="text-xl" />
-//                   Download
-//                 </button>
-//                 <br />
-//                 <br />
-//               </div>
-//               <p className="resumeDesc">
-//                 <strong>Created At : </strong>
-//                 {savedResume.description}
-//               </p>
-//             </div>
-//           </div>
-//         ))}
-//         {resumes.map((resume) => (
-//           <li key={resume.id}>
-//             <a href={resume.resume} download>
-//               {resume.firstName + " " + resume.lastName + " " + resume.jobTitle}
-//             </a>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default StudentPage;
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useDispatch,  } from "react-redux";
+import {signOut } from "firebase/auth";
 import {
-  addUserResume,
   auth,
   db,
-  getUserFromDatabase,
-  updateUserResumes,
 } from "../firebase";
 
 import img1 from "../images/template1.PNG";
@@ -86,7 +12,6 @@ import img2 from "../images/template2.PNG";
 import img3 from "../images/template3.PNG";
 import img4 from "../images/template4.PNG";
 
-import { Power } from "lucide-react";
 import { logout } from "../redux/slices/userSlice";
 import {
   collection,

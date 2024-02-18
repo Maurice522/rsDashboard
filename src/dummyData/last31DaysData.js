@@ -1,3 +1,5 @@
+import { convertTimestampToString } from "../helper/convertTimestampToString";
+
 export const last31DaysStudentsData = [
   {
     batch: "2020-2024",
@@ -552,13 +554,13 @@ export const last31DaysResumeData = [
   },
 ];
 
-function convertTimestampsInArray(arrayOfObjects) {
+export function convertTimestampsInArray(arrayOfObjects) {
   return arrayOfObjects.map((obj) => {
     const newObj = { ...obj };
-
-    const timestampParts = obj.timestamp.split(" at ");
+    const timestampString = convertTimestampToString(obj?.timestamp);
+    const timestampParts = timestampString?.split(" at ");
     const date = timestampParts[0];
-    const time = timestampParts[1].split(" ")[0];
+    const time = timestampParts[1]?.split(" ")[0];
 
     newObj.date = date;
     newObj.time = time;

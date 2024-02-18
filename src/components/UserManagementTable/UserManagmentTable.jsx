@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from "./UserManagementTable.module.css"; // Import CSS module
-import { convertedArrayofStudents } from "../../UserManagment/last31DaysData";
+import styles from "./UserManagementTable.module.css";
 import { DeleteIcon, Edit, View, XIcon } from "lucide-react";
-import DynamicTableComponent from "../Table/DynamicTable";
 import { Link } from "react-router-dom";
-import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
+import { convertTimestampsInArray } from "../../dummyData/last31DaysData";
 
 const UserManagementTable = () => {
   const [data, setData] = useState([]);
@@ -16,7 +15,7 @@ const UserManagementTable = () => {
       const docRef = doc(db, "meta", "registeredUsers");
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setData(docSnap?.data()?.users);
+        setData(convertTimestampsInArray(docSnap.data()?.users));
       } else {
         toast.error("Student data missing!");
       }
@@ -86,7 +85,9 @@ const UserManagementTable = () => {
       (student.batch &&
         student.batch.toLowerCase().includes(searchText.toLowerCase())) ||
       (student.id &&
-        student.id.toLowerCase().includes(searchText.toLowerCase()))
+        student.id.toLowerCase().includes(searchText.toLowerCase())) ||
+      (student.password &&
+        student.password.toLowerCase().includes(searchText.toLowerCase()))
   );
 
   return (

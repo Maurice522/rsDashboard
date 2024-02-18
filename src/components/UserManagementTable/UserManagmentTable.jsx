@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserManagementTable.module.css"; // Import CSS module
 import { convertedArrayofStudents } from "../../UserManagment/last31DaysData";
 import { DeleteIcon, Edit, View, XIcon } from "lucide-react";
 import DynamicTableComponent from "../Table/DynamicTable";
 import { Link } from "react-router-dom";
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import toast from "react-hot-toast";
 
 const UserManagementTable = () => {
-  const [data, setData] = useState(convertedArrayofStudents);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      const docRef = doc(db, "meta", "registeredUsers");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setData(docSnap?.data()?.users);
+      } else {
+        toast.error("Student data missing!");
+      }
+    };
+    fetchStudentData();
+  }, []);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
@@ -35,10 +51,27 @@ const UserManagementTable = () => {
     setData(data.filter((r) => r !== row));
   };
 
-  const handleEdit = (editedData) => {
+  const handleEdit = async (editedData) => {
     setData(
       data.map((row) => (row === editedRow ? { ...row, ...editedData } : row))
     );
+
+    try {
+      await setDoc(
+        doc(db, "meta", "registeredUsers"),
+        {
+          users: data.map((row) =>
+            row === editedRow ? { ...row, ...editedData } : row
+          ),
+        },
+        { merge: true }
+      );
+      toast.success("Successfully updated data");
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error occurred!");
+    }
+
     closeEditModal();
   };
 
@@ -74,6 +107,7 @@ const UserManagementTable = () => {
               <th>Batch</th>
               <th>Degree</th>
               <th>Email</th>
+              <th>Password</th>
               <th>Date</th>
               <th>Time</th>
               <th>Actions</th>
@@ -86,6 +120,7 @@ const UserManagementTable = () => {
                 <td>{row.batch}</td>
                 <td>{row.degree}</td>
                 <td>{row.email}</td>
+                <td>{row.password}</td>
                 <td>{row.date}</td>
                 <td>{row.time}</td>
                 <td className={styles.tableButtons}>
@@ -131,10 +166,19 @@ const UserManagementTable = () => {
                   degree: e.target.degree.value,
                   email: e.target.email.value,
                   name: e.target.name.value,
+                  password: e.target.password.value,
                 };
                 handleEdit(editedData);
               }}
             >
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                defaultValue={editedRow.name}
+              />
+              <br />
               <label htmlFor="batch">Batch</label>
               <input
                 type="text"
@@ -159,12 +203,12 @@ const UserManagementTable = () => {
                 defaultValue={editedRow.email}
               />
               <br />
-              <label htmlFor="name">Name</label>
+              <label htmlFor="email">Password</label>
               <input
                 type="text"
-                id="name"
-                name="name"
-                defaultValue={editedRow.name}
+                id="password"
+                name="password"
+                defaultValue={editedRow.password}
               />
               <br />
               <button className={styles.button} type="submit">

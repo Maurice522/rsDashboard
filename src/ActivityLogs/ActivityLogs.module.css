@@ -15,6 +15,13 @@
   overflow-y: scroll;
 }
 
+.activityTable {
+  background-color: var(--main-color);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+}
+
 .buttonContainer {
   margin: auto;
   width: 70%;

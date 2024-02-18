@@ -43,8 +43,10 @@ const AcitvityLogs = () => {
       <div className={styles.acitvityLogs}>
         <Sidebar />
         <div className={styles.log}>
-          <h2>Actvity Logs</h2>
-          <DynamicTableComponent data={convertedArrayOfActivities} />
+          <div className={styles.activityTable}>
+            <h3>Actvity Logs</h3>
+            <DynamicTableComponent data={convertedArrayOfActivities} />
+          </div>
           <div className={styles.middleContainer}>
             <h3>Activities</h3>
             <div className={styles.activityData}>

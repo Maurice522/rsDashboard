@@ -1,6 +1,4 @@
-import { activities } from "./dummyactivities";
-
-function getActivityTypeCounts(activities) {
+export function getActivityTypeCounts(activities) {
   const activityTypeCounts = {};
 
   activities.forEach((activity) => {
@@ -15,5 +13,3 @@ function getActivityTypeCounts(activities) {
 
   return result;
 }
-
-export const uniqueActivityTypesAndCounts = getActivityTypeCounts(activities);

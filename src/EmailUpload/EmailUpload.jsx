@@ -167,7 +167,11 @@ function EmailUpload() {
           student.email
         );
         updateDoc(registeredUsersRef, {
-          users: arrayUnion({ ...student, timestamp: new Date() }),
+          users: arrayUnion({
+            ...student,
+            password: passwords[index],
+            timestamp: new Date(),
+          }),
         });
         setDoc(doc(db, "users", student?.email), {
           name: student.name,

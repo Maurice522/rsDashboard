@@ -13,14 +13,48 @@ import {
   last7DaysResumeData,
   last7DaysStudentsData,
 } from "../../dummyData/last7DaysData";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import toast from "react-hot-toast";
+import { convertTimestampToString } from "../../helper/convertTimestampToString";
 
 const Statistics = () => {
+  const [studentData, setStudentData] = useState([]);
+  const [resumeData, setResumeData] = useState([]);
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      const docRef = doc(db, "meta", "registeredUsers");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setStudentData(docSnap?.data()?.users);
+      } else {
+        toast.error("Student data missing!");
+      }
+    };
+    const fetchResumeData = async () => {
+      const docRef = doc(db, "meta", "createdResume");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setResumeData(docSnap?.data()?.resumes);
+      } else {
+        toast.error("Resume data missing!");
+      }
+    };
+    fetchStudentData();
+    fetchResumeData();
+  }, []);
+
+  console.log(studentData);
+  console.log(resumeData);
+
   function getUsersCountByHour(dataArray) {
     const currentTimestamp = new Date();
     const hourInMillis = 60 * 60 * 1000;
     const userCountsByHour = Array(24).fill(0);
     dataArray.forEach((user) => {
-      const userTimestamp = new Date(user.timestamp.replace(/at/, ""));
+      const timestampString = convertTimestampToString(user.timestamp);
+      const userTimestamp = new Date(timestampString.replace(/at/, ""));
       const hoursAgo = Math.floor(
         (currentTimestamp - userTimestamp) / hourInMillis
       );
@@ -41,7 +75,8 @@ const Statistics = () => {
     const dateCountMap = {};
 
     data.forEach((item) => {
-      const date = item.timestamp.split(" at ")[0];
+      const timestampString = convertTimestampToString(item.timestamp);
+      const date = timestampString.split(" at ")[0];
       dateCountMap[date] = (dateCountMap[date] || 0) + 1;
     });
 
@@ -64,7 +99,8 @@ const Statistics = () => {
     }
 
     dataArray.forEach((user) => {
-      const userTimestamp = new Date(user.timestamp.replace(/at/, ""));
+      const timestampString = convertTimestampToString(user.timestamp);
+      const userTimestamp = new Date(timestampString.replace(/at/, ""));
       const daysAgo = Math.floor(
         (currentTimestamp - userTimestamp) / (24 * 60 * 60 * 1000)
       );
@@ -93,7 +129,8 @@ const Statistics = () => {
     }
 
     dataArray.forEach((user) => {
-      const userTimestamp = new Date(user.timestamp.replace(/at/, ""));
+      const timestampString = convertTimestampToString(user.timestamp);
+      const userTimestamp = new Date(timestampString.replace(/at/, ""));
       const daysAgo = Math.floor(
         (currentTimestamp - userTimestamp) / (24 * 60 * 60 * 1000)
       );
@@ -111,53 +148,57 @@ const Statistics = () => {
     return result;
   }
 
-  const last7DaysStudentsLabels = getUsersCountByWeek(last7DaysStudentsData)
-    .map((day) => day.date.substring(0, day.date.length - 4))
-    .reverse();
+  const last7DaysStudentsLabels = getUsersCountByWeek(studentData).map((day) =>
+    day.date.substring(0, day.date.length - 4)
+  );
 
-  const last7DaysStudents = getUsersCountByWeek(last7DaysStudentsData)
-    .map((day) => day.count)
-    .reverse();
+  const last7DaysStudents = getUsersCountByWeek(studentData).map(
+    (day) => day.count
+  );
 
-  const last7DaysResumesLabels = getResumesCountByWeek(last7DaysResumeData)
-    .map((day) => day.date.substring(0, day.date.length - 4))
-    .reverse();
+  const last7DaysResumesLabels = getResumesCountByWeek(resumeData).map((day) =>
+    day.date.substring(0, day.date.length - 4)
+  );
 
-  const last7DaysResumes = getResumesCountByWeek(last7DaysResumeData)
-    .map((day) => day.count)
-    .reverse();
+  console.log(last7DaysResumesLabels);
 
-  const last31DaysStudentsLabels = countObjectsByDate(last31DaysStudentsData)
-    .map((day) => day.date.split(", ")[0])
-    .reverse();
+  const last7DaysResumes = getResumesCountByWeek(resumeData).map(
+    (day) => day.count
+  );
 
-  const last31DaysStudents = countObjectsByDate(last31DaysStudentsData)
-    .map((day) => day.count)
-    .reverse();
+  console.log(last7DaysResumes);
 
-  const last31DaysResumeLabels = countObjectsByDate(last31DaysStudentsData)
-    .map((day) => day.date.split(", ")[0])
-    .reverse();
+  const last31DaysStudentsLabels = countObjectsByDate(studentData).map(
+    (day) => day.date.split(", ")[0]
+  );
 
-  const last31DaysResumes = countObjectsByDate(last31DaysResumeData)
-    .map((day) => day.count)
-    .reverse();
+  const last31DaysStudents = countObjectsByDate(studentData).map(
+    (day) => day.count
+  );
 
-  const last24HoursStudentsLabels = getUsersCountByHour(last24HoursStudentsData)
-    .map((data) => data.hour.toString() + " Hours Ago")
-    .reverse();
+  const last31DaysResumeLabels = countObjectsByDate(studentData).map(
+    (day) => day.date.split(", ")[0]
+  );
 
-  const last24HoursStudents = getUsersCountByHour(last24HoursStudentsData)
-    .map((data) => data.count)
-    .reverse();
+  const last31DaysResumes = countObjectsByDate(resumeData).map(
+    (day) => day.count
+  );
 
-  const last24HoursResumeLabels = getUsersCountByHour(last24HoursResumeData)
-    .map((data) => data.hour.toString() + " Hours Ago")
-    .reverse();
+  const last24HoursStudentsLabels = getUsersCountByHour(studentData).map(
+    (data) => data.hour.toString() + " Hours Ago"
+  );
 
-  const last24HoursResumes = getUsersCountByHour(last24HoursResumeData)
-    .map((data) => data.count)
-    .reverse();
+  const last24HoursStudents = getUsersCountByHour(studentData).map(
+    (data) => data.count
+  );
+
+  const last24HoursResumeLabels = getUsersCountByHour(resumeData).map(
+    (data) => data.hour.toString() + " Hours Ago"
+  );
+
+  const last24HoursResumes = getUsersCountByHour(resumeData).map(
+    (data) => data.count
+  );
 
   const [timeFilterChartOne, setTimeFilterChartOne] = useState("last31Days");
   const [timeFilterChartTwo, setTimeFilterChartTwo] = useState("last31Days");
@@ -210,7 +251,7 @@ const Statistics = () => {
       setActiveOneOne(true);
       setActiveOneTwo(false);
       setActiveOneThree(false);
-      setLabelsChartOne(last24HoursStudentsLabels.reverse());
+      setLabelsChartOne(last24HoursStudentsLabels);
       setCountChartOne(last24HoursStudents);
     } else if (timeFilterChartOne === "last31Days") {
       setActiveOneOne(false);

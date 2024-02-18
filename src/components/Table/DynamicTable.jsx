@@ -13,22 +13,26 @@ const DynamicTableComponent = ({ data }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            {columns.map((column) => (
-              <th key={column}>
-                {column === "ActivityType"
-                  ? "Activity"
-                  : column[0].toUpperCase() +
-                    column.substring(1, column.length)}
-              </th>
-            ))}
+            {columns.map(
+              (column) =>
+                column !== "resumeId" && (
+                  <th key={column}>
+                    {column[0].toUpperCase() +
+                      column.substring(1, column.length)}
+                  </th>
+                )
+            )}
           </tr>
         </thead>
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              {columns.map((column) => (
-                <td key={column}>{row[column]}</td>
-              ))}
+              {columns.map(
+                (column) =>
+                  column !== "resumeId" && (
+                    <td key={column}>{row[column] ? row[column] : " NA"}</td>
+                  )
+              )}
             </tr>
           ))}
         </tbody>

@@ -9,7 +9,7 @@ function getActivityTypeCounts(activities) {
   });
 
   const result = Object.keys(activityTypeCounts).map((activity) => ({
-    activity,
+    activity: activity.split("_").reduce((acc, curr) => `${acc} ` + curr),
     total: activityTypeCounts[activity],
   }));
 

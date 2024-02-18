@@ -2,6 +2,7 @@ export const activities = [
   {
     activityId: "ACT002",
     activityType: "LOGIN",
+    actvity: "Login",
     description: "User Logged In",
     timestamp: "January 28, 2024 at 15:15:50 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -9,6 +10,7 @@ export const activities = [
   {
     activityId: "ACT003",
     activityType: "CREATE_PROFILE",
+    actvity: "Profile Created",
     description: "User Created Profile",
     timestamp: "January 28, 2024 at 15:20:00 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -16,6 +18,7 @@ export const activities = [
   {
     activityId: "ACT004",
     activityType: "EDIT_PROFILE",
+    actvity: "Profile edited",
     description: "User Edited Profile",
     timestamp: "January 28, 2024 at 15:25:15 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -23,6 +26,7 @@ export const activities = [
   {
     activityId: "ACT005",
     activityType: "UPLOAD_RESUME",
+    actvity: "Resume uploaded",
     description: "User Uploaded Resume",
     timestamp: "January 28, 2024 at 15:30:30 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -30,6 +34,7 @@ export const activities = [
   {
     activityId: "ACT005",
     activityType: "UPLOAD_RESUME",
+    actvity: "Resume uploaded",
     description: "User Uploaded Resume",
     timestamp: "January 28, 2024 at 15:30:30 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -37,6 +42,7 @@ export const activities = [
   {
     activityId: "ACT005",
     activityType: "UPLOAD_RESUME",
+    actvity: "Resume uploaded",
     description: "User Uploaded Resume",
     timestamp: "January 28, 2024 at 15:30:30 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -44,6 +50,7 @@ export const activities = [
   {
     activityId: "ACT006",
     activityType: "CREATE_NEW_RESUME",
+    actvity: "New resume created",
     description: "User Created New Resume",
     timestamp: "January 28, 2024 at 15:35:45 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -51,6 +58,7 @@ export const activities = [
   {
     activityId: "ACT007",
     activityType: "TAILOR_RESUME_TO_JOB",
+    actvity: "Resume tailored to job",
     description: "User Tailored Resume to Job",
     timestamp: "January 28, 2024 at 15:40:00 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -58,6 +66,7 @@ export const activities = [
   {
     activityId: "ACT008",
     activityType: "EDIT_RESUME",
+    actvity: "Resume edited",
     description: "User Edited Resume",
     timestamp: "January 28, 2024 at 15:45:15 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -65,6 +74,7 @@ export const activities = [
   {
     activityId: "ACT009",
     activityType: "DOWNLOAD_RESUME",
+    actvity: "Resume downloaded",
     description: "User Downloaded Resume",
     timestamp: "January 28, 2024 at 15:50:30 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -72,6 +82,7 @@ export const activities = [
   {
     activityId: "ACT010",
     activityType: "DELETE_RESUME",
+    actvity: "Resume deleted",
     description: "User Deleted Resume",
     timestamp: "January 28, 2024 at 15:55:45 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -79,6 +90,7 @@ export const activities = [
   {
     activityId: "ACT011",
     activityType: "SIGN_OUT",
+    actvity: "Sign out",
     description: "User Signed Out",
     timestamp: "January 28, 2024 at 16:00:00 UTC+5:30",
     userId: "akaditya394@gmail.com",
@@ -86,6 +98,7 @@ export const activities = [
   {
     activityId: "ACT012",
     activityType: "LOGIN",
+    actvity: "Login",
     description: "User Logged In",
     timestamp: "January 29, 2024 at 10:15:50 UTC+5:30",
     userId: "john.doe@example.com",
@@ -93,6 +106,7 @@ export const activities = [
   {
     activityId: "ACT013",
     activityType: "EDIT_PROFILE",
+    actvity: "Profile edited",
     description: "User Edited Profile",
     timestamp: "January 29, 2024 at 10:20:00 UTC+5:30",
     userId: "john.doe@example.com",
@@ -100,6 +114,7 @@ export const activities = [
   {
     activityId: "ACT014",
     activityType: "UPLOAD_RESUME",
+    actvity: "Resume uploaded",
     description: "User Uploaded Resume",
     timestamp: "January 29, 2024 at 10:25:15 UTC+5:30",
     userId: "john.doe@example.com",
@@ -107,6 +122,7 @@ export const activities = [
   {
     activityId: "ACT015",
     activityType: "CREATE_NEW_RESUME",
+    actvity: "New resume created",
     description: "User Created New Resume",
     timestamp: "January 29, 2024 at 10:30:30 UTC+5:30",
     userId: "john.doe@example.com",
@@ -114,6 +130,7 @@ export const activities = [
   {
     activityId: "ACT016",
     activityType: "TAILOR_RESUME_TO_JOB",
+    actvity: "Resume tailored to job",
     description: "User Tailored Resume to Job",
     timestamp: "January 29, 2024 at 10:35:45 UTC+5:30",
     userId: "john.doe@example.com",
@@ -121,6 +138,7 @@ export const activities = [
   {
     activityId: "ACT017",
     activityType: "EDIT_RESUME",
+    actvity: "Resume edited",
     description: "User Edited Resume",
     timestamp: "January 29, 2024 at 10:40:00 UTC+5:30",
     userId: "john.doe@example.com",
@@ -128,6 +146,7 @@ export const activities = [
   {
     activityId: "ACT018",
     activityType: "DOWNLOAD_RESUME",
+    actvity: "Resume downloaded",
     description: "User Downloaded Resume",
     timestamp: "January 29, 2024 at 10:45:15 UTC+5:30",
     userId: "john.doe@example.com",
@@ -135,6 +154,7 @@ export const activities = [
   {
     activityId: "ACT019",
     activityType: "DELETE_RESUME",
+    actvity: "Resume deleted",
     description: "User Deleted Resume",
     timestamp: "January 29, 2024 at 10:50:30 UTC+5:30",
     userId: "john.doe@example.com",
@@ -142,6 +162,7 @@ export const activities = [
   {
     activityId: "ACT020",
     activityType: "SIGN_OUT",
+    actvity: "Sign out",
     description: "User Signed Out",
     timestamp: "January 29, 2024 at 11:00:00 UTC+5:30",
     userId: "john.doe@example.com",

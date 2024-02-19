@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./StudentCard.module.css";
+import { getInitials } from "../../helper/nameInitials";
 
 const StudentCard = ({ student }) => {
-  const studentInitials =
-    student.name.split(" ")[0][0] + student.name.split(" ")[1][0];
+  const studentInitials = getInitials(student.name);
   return (
     <Link to={`/student/${student.email}`} className={styles.card}>
       <div className={styles.cardContent}>

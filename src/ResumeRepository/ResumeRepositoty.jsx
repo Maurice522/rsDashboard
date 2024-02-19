@@ -53,8 +53,8 @@ const ResumeRepository = () => {
             />
           </div>
           <div className={styles.cardGrid}>
-            {filteredStudents?.map((student) => (
-              <StudentCard key={student.id} student={student} />
+            {filteredStudents?.map((student, index) => (
+              <StudentCard key={index} student={student} />
             ))}
           </div>
         </div>

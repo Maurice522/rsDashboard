@@ -411,6 +411,18 @@ const Statistics = () => {
     selectedJob,
     selectedDegree,
     selectedBatch,
+    last24HoursResumeLabels,
+    last24HoursResumes,
+    last24HoursStudents,
+    last24HoursStudentsLabels,
+    last31DaysResumeLabels,
+    last31DaysResumes,
+    last31DaysStudents,
+    last31DaysStudentsLabels,
+    last7DaysResumes,
+    last7DaysResumesLabels,
+    last7DaysStudents,
+    last7DaysStudentsLabels,
   ]);
 
   return (

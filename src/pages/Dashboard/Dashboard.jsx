@@ -2,7 +2,10 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
-import { calculateIncreaseInLastWeek } from "../../helper/calculateIncreaseInWeek";
+import {
+  calculateIncreaseInLastWeek,
+  calculateIncreaseInTotalStudentsSinceLastWeek,
+} from "../../helper/calculateIncreaseInWeek";
 import styles from "./Dashboard.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -48,8 +51,8 @@ const Dashboard = () => {
   }, []);
 
   const {
-    percentageChange: totalStudentsPercentageChange,
-    changeStatus: totalStudentsChangeStatus,
+    percentageChange: totalNewStudentsPercentageChange,
+    changeStatus: totalNewStudentsChangeStatus,
   } = calculateIncreaseInLastWeek(studentData);
 
   const {
@@ -61,6 +64,11 @@ const Dashboard = () => {
     percentageChange: totalActivitiesPercentageChange,
     changeStatus: totalActivitiesChangeStatus,
   } = calculateIncreaseInLastWeek(activityData);
+
+  const {
+    percentageChange: totalStudentsPercentageChange,
+    changeStatus: totalStudentsChangeStatus,
+  } = calculateIncreaseInTotalStudentsSinceLastWeek(studentData);
 
   return (
     <main>
@@ -84,9 +92,16 @@ const Dashboard = () => {
             <Infographic
               title="New Students"
               type="2"
-              count="15"
-              percentage="1.2"
-              positive
+              count={
+                studentData?.filter(
+                  (obj, index, self) =>
+                    index === self.findIndex((t) => t.email === obj.email)
+                ).length
+              }
+              percentage={totalNewStudentsPercentageChange}
+              positive={
+                totalNewStudentsChangeStatus === "Increase" ? true : false
+              }
             />
             <Infographic
               title="Resumes Created"

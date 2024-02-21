@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import styles from "./Login.module.css";
-import { auth } from "../firebase";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
-import logo from "../images/resumeshaperlogo.png";
+import { auth } from "../../firebase";
+import { login } from "../../redux/slices/userSlice";
+import toast from "react-hot-toast";
+import styles from "./Login.module.css";
+import logo from "../../images/resumeshaperlogo.png";
 
 const Login = () => {
   const dispatch = useDispatch();

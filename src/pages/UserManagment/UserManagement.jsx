@@ -8,11 +8,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
+import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import UserManagementTable from "../../components/UserManagementTable/UserManagmentTable";
 import styles from "./UserManagement.module.css";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Navbar from "../components/Navbar/Navbar";
-import UserManagementTable from "../components/UserManagementTable/UserManagmentTable";
 
 ChartJS.register(
   CategoryScale,
@@ -40,8 +39,3 @@ export default function UserManagement() {
     </main>
   );
 }
-
-//add view button
-//modal view
-//no of resumes created by the student
-//redirect bgutton to the student's resume repo

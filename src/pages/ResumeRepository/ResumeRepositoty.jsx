@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import "firebase/firestore";
-import StudentCard from "../../../components/StudentCard/StudentCard";
-import { db } from "../../../firebase";
+import { selectgrid, showGrid, showList } from "../../redux/slices/gridSlice";
 import { doc, getDoc } from "firebase/firestore";
-import styles from "./ResumeRepository.module.css";
-import Sidebar from "../../../components/Sidebar/Sidebar";
-import Navbar from "../../../components/Navbar/Navbar";
-import { Grid, List } from "lucide-react";
-import {
-  selectgrid,
-  showGrid,
-  showList,
-} from "../../../redux/slices/gridSlice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../firebase";
+import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import styles from "./ResumeRepository.module.css";
+import { Grid, List } from "lucide-react";
+import StudentCard from "../../components/StudentCard/StudentCard";
 
 const ResumeRepository = () => {
   const [searchText, setSearchText] = useState("");

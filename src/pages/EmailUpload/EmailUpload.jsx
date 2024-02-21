@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import CSVReader from "react-csv-reader";
-import styles from "./EmailUpload.module.css";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
-import logActivity, { auth, db } from "../firebase";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Navbar from "../components/Navbar/Navbar";
+import logActivity, { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import generateRandomId from "../helper/generateId";
-import { activity } from "../helper/activity";
+import { activity } from "../../helper/activity";
+import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import CSVReader from "react-csv-reader";
+import generateRandomId from "../../helper/generateId";
+import styles from "./EmailUpload.module.css";
 
 function EmailUpload() {
   const [csvData, setCsvData] = useState([]);
@@ -373,12 +373,3 @@ function EmailUpload() {
 }
 
 export default EmailUpload;
-
-//alternate signup
-//on csv upload
-//name:string, batch:string eg. 2017-2022, dob:string format:date/month/year,
-//degree : string, email:string, rollNumber: string
-//none can be empty
-//password: {name}{batch.endYear}{dob.year}
-//percentage wise loading state, while users upload, when number is large
-//toast messages

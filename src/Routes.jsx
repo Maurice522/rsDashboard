@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Login from "./Login/Login";
-import EmailUpload from "./EmailUpload/EmailUpload";
-import { auth } from "./firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./redux/slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
-import UserManagementPage from "./UserManagment/UserManagement";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, useLocation, useNavigate } from "react-router-dom";
+import { auth } from "./firebase";
+import { login, logout, selectUser } from "./redux/slices/userSlice";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import EmailUpload from "./pages/EmailUpload/EmailUpload";
+import ResumeRepository from "./pages/ResumeRepository/ResumeRepositoty";
+import { Route } from "lucide-react";
+import UserManagementPage from "./pages/UserManagment/UserManagement";
+import Login from "./pages/Login/Login";
 import AcitvityLogs from "./pages/ActivityLogs/AcitvityLogs";
-import ResumeRepository from "./pages/ActivityLogs/ResumeRepository/ResumeRepositoty";
 import StudentPage from "./pages/StudentPage/StudentPage";
 import CreateLiveContinue from "./pages/CreateLive/createLive";
-import Dashboard from "./pages/Dashboard/Dashboard";
 
 const RoutesComponent = () => {
   const dispatch = useDispatch();

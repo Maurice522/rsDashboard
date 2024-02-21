@@ -115,8 +115,6 @@ const AcitvityLogs = () => {
     }
   }, [timeFilter, activities]);
 
-  console.log(activities);
-
   const uniqueActivityTypesAndCounts =
     getActivityTypeCounts(filteredActivities);
 
@@ -128,16 +126,18 @@ const AcitvityLogs = () => {
     (uniqueActivity) => uniqueActivity.total
   );
 
-  console.log(uniqueActivityTypesAndCounts);
-
   const parseTimestamp = (timestampString) => {
+    console.log(timestampString);
     const timestamp = timestampString.replace(" at ", " ");
+    console.log(new Date(timestamp));
     return new Date(timestamp);
   };
 
   const sortedActivities = activities.sort((a, b) => {
-    const dateA = parseTimestamp(a.date);
-    const dateB = parseTimestamp(b.date);
+    console.log(a.time, b.time);
+    const dateA = parseTimestamp(a.date + " at " + a.time);
+    const dateB = parseTimestamp(b.date + " at " + b.time);
+    console.log(dateA, dateB);
 
     if (dateA > dateB) return -1;
     if (dateA < dateB) return 1;

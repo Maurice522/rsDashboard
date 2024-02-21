@@ -1,13 +1,12 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { login, logout, selectUser } from "./redux/slices/userSlice";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EmailUpload from "./pages/EmailUpload/EmailUpload";
 import ResumeRepository from "./pages/ResumeRepository/ResumeRepositoty";
-import { Route } from "lucide-react";
 import UserManagementPage from "./pages/UserManagment/UserManagement";
 import Login from "./pages/Login/Login";
 import AcitvityLogs from "./pages/ActivityLogs/AcitvityLogs";

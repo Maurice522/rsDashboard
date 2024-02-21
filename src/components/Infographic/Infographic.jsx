@@ -41,7 +41,7 @@ const Infographic = ({ title, count, type, percentage, positive }) => {
           }`}
         >
           {positive === true ? <ArrowUp /> : <ArrowDown />}
-          {percentage}%
+          {percentage}
         </div>
         <div>Since last week</div>
       </div>

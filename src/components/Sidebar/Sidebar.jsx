@@ -4,9 +4,7 @@ import styles from "./Sidebar.module.css";
 import {
   BarChart,
   LayoutDashboard,
-  LineChart,
   Notebook,
-  PieChart,
   Power,
   Upload,
   User,
@@ -24,6 +22,15 @@ const Sidebar = () => {
   const location = useLocation();
   const sidebarVisible = useSelector(selectsidebar);
   const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (
+      location.pathname.includes("/createcontinue") ||
+      location.pathname.includes("/student")
+    ) {
+      setActive("resume-repository");
+    }
+  }, []);
 
   useEffect(() => {
     const updateWindowDimensions = () => {
@@ -91,38 +98,6 @@ const Sidebar = () => {
         <User />
         <p>User Management</p>
       </button>
-      {/* 
-      <button
-        onClick={() => {
-          setActive("statistics");
-          navigate("/statistics");
-        }}
-        className={`${styles.button} ${
-          active === "statistics" || location.pathname === "/statistics"
-            ? styles.active
-            : ""
-        }`}
-      >
-        <PieChart />
-        <p>Statistics</p>
-      </button> */}
-
-      {/* <button
-        onClick={() => {
-          setActive("resume-analytics");
-          navigate("/resume-analytics");
-        }}
-        className={`${styles.button} ${
-          active === "resume-analytics" ||
-          location.pathname === "/resume-analytics"
-            ? styles.active
-            : ""
-        }`}
-      >
-        <LineChart />
-        <p>Resume Usage Analytics</p>
-      </button> */}
-
       <button
         onClick={() => {
           setActive("activity-logs");

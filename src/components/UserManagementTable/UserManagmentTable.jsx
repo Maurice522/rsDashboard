@@ -95,7 +95,21 @@ const UserManagementTable = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const filteredStudents = data.filter(
+  const parseTimestamp = (timestampString) => {
+    const timestamp = timestampString.replace(" at ", " ");
+    return new Date(timestamp);
+  };
+
+  const sortedData = data.sort((a, b) => {
+    const dateA = parseTimestamp(a.date + " at " + a.time);
+    const dateB = parseTimestamp(b.date + " at " + b.time);
+
+    if (dateA > dateB) return -1;
+    if (dateA < dateB) return 1;
+    return 0;
+  });
+
+  const filteredStudents = sortedData.filter(
     (student) =>
       (student.name &&
         student.name.toLowerCase().includes(searchText.toLowerCase())) ||

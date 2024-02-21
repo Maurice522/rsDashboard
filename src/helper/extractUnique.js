@@ -1,5 +1,3 @@
-import { last31DaysResumeData } from "./last31DaysData";
-
 export function extractUniqueJobTitles(data) {
   const uniqueJobTitles = [];
   data.forEach((entry) => {
@@ -11,7 +9,7 @@ export function extractUniqueJobTitles(data) {
   return uniqueJobTitles;
 }
 
-function extractUniqueJobTitlesAndCount(data) {
+export function extractUniqueJobTitlesAndCount(data) {
   const jobTitlesInfo = [];
   data.forEach((entry) => {
     const index = jobTitlesInfo.findIndex(
@@ -27,6 +25,3 @@ function extractUniqueJobTitlesAndCount(data) {
 
   return jobTitlesInfo;
 }
-
-export const jobTitlesInfo =
-  extractUniqueJobTitlesAndCount(last31DaysResumeData);

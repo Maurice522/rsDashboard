@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch,  } from "react-redux";
-import {signOut } from "firebase/auth";
-import {
-  auth,
-  db,
-} from "../firebase";
+import { useDispatch } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth, db } from "../../firebase";
 
-import img1 from "../images/template1.PNG";
-import img2 from "../images/template2.PNG";
-import img3 from "../images/template3.PNG";
-import img4 from "../images/template4.PNG";
+import img1 from "../../images/template1.PNG";
+import img2 from "../../images/template2.PNG";
+import img3 from "../../images/template3.PNG";
+import img4 from "../../images/template4.PNG";
 
-import { logout } from "../redux/slices/userSlice";
+import { logout } from "../../redux/slices/userSlice";
 import {
   collection,
   doc,
@@ -21,10 +18,11 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Navbar from "../components/Navbar/Navbar";
+
 import styles from "./StudentPage.module.css";
-import { addStudent } from "../redux/slices/studentSlice";
+import { addStudent } from "../../redux/slices/studentSlice";
+import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function StudentPage() {
   const navigate = useNavigate();
@@ -33,16 +31,7 @@ export default function StudentPage() {
   const [user, setUser] = useState(null);
 
   const [resumes, setResumes] = useState([]);
-  const [savedResumes, setSavedResumes] = useState([
-    {
-      resumeId: 1,
-      img: img1,
-      title: "My Profile",
-      description: "Description",
-      id: "id46876548",
-      idx: -1,
-    },
-  ]);
+  const [savedResumes, setSavedResumes] = useState([]);
 
   const { emailId } = useParams();
 
@@ -138,20 +127,24 @@ export default function StudentPage() {
           </div>
           <hr />
           <div className={styles.resumes}>
-            {savedResumes.map((savedResume) => (
-              <div key={savedResume.id}>
-                <div className={styles.resume}>
-                  <div onClick={() => download(savedResume.idx)}>
-                    <img
-                      className={styles.img}
-                      src={savedResume.img}
-                      alt="Profile"
-                    />
-                    <h6 className="resumeTitle">{savedResume.title}</h6>
+            {savedResumes.length > 0 ? (
+              savedResumes.map((savedResume) => (
+                <div key={savedResume.id}>
+                  <div className={styles.resume}>
+                    <div onClick={() => download(savedResume.idx)}>
+                      <img
+                        className={styles.img}
+                        src={savedResume.img}
+                        alt="Profile"
+                      />
+                      <h6 className="resumeTitle">{savedResume.title}</h6>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div>Nothing to show here!</div>
+            )}
           </div>
         </div>
       </div>

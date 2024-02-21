@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, db, getUserFromDatabase } from "../src/firebase";
+import { signOut } from "firebase/auth";
+import { auth, db } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import MyPdfViewer2 from "./components/BEDocTemp2";
-import MyPdfViewer3 from "./components/BEDocTemp3";
-import MyPdfViewer4 from "./components/BEDocTemp4";
-import MyPdfViewer1 from "./components/BEDocTemp1";
-import PdfDisplayBE from "./components/pdfDisplayBE";
-import img3 from "./images/26.png";
-import { logout } from "./redux/slices/userSlice";
-import { List, Power } from "lucide-react";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { addStudent, selectstudent } from "./redux/slices/studentSlice";
+import PdfDisplayBE from "../../components/pdfDisplayBE";
+import { logout } from "../../redux/slices/userSlice";
+import { doc, getDoc } from "firebase/firestore";
+import { addStudent, selectstudent } from "../../redux/slices/studentSlice";
 
 export default function CreateLiveContinue() {
   const { emailId, idx } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [showAdditionalDetails, setShowAdditionalDetails] = useState(false);
   const [courses, setCourses] = useState([]);
@@ -104,7 +92,6 @@ export default function CreateLiveContinue() {
   const [count, setCount] = useState(0);
   // const [user, setUser] = useState();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

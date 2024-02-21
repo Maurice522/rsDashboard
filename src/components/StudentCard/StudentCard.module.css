@@ -1,4 +1,4 @@
-.card {
+.gridCard {
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -6,7 +6,22 @@
   text-align: center;
   color: #333;
   transition: transform 0.2s ease;
-  background: rgba(255, 255, 255, 0.45);
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.6px);
+  -webkit-backdrop-filter: blur(2.6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.listCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+  color: #333;
+  transition: transform 0.2s ease;
+  background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2.6px);
@@ -30,12 +45,17 @@
   transform: translateY(-4px);
 }
 
-.cardContent {
+.cardGridContent {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.cardListContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
-.cardContent > p {
+.cardGridContent > p {
   margin: 0;
 }

@@ -15,7 +15,8 @@ const DynamicTableComponent = ({ data }) => {
           <tr>
             {columns.map(
               (column) =>
-                column !== "resumeId" && (
+                column !== "resumeId" &&
+                column !== "timestamp" && (
                   <th key={column}>
                     {column[0].toUpperCase() +
                       column.substring(1, column.length)}
@@ -29,7 +30,8 @@ const DynamicTableComponent = ({ data }) => {
             <tr key={index}>
               {columns.map(
                 (column) =>
-                  column !== "resumeId" && (
+                  column !== "resumeId" &&
+                  column !== "timestamp" && (
                     <td key={column}>{row[column] ? row[column] : " NA"}</td>
                   )
               )}

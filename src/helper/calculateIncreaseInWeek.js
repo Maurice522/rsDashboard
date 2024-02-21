@@ -1,3 +1,5 @@
+import { convertTimestampToString } from "./convertTimestampToString";
+
 export const totalUsersArray = [
   {
     batch: "2020-2024",
@@ -421,15 +423,36 @@ export function calculateIncreaseInLastWeek(objectsArray) {
     now.getTime() - 14 * 24 * 60 * 60 * 1000
   );
 
-  const countLastWeek = objectsArray.filter((obj) => {
-    const timestamp = new Date(obj.timestamp.split(" at ")[0]);
-    return timestamp >= lastWeekStart && timestamp <= now;
-  }).length;
+  const countLastWeek = objectsArray
+    ?.filter(
+      (obj, index, self) =>
+        index === self.findIndex((t) => t.email === obj.email)
+    )
+    .filter((obj) => {
+      const timestampString = convertTimestampToString(obj?.timestamp);
+      const timestamp = new Date(timestampString.split(" at ")[0]);
+      return timestamp >= lastWeekStart && timestamp <= now;
+    }).length;
 
-  const countLastToLastWeek = objectsArray.filter((obj) => {
-    const timestamp = new Date(obj.timestamp.split(" at ")[0]);
-    return timestamp >= lastToLastWeekStart && timestamp < lastWeekStart;
-  }).length;
+  const countLastToLastWeek = objectsArray
+    ?.filter(
+      (obj, index, self) =>
+        index === self.findIndex((t) => t.email === obj.email)
+    )
+    ?.filter((obj) => {
+      const timestampString = convertTimestampToString(obj?.timestamp);
+      const timestamp = new Date(timestampString.split(" at ")[0]);
+      return timestamp >= lastToLastWeekStart && timestamp < lastWeekStart;
+    }).length;
+
+  console.log(countLastWeek, countLastToLastWeek);
+
+  if (countLastToLastWeek === 0) {
+    return {
+      percentageChange: countLastWeek,
+      changeStatus: "Increase",
+    };
+  }
 
   const increaseCount = countLastWeek - countLastToLastWeek;
   const percentageChange = (

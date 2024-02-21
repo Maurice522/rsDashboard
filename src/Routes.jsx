@@ -7,13 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./redux/slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import UserManagementPage from "./UserManagment/UserManagement";
-import Dashboard from "./Dashboard/Dashboard";
-import AcitvityLogs from "./ActivityLogs/AcitvityLogs";
-import ResumeRepository from "./ResumeRepository/ResumeRepositoty";
-import StudentPage from "./StudentPage/StudentPage";
-import CreateLiveContinue from "./createLive";
-import ResumeUsageAnalytics from "./ResumeUsageAnalytics/ResumeUsageAnalytics";
-import Statistics from "./components/Statistics/Statistics";
+import AcitvityLogs from "./pages/ActivityLogs/AcitvityLogs";
+import ResumeRepository from "./pages/ActivityLogs/ResumeRepository/ResumeRepositoty";
+import StudentPage from "./pages/StudentPage/StudentPage";
+import CreateLiveContinue from "./pages/CreateLive/createLive";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const RoutesComponent = () => {
   const dispatch = useDispatch();
@@ -45,8 +43,6 @@ const RoutesComponent = () => {
           <Route path="/user-management" element={<UserManagementPage />} />
           <Route path="/activity-logs" element={<AcitvityLogs />} />
           <Route path="/resume-repository" element={<ResumeRepository />} />
-          {/* <Route path="/resume-analytics" element={<ResumeUsageAnalytics />} /> */}
-          {/* <Route path="/statistics" element={<Statistics />} /> */}
           <Route path="/student/:emailId" element={<StudentPage />} />
           <Route
             path="createcontinue/:emailId/:idx"

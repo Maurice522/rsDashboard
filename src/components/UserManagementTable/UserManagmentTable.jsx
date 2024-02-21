@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
-import { convertTimestampsInArray } from "../../dummyData/last31DaysData";
+import { convertTimestampsInArray } from "../../helper/userConvertTimestampsInArray";
 
 const UserManagementTable = () => {
   const [data, setData] = useState([]);
@@ -22,6 +22,8 @@ const UserManagementTable = () => {
     };
     fetchStudentData();
   }, []);
+
+  console.log(data);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);

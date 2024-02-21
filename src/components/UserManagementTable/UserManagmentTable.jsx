@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import styles from "./UserManagementTable.module.css";
 import { DeleteIcon, Edit, View, XIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
 import { convertTimestampsInArray } from "../../helper/userConvertTimestampsInArray";
 
 const UserManagementTable = () => {
   const [data, setData] = useState([]);
+  const [noOfResumes, setNoOfResumes] = useState();
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -23,15 +31,24 @@ const UserManagementTable = () => {
     fetchStudentData();
   }, []);
 
-  console.log(data);
-
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editedRow, setEditedRow] = useState(null);
   const [viewedRow, setViewedRow] = useState(null);
 
-  const openViewModal = (row) => {
+  const openViewModal = async (row) => {
     setViewedRow(row);
+    const docRef = doc(db, "users", row.email);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      if (docSnap?.data()?.resumes?.length > 0) {
+        setNoOfResumes(docSnap?.data()?.resumes?.length);
+      } else {
+        setNoOfResumes(0);
+      }
+    } else {
+      toast.error("No such document!");
+    }
     setViewModalOpen(true);
   };
   const openEditModal = (row) => {
@@ -241,16 +258,18 @@ const UserManagementTable = () => {
               <b>Email:</b> {viewedRow?.email}
             </p>
             <p>
-              <b>Resumes Created:</b> 5
+              <b>Resumes Created:</b> {noOfResumes}
             </p>
             <p>
               <b>Created:</b> On {viewedRow?.date} at {viewedRow?.time}
             </p>
-            <button className={styles.button}>
-              <Link to={`/student/${viewedRow?.email}`}>
-                Open stduent's page
-              </Link>
-            </button>
+            {noOfResumes > 0 && (
+              <button className={styles.button}>
+                <Link to={`/student/${viewedRow?.email}`}>
+                  Open stduent's page
+                </Link>
+              </button>
+            )}
           </div>
         </div>
       )}

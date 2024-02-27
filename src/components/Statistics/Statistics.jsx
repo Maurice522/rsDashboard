@@ -19,9 +19,16 @@ const Statistics = () => {
   const [studentData, setStudentData] = useState([]);
   const [resumeData, setResumeData] = useState([]);
   const [resumeDataLastMonth, setResumeDataLastMonth] = useState(resumeData);
+  const [last31DaysResumes, setLast31DaysResumes] = useState(getUsersCountByMonth(resumeDataLastMonth).map(
+    (day) => day.count
+  ));
   const [resumeDataLastWeek, setResumeDataLastWeek] = useState(resumeData);
   const [resumeDataLast24Hours, setResumeDataLast24Hours] =
     useState(resumeData);
+
+    // setLast31DaysResumes(getUsersCountByMonth(resumeDataLastMonth).map(
+    //   (day) => day.count
+    // ))
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -38,6 +45,10 @@ const Statistics = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setResumeData(docSnap?.data()?.resumes);
+        setLast31DaysResumes(getUsersCountByMonth(docSnap?.data()?.resumes).map(
+          (day) => day.count
+        ))
+        console.log(last31DaysResumes)
       } else {
         toast.error("Resume data missing!");
       }
@@ -73,10 +84,8 @@ const Statistics = () => {
   const last31DaysResumeLabels = getUsersCountByMonth(resumeDataLastMonth).map(
     (day) => day.date.split(", ")[0]
   );
+   
 
-  const last31DaysResumes = getUsersCountByMonth(resumeDataLastMonth).map(
-    (day) => day.count
-  );
 
   const last24HoursStudentsLabels = getUsersCountByHour(studentData).map(
     (data) => data.hour.toString() + " Hours Ago"
@@ -137,6 +146,104 @@ const Statistics = () => {
   );
 
   useEffect(() => {
+    // if (selectedJob && selectedBatch && selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData
+    //     .filter(
+    //       (resume) =>
+    //         resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+    //     )
+    //     .filter(
+    //       (resume) =>
+    //         resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+    //     )
+    //     .filter(
+    //       (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+    //     );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (!selectedJob && selectedBatch && selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData
+    //     .filter(
+    //       (resume) =>
+    //         resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+    //     )
+    //     .filter(
+    //       (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+    //     );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (selectedJob && !selectedBatch && selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData
+    //     .filter(
+    //       (resume) =>
+    //         resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+    //     )
+    //     .filter(
+    //       (resume) =>
+    //         resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+    //     );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (selectedJob && selectedBatch && !selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData
+    //     .filter(
+    //       (resume) =>
+    //         resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+    //     )
+    //     .filter(
+    //       (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+    //     );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (!selectedJob && !selectedBatch && selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData.filter(
+    //     (resume) => resume.degree.toLowerCase() === selectedDegree.toLowerCase()
+    //   );
+
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (!selectedJob && selectedBatch && !selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData.filter(
+    //     (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
+    //   );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (selectedJob && !selectedBatch && !selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData.filter(
+    //     (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
+    //   );
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // } else if (!selectedJob && !selectedBatch && !selectedDegree) {
+    //   const resumesWithSelectedJobTitle = resumeData;
+    //   setCountChartThree(
+    //     getUsersCountByMonth(resumesWithSelectedJobTitle).map(
+    //       (resume) => resume.count
+    //     )
+    //   );
+    // }
+
     if (timeFilterChartOne === "last24Hours") {
       setActiveOneOne(true);
       setActiveOneTwo(false);
@@ -174,6 +281,7 @@ const Statistics = () => {
       setResumeDataLastMonth(filterLastMonth(resumeData));
       setResumeDataLastWeek(filterLastWeek(resumeData));
       setLabelsChartThree(last31DaysResumeLabels);
+     
       setCountChartThree(last31DaysResumes);
     } else if (timeFilterChartThree === "last7Days") {
       setActiveThreeOne(false);
@@ -186,103 +294,7 @@ const Statistics = () => {
       setCountChartThree(last7DaysResumes);
     }
 
-    if (selectedJob && selectedBatch && selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData
-        .filter(
-          (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-        )
-        .filter(
-          (resume) =>
-            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
-        )
-        .filter(
-          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
-        );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (!selectedJob && selectedBatch && selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData
-        .filter(
-          (resume) =>
-            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
-        )
-        .filter(
-          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
-        );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (selectedJob && !selectedBatch && selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData
-        .filter(
-          (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-        )
-        .filter(
-          (resume) =>
-            resume.degree.toLowerCase() === selectedDegree.toLowerCase()
-        );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (selectedJob && selectedBatch && !selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData
-        .filter(
-          (resume) =>
-            resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-        )
-        .filter(
-          (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
-        );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (!selectedJob && !selectedBatch && selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData.filter(
-        (resume) => resume.degree.toLowerCase() === selectedDegree.toLowerCase()
-      );
-
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (!selectedJob && selectedBatch && !selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData.filter(
-        (resume) => resume.batch.toLowerCase() === selectedBatch.toLowerCase()
-      );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (selectedJob && !selectedBatch && !selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData.filter(
-        (resume) => resume.jobTitle.toLowerCase() === selectedJob.toLowerCase()
-      );
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    } else if (!selectedJob && !selectedBatch && !selectedDegree) {
-      const resumesWithSelectedJobTitle = resumeData;
-      setCountChartThree(
-        getUsersCountByMonth(resumesWithSelectedJobTitle).map(
-          (resume) => resume.count
-        )
-      );
-    }
+   
   }, [
     timeFilterChartOne,
     timeFilterChartThree,
@@ -293,7 +305,7 @@ const Statistics = () => {
     resumeData,
   ]);
 
-  console.log(last7DaysResumesLabels, last7DaysResumes);
+  // console.log(last7DaysResumesLabels, last7DaysResumes);
 
   return (
     <div className={styles.chartsection}>
@@ -349,7 +361,7 @@ const Statistics = () => {
         </div>
         <div className={styles.chart}>
           <h3>Resumes Created</h3>
-          <div className={styles.filters}>
+          {/* <div className={styles.filters}>
             <div className={styles.filter}>
               <label for="jobTitle">Job Title:</label>
               <select
@@ -389,7 +401,8 @@ const Statistics = () => {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
+          {console.log(countChartThree)}
           <div className={styles.chartControl}>
             <div className={styles.timeFilter}>
               <button

@@ -67,7 +67,7 @@ export function getUsersCountByWeek(dataArray) {
   }
 
   dataArray.forEach((user) => {
-    console.log(user);
+    // console.log(user);
     const timestampString = convertTimestampToString(user.timestamp);
     const userTimestamp = new Date(timestampString.replace(/at/, ""));
     const daysAgo = Math.floor(
